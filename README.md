@@ -1,8 +1,17 @@
-### Bolt Installer for Composer
+## Installation:
 
-To start the install just run the following command replacing the project with the name you want to use.
+* `composer install`
+* `npm install`
+* Copy `app/config/config_local.yml.dist` to `app/config/config_local.yml` if relevant
 
-`composer create-project bolt/composer-install <MYPROJECT> --prefer-dist`
+Point server to `/public` and open the site to install everything
 
+## Build steps:
 
-After the packages have downloaded, you can choose whether you would like a separate public directory and if so choose a name.
+### Production
+
+Todo
+
+### Development
+
+`gulp`
