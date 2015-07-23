@@ -1,0 +1,36 @@
+{
+	"name": "mindcrack/site",
+	"description": "TODO",
+	"license": "MIT",
+	"require": {
+		"bolt/bolt": "~2.2",
+		"composer/composer": "1.0.*@dev",
+		"ircmaxell/random-lib": "dev-master"
+	},
+	"authors": [
+	],
+	"prefer-stable": true,
+	"autoload": {
+		"psr-4": {
+			"Mindcrack\\Site\\": "app"
+		}
+	},
+	"scripts": {
+		"post-install-cmd": [
+			"Bolt\\Composer\\ScriptHandler::installAssets"
+		],
+		"post-update-cmd": [
+			"Bolt\\Composer\\ScriptHandler::installAssets",
+			"php app/nut cache:clear",
+			"php app/nut database:check",
+			"php app/nut database:update"
+		]
+	},
+	"config": {
+		"preferred-install": "dist"
+	},
+	"extra": {
+		"bolt-web-dir": "./public",
+		"bolt-app-dir": "./app"
+	}
+}

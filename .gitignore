@@ -1,0 +1,12 @@
+# Bolt specific stuff. Don't put config files, databases or 'vendor' in Git.
+app/cache/*
+app/config/config_local.yml
+app/database/*
+extensions/vendor
+public/bolt-public/*
+public/theme/*
+thumbs/
+vendor/
+
+# App settings
+node_modules/

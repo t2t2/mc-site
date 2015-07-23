@@ -1,0 +1,80 @@
+# This file defines the contenttypes on the website. See the documentation for
+# details: https://docs.bolt.cm/contenttypes-and-records#defining-contenttypes
+
+pages:
+    name: Pages
+    singular_name: Page
+    description: Pages - available as /<page_slug> too
+    fields:
+        title:
+            type: text
+            class: large
+            group: content
+        slug:
+            type: slug
+            uses: title
+        body:
+            type: html
+            height: 300px
+        template:
+            type: templateselect
+            filter: '*.twig'
+    recordsperpage: 100
+    icon_many: fa:file-text
+
+people:
+    name: People
+    singular_name: Person
+    slug: people
+    singular_slug: person
+    fields:
+        title:
+            type: text
+            class: large
+            label: Name
+            group: content
+        slug:
+            type: slug
+            uses: title
+        bio:
+            type: markdown
+        image:
+            type: image
+    icon_many: fa:users
+    icon_one: fa:user
+
+posts:
+    name: Blog Posts
+    singular_name: Blog Post
+    fields:
+        title:
+            type: text
+            class: large
+            group: content
+        slug:
+            type: slug
+            uses: title
+        body:
+            type: html
+            height: 300px
+    icon_many: fa:newspaper-o
+
+events:
+    name: Events
+    singular_name: Event
+    fields:
+        title:
+            type: text
+            class: large
+            group: content
+        slug:
+            type: slug
+            uses: title
+        event_time:
+            type: datetime
+        location:
+            type: geolocation
+        body:
+            type: html
+            height: 300px
+    icon_many: fa:calendar

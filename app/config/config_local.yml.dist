@@ -1,0 +1,6 @@
+# Use a database
+#database:
+#    driver: mysql
+#    username: homestead
+#    password: secret
+#    databasename: mindcrack
