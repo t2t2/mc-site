@@ -12,7 +12,7 @@
 	"prefer-stable": true,
 	"autoload": {
 		"psr-4": {
-			"Mindcrack\\Site\\": "app"
+			"Mindcrack\\Site\\": "app/src"
 		}
 	},
 	"scripts": {

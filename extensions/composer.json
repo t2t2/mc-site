@@ -13,7 +13,7 @@
         "preferred-install": "dist"
     },
     "provide": {
-        "bolt/bolt": "2.2.4"
+        "bolt/bolt": "2.2.5"
     },
     "extra": {
         "bolt-web-path": "../public/"
