@@ -10,4 +10,7 @@ $configuration->verify();
 $app = new Bolt\Application(['resources' => $configuration]);
 $app->initialize();
 
+// Bind site specific code
+$app->register(new \Mindcrack\Site\SiteServiceProvider());
+
 return $app;
