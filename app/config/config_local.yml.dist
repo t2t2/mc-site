@@ -4,3 +4,7 @@
 #    username: homestead
 #    password: secret
 #    databasename: mindcrack
+
+# API keys for the site
+# services:
+#     youtube: ""
