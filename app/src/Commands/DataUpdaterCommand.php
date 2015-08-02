@@ -45,7 +45,7 @@ class DataUpdaterCommand extends Command {
 
 		$results->then(function ($results) use ($output) {
 			foreach($results as $key => $result) {
-				$output->writeln("<info>{$key}: {$result}</info>");
+				$output->writeln("<info>{$key}: {$result} Updated</info>");
 			}
 		}, function ($error) use($output) {
 			/** @var \Exception $error */

@@ -52,6 +52,7 @@ people:
             type: integer
         youtube_views:
             type: biginteger
+    sort: title
     show_on_dashboard: false
     icon_many: fa:users
     icon_one: fa:user

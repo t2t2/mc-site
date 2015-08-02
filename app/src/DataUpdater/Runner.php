@@ -35,7 +35,7 @@ class Runner {
 	protected function updateYoutube() {
 		$checker = new YoutubeChecker($this->app);
 
-		return $checker->update();
+		return $checker->updateAll();
 	}
 
 }
