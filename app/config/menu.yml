@@ -8,6 +8,8 @@ main:
       class: first
     - label: All pages
       path: pages/
+    - label: People
+      path: people
     - label: The Bolt site
       link: http://bolt.cm
       class: last

@@ -73,6 +73,7 @@ class SiteServiceProvider implements ServiceProviderInterface {
 				new Nut\UserAdd($app, $request),
 				new Nut\UserRoleAdd($app, $request),
 				new Nut\UserRoleRemove($app, $request),
+				// Custom Commands
 				new DataUpdaterCommand($app),
 			];
 		});
