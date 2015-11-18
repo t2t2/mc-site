@@ -1,10 +1,21 @@
 var gulp = require('gulp');
 
-gulp.task('assets', function () {
+module.exports = function () {
 	var changed = require('gulp-changed'),
-		config = require('../config/assets');
+		config = require('../config'),
+		extensionsGlob = require('../lib/extensions-glob'),
+		path = require('path')
 
-	return gulp.src(config.src)
-		.pipe(changed(config.dest)) // Ignore unchanged files
-		.pipe(gulp.dest(config.dest));
-});
+	var paths = {
+		src:  [
+			path.join(config.root.src, '**/*'),
+			'!' + path.join(config.root.src, '**/*' + extensionsGlob(config.tasks.assets.ignoreExtensions)),
+		],
+		dest: config.root.dest,
+	}
+
+	return gulp.src(paths.src)
+		.pipe(changed(paths.dest)) // Ignore unchanged files
+		.pipe(gulp.dest(paths.dest));
+}
+gulp.task('assets', module.exports);

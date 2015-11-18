@@ -1,15 +1,29 @@
 var gulp = require('gulp');
 
 gulp.task('watch', function () {
-	var watch = require('gulp-watch'),
-		config = require('../config'),
-		assets = require('../config/assets'),
-		less = require('../config/less');
+	var config = require('../config'),
+		extensionsGlob = require('../lib/extensions-glob'),
+		gutil = require('gulp-util'),
+		path = require('path'),
+		watch = require('gulp-watch')
 
-	watch(assets.watch, config.watchOptions, function () {
-		gulp.start('assets');
-	});
-	watch(less.watch, config.watchOptions, function () {
-		gulp.start('less');
-	});
+	var tasks = ['assets', 'css']
+
+	tasks.forEach(function (taskName) {
+		var task = config.tasks[taskName]
+		if (task) {
+			var glob = [
+				path.join(config.root.src, '**/*' + ('extensions' in task ? extensionsGlob(task.extensions) : '')),
+			]
+
+			if ('ignoreExtensions' in task) {
+				glob.push('!' + path.join(config.root.src, '**/*' + extensionsGlob(task.ignoreExtensions)))
+			}
+
+			watch(glob, config.watch, function () {
+				gutil.log('Watch: Running', taskName)
+				require('./' + taskName)()
+			})
+		}
+	})
 });
