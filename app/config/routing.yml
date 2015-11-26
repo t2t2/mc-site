@@ -15,7 +15,7 @@
 homepage:
     path: '/'
     defaults:
-         _controller: 'Bolt\Controllers\Frontend::template'
+         _controller: 'Bolt\Controllers\Frontend::homepage'
          template: 'home'
 
 search:

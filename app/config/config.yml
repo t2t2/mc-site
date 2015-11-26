@@ -74,8 +74,8 @@ cron_hour: 3
 # Note: If you've changed the filename, and your changes do not show up on
 #       the website, be sure to check for a config.yml file in your theme's
 #       folder. If a template is set there, it will override the setting here.
-homepage: page/1
-homepage_template: index.twig
+homepage: page/home
+homepage_template: home.twig
 
 # The default content for the 404 page. Uses the 'record_template' template by
 # default.
@@ -432,11 +432,11 @@ extensions:
 #    livereloadport: 35729
 
 # Options for backend user interface
-# backend:
+backend:
 #    news:
 #        disable: true     # Disable news panel. Defaults to false. "Alerts" will still be shown.
-#    stack:
-#        disable: true     # Disable stack usage. Defaults to false.
+    stack:
+        disable: true     # Disable stack usage. Defaults to false.
 
 # API keys for the site
 # services:
