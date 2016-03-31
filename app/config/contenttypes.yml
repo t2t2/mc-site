@@ -78,6 +78,8 @@ posts:
 events:
     name: Events
     singular_name: Event
+    listing_sort: -event_time
+    sort: -event_time
     fields:
         title:
             type: text

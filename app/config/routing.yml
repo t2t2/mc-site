@@ -54,5 +54,10 @@ contentlisting:
 # ------------------------------------------------------------------------------
 # Place your own routes here, that have a LOWER priority than the default routes.
 
-
+calendar:
+    path: '/calendar'
+    defaults:
+        _controller: 'Mindcrack\Site\Controllers\Calendar::upcoming'
+        contentTypeSlug: 'events'
+        template: 'calendar.twig'
 

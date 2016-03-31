@@ -1,0 +1,17 @@
+{% extends "_layout.twig" %}
+
+{% block content %}
+
+    {% for event in events %}
+        <article class="event">
+
+            <h3>{{ event.event_time | date('d') }}</h3>
+            <h2>{{ event.title }}</h2>
+
+            {{ event.excerpt(300) }}
+
+        </article>
+    {% endfor %}
+
+
+{% endblock %}
