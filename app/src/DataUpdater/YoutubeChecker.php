@@ -187,7 +187,7 @@ class YoutubeChecker {
 			}, $answer['items']);
 
 			return $updateCount;
-		}, function (BadResponseException $error) {
+		})->otherwise(function (BadResponseException $error) {
 			if ($error->hasResponse()) {
 				$response = $error->getResponse()->json();
 				throw new \Exception('Youtube Error: ' . $response['error']['message']);
