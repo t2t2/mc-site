@@ -5,6 +5,8 @@
 #    password: secret
 #    databasename: mindcrack
 
+# debug: true
+
 # API keys for the site
 # services:
 #     youtube: ""
