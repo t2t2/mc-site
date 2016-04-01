@@ -1,7 +1,14 @@
 // Import bootstrap
 @import "bootstrap_loader";
+@import "../../../../node_modules/retina.js/src/retina.scss";
 
-header#main_header 
+// Generic
+h1 {
+	text-transform: uppercase;
+}
+
+// Header
+header#main-header 
 {	
 	position: relative;
 	z-index: 0;
@@ -45,6 +52,8 @@ header#main_header
 		background-color: none;
 		margin-top: 13.33333vw;
 		padding-bottom:1rem;
+		padding-left:0;
+		padding-right:0;
 
 		// cut the top margin at the xL breakpoint to prevent the header from becoming too tall.
 		@include media-breakpoint-up(xl) {
@@ -90,5 +99,28 @@ header#main_header
 	 		}
 	 	}
 
+	}
+}
+
+// Main Content
+div#content {
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+}
+
+// About Panel
+.about-panel {
+	padding-top: 2rem;
+	color: $mc-white;
+	background-color: $mc-blue;
+	@include at2x('../images/about-panel-bg', 'jpg');
+	background-size:cover;
+	background-position: center;
+	h1,h2,h3,h4,h5,h6 {
+		color: $mc-white;
+	}
+
+	.about-panel-stat-line {
+		background-color:rgba(0,0,0,0.14);
 	}
 }

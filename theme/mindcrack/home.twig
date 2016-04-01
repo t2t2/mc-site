@@ -1,7 +1,25 @@
 {% extends "_layout.twig" %}
 
+{% block content_outside_container %}
+	<section id="about" class="about-panel">
+		<div class="container">
+			<h1>About</h1>
+		</div>
+		<div class="about-panel-stat-line">
+			<div class="container">
+				STATISTICS
+			</div>
+		</div>
+	</section>
+	<section id="hero">
+		<div class="container">
+		<h1>Promo, and Commonly Used Links</h1>
+		</div>
+	</section>
+{% endblock %}
+
 {% block content %}
-    <h3>Home</h3>
+    <h1>Home</h1>
 
     <p>{{ record.body }}</p>
 {% endblock %}

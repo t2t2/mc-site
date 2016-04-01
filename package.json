@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "bootstrap": "twbs/bootstrap#v4.0.0-alpha"
+    "bootstrap": "twbs/bootstrap#v4.0.0-alpha",
+    "retina.js": "github:imulus/retinajs#release-1.3.0"
   },
   "devDependencies": {
     "del": "^1.2.0",

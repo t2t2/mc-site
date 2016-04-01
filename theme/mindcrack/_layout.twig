@@ -16,11 +16,13 @@
 </head>
 <body>
 
-    <header id="main_header">
+    <header id="main-header">
         <div class="container">
         {{ menu('main', '_menu_main_nav.twig') }}
         </div>
     </header>
+
+    {% block content_outside_container %}{% endblock %}
 
     <div id="content">
         <div class="container">
