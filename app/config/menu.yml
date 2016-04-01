@@ -2,14 +2,15 @@
 # details: http://docs.bolt.cm/menus
 
 main:
-    - label: Home
-      title: This is the first menu item.
-      path: homepage
+    - label: News
+      path: news
       class: first
-    - label: All pages
-      path: pages/
-    - label: People
+    - label: Events
+      path: calendar
+    - label: Members
       path: people
-    - label: The Bolt site
-      link: http://bolt.cm
+    - label: Podcast
+    - label: About
+    - label: Contact
+    - label: Store
       class: last

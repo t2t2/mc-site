@@ -1,4 +1,76 @@
 // Import bootstrap
-@import "settings";
-@import "../../../../node_modules/bootstrap/scss/bootstrap";
+@import "bootstrap_loader";
 
+header#main_header 
+{	
+	position: relative;
+	z-index: 0;
+	&:before {
+		content: "";
+    	position: absolute;
+    	left: 0;
+    	top: 0;
+  		z-index: -1;
+  		display: block;
+  		width:100%;
+  		height:100%;
+
+		background-image: url('../images/mindcrack_header.jpg');
+
+		// Need to fix for browers that need to use filter (for the gradient overlay)
+		background-image: linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(25,25,25,1.0) 100%),
+						  url('../images/mindcrack_header.jpg'); 
+		
+		background-size: cover;
+		background-position: 50% 55%;
+
+		filter: saturate(50%) brightness(77%);
+		-webkit-filter: saturate(50%) brightness(77%);
+	}
+
+
+	nav {
+		background-color: none;
+		margin-top: 13.33333vw;
+		@include media-breakpoint-up(xl) {
+			margin-top: 10rem;
+	 	}
+
+	 	a.navbar-brand {
+	 		background-image: url('../images/logo_header.svg');
+	 		height: 4.3125rem;
+	 		width: 17.5rem;
+	 		max-width: 100%;
+	 		max-height: calc((100vw - 4rem) / 4.0579710);
+	 		background-size: contain;
+	 		background-repeat: no-repeat;
+	 		@include text-hide();
+	 	}
+
+	 	ul.nav {
+	 		padding-top: 0.2rem;
+	 		@include media-breakpoint-up(lg) {
+	 			@include pull-right;
+	 			padding-top: 1rem;
+	 		}
+
+	 		// mix-in for media-break-point-down(sm) not accurate enough
+	 		@media (max-width: 47.99rem) {
+	 			@include pull-left;
+	 			margin-top: -1rem;
+	 			margin-left: 2rem;
+	 		}
+	 		
+	 		li.nav-item.first {
+	 			margin-left: 1rem;
+	 		}
+
+	 		li.nav-item a{
+	 			text-transform: uppercase;
+	 			padding-top:0;
+	 			padding-bottom:0;
+	 		}
+	 	}
+
+	}
+}

@@ -26,16 +26,13 @@
 {% endmacro %}
 
 {% from _self import display_menu_item %}
-<nav class="navbar navbar-light bg-faded">
-    <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">&#9776;</button>
-    <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
-        <a class="navbar-brand" href="{{ paths.root }}">{{ app.config.get('general/sitename') }}</a>
-        <ul class="nav navbar-nav">
-            {% for item in menu %}
-                {% if item.label is defined %}
-                    {{ display_menu_item(item, loop) }}
-                {% endif %}
-            {% endfor %}
-        </ul>
-    </div>
+<nav class="navbar navbar-dark">
+    <a class="navbar-brand" href="{{ paths.root }}">{{ app.config.get('general/sitename') }}</a>
+    <ul class="nav navbar-nav">
+        {% for item in menu %}
+            {% if item.label is defined %}
+                {{ display_menu_item(item, loop) }}
+            {% endif %}
+        {% endfor %}
+    </ul>
 </nav>  

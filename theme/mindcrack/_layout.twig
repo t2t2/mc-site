@@ -9,13 +9,14 @@
     <meta name="viewport" content="width=device-width, maximum-scale=1.0"/>
 
     <link rel="stylesheet" href="{{ paths.theme }}assets/stylesheets/style.css"/>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:700|Work+Sans:400,700' rel='stylesheet' type='text/css'>
 
     {% block head %}
     {% endblock %}
 </head>
 <body>
 
-    <header>
+    <header id="main_header">
         <div class="container">
         {{ menu('main', '_menu_main_nav.twig') }}
         </div>
@@ -31,6 +32,9 @@
         <div class="container">
         </div>
     </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
 
 </body>
 </html>
