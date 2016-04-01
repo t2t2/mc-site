@@ -5,6 +5,8 @@ header#main_header
 {	
 	position: relative;
 	z-index: 0;
+
+	// Move background details to :before to keep the other menu elements from being affected
 	&:before {
 		content: "";
     	position: absolute;
@@ -17,21 +19,33 @@ header#main_header
 
 		background-image: url('../images/mindcrack_header.jpg');
 
-		// Need to fix for browers that need to use filter (for the gradient overlay)
-		background-image: linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(25,25,25,1.0) 100%),
+		// Need to fix for some microsoft browsers
+		background-image: linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(25,25,25,1.0) 90%),
+						  linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(25,25,25,0.25) 100%),
 						  url('../images/mindcrack_header.jpg'); 
-		
+
+		// When the screen is super small, the logo moves up and becomes less readable, this darkens it
+		@include media-breakpoint-down(xs) {
+			background-image: linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(25,25,25,1.0) 90%),
+				linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(25,25,25,0.5) 100%),
+				url('../images/mindcrack_header.jpg'); 
+	 	}
+
+	 	// Scale the background with the size of the header (may need to look into compatibility)
 		background-size: cover;
 		background-position: 50% 55%;
 
-		filter: saturate(50%) brightness(77%);
-		-webkit-filter: saturate(50%) brightness(77%);
+		// Desaturate the image slightly (doesn't work on microsoft browsers by default, but thats okay, this isn't 100% necessary)
+		filter: saturate(50%);
+		-webkit-filter: saturate(50%);
 	}
 
 
 	nav {
 		background-color: none;
 		margin-top: 13.33333vw;
+
+		// cut the top margin at the xL breakpoint to prevent the header from becoming too tall.
 		@include media-breakpoint-up(xl) {
 			margin-top: 10rem;
 	 	}
@@ -40,11 +54,13 @@ header#main_header
 	 		background-image: url('../images/logo_header.svg');
 	 		height: 4.3125rem;
 	 		width: 17.5rem;
-	 		max-width: 100%;
-	 		max-height: calc((100vw - 4rem) / 4.0579710);
 	 		background-size: contain;
 	 		background-repeat: no-repeat;
 	 		@include text-hide();
+
+	 		// Scale down the logo at super small mobile sizes
+	 		max-width: 100%;
+	 		max-height: calc((100vw - 4rem) / 4.0579710);
 	 	}
 
 	 	ul.nav {
@@ -54,14 +70,15 @@ header#main_header
 	 			padding-top: 1rem;
 	 		}
 
-	 		// mix-in for media-break-point-down(sm) not accurate enough
+	 		// mix-in for media-break-point-down(sm) not accurate enough, used to move menu items into a different alignment for small sizes
 	 		@media (max-width: 47.99rem) {
 	 			@include pull-left;
 	 			margin-top: -1rem;
 	 			margin-left: 2rem;
 	 		}
 	 		
-	 		li.nav-item.first {
+	 		// keep the margins even on all nav items (for when it moves to multiple lines)
+	 		li.nav-item:first-child {
 	 			margin-left: 1rem;
 	 		}
 
