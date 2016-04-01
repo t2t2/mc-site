@@ -1,0 +1,11 @@
+templatefields:
+    home.twig: # Homepage
+        youtube_subscribers:
+            type: biginteger
+            label: Youtube Subscribers
+        youtube_videos:
+            type: integer
+            label: Youtube Videos
+        youtube_views:
+            type: biginteger
+            label: Youtube Views

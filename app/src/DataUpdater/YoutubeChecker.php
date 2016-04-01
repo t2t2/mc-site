@@ -79,9 +79,16 @@ class YoutubeChecker {
 		$people = $this->getPeopleToUpdate();
 		$promise = \React\Promise\map($people, [$this, 'update']);
 
-		return \React\Promise\reduce($promise, function ($total, $updated) {
+		$total = \React\Promise\reduce($promise, function ($total, $updated) {
 			return $total + $updated;
 		}, 0);
+		
+		return $total->then(function($updated) {
+			// Store updated so it's sent back once done
+			return $this->updateTotals()->then(function() use($updated) {
+				return $updated;
+			});
+		});
 	}
 
 	/**
@@ -208,6 +215,40 @@ class YoutubeChecker {
 		$storage = $this->app['storage'];
 
 		$storage->saveContent($person, 'Update by YouTube Checker');
+	}
+
+	/**
+	 * Update Totals
+	 *
+	 * Updates totals on the home page once the promise is done
+	 *
+	 * @return ExtendedPromiseInterface
+	 **/
+	public function updateTotals() {
+		/** @var Storage $storage */
+		$storage = $this->app['storage'];
+
+		return \React\Promise\resolve()->then(function() use($storage) {
+			$people = $storage->getContent('people');
+			
+			$pages_to_update = $storage->getContent('pages', ['template' => 'home.twig']);
+			
+			$totals = array_reduce($people, function($totals, $person) {
+				$totals['youtube_subscribers'] += $person['youtube_subscribers'];
+				$totals['youtube_videos'] += $person['youtube_videos'];
+				$totals['youtube_views'] += $person['youtube_views'];
+				
+				return $totals;
+			}, ['youtube_subscribers' => 0, 'youtube_videos' => 0, 'youtube_views' => 0]);
+			
+			array_map(function($page) use($totals, $storage) {
+				$page['templatefields']['youtube_subscribers'] = $totals['youtube_subscribers'];
+				$page['templatefields']['youtube_videos'] = $totals['youtube_videos'];
+				$page['templatefields']['youtube_views'] = $totals['youtube_views'];
+				
+				$storage->saveContent($page, 'Update by YouTube Checker');
+			}, $pages_to_update);
+		});
 	}
 
 }

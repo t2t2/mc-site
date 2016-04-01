@@ -48,10 +48,13 @@ people:
             group: Youtube
         youtube_subscribers:
             type: biginteger
+            label: Youtube Subscribers
         youtube_videos:
             type: integer
+            label: Youtube Videos
         youtube_views:
             type: biginteger
+            label: Youtube Views
     sort: title
     show_on_dashboard: false
     icon_many: fa:users
