@@ -44,6 +44,7 @@ header#main_header
 	nav {
 		background-color: none;
 		margin-top: 13.33333vw;
+		padding-bottom:1rem;
 
 		// cut the top margin at the xL breakpoint to prevent the header from becoming too tall.
 		@include media-breakpoint-up(xl) {
