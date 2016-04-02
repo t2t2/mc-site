@@ -5,7 +5,7 @@ main:
     - label: News
       path: news
       class: first
-    - label: Events
+    - label: Calendar
       path: calendar
     - label: Members
       path: people
