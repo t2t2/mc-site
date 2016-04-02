@@ -1,12 +1,7 @@
-/* For some reason (I think it might be an oddity in how SASS imports work, or how bootstrap organized it) when loading settings and then
-the default bootstrap module certain values can't be set like the color settings for navbars. Loading settings before and after the default variables are loaded
-seems to fix it. For the record, absolutely DO NOT like what is happening here, but until I look into it more, this the solution*/
-
 // Core variables and mixins
 @import "settings";
 @import "../../../../node_modules/bootstrap/scss/variables";
 @import "../../../../node_modules/bootstrap/scss/mixins";
-@import "settings";
 
 // // Reset and dependencies
 @import "../../../../node_modules/bootstrap/scss/normalize";

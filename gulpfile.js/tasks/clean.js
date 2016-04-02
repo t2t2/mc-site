@@ -6,6 +6,8 @@ module.exports = function (cb) {
 
 	del([
 		config.root.dest
-	], cb);
+	]).then(function() {
+		cb()
+	});
 }
 gulp.task('clean', module.exports);
