@@ -18,26 +18,28 @@
 </head>
 <body>
 
-    <header id="main-header">
-        <div class="container">
-        {{ menu('main', '_menu_header_nav.twig') }}
-        </div>
-    </header>
+    <div class="row-expandable">
+        <header id="main-header">
+            <div class="container">
+            {{ menu('main', '_menu_header_nav.twig') }}
+            </div>
+        </header>
 
-    {% block content_outside_container %}{% endblock %}
+        {% block content_outside_container %}{% endblock %}
 
-    <div id="content">
-        <div class="container">
-        {% block content %}{% endblock %}
+        <div id="content">
+            <div class="container">
+            {% block content %}{% endblock %}
+            </div>
         </div>
     </div>
-
-    <footer id="main-footer">
-        <div class="container">
-            {{ menu('main', '_menu_footer_nav.twig') }}
-        </div>
-    </footer>
-
+    <div class="row-sticky">
+        <footer id="main-footer">
+            <div class="container">
+                {{ menu('main', '_menu_footer_nav.twig') }}
+            </div>
+        </footer>
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
 
