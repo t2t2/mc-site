@@ -4,7 +4,6 @@
 main:
     - label: News
       path: news
-      class: first
     - label: Calendar
       path: calendar
     - label: Members
@@ -13,4 +12,3 @@ main:
     - label: About
     - label: Contact
     - label: Store
-      class: last

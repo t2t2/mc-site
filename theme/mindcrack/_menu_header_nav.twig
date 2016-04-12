@@ -1,0 +1,6 @@
+{# Header Navigation#}
+{% extends "_menu_general.twig" %}
+
+{% block before_nav %}
+<a class="navbar-brand" href="{{ paths.root }}">{{ app.config.get('general/sitename') }}</a>
+{% endblock %}

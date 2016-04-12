@@ -103,6 +103,15 @@ header#main-header
 	}
 }
 
+footer#main-footer {
+	color: $mc-white;
+	background-color: $mc-blue;
+	@include at2x('../images/footer-bg', 'jpg');
+	background-size:cover;
+	background-position: center;
+	height: 15rem;
+}
+
 // Main Content
 div#content {
 	margin-top: 2rem;
@@ -128,7 +137,7 @@ div#content {
 			padding-top:2rem;
 			padding-bottom:2rem;
 			display: table;
-			
+
 			border-collapse: separate;
   			border-spacing: 1.5rem;
 		}
