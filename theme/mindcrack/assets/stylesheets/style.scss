@@ -123,6 +123,7 @@ header#main-header
 }
 
 footer#main-footer {
+	@extend .row-sticky;
 	color: $mc-white;
 	background-color: $mc-blue;
 	@include at2x('../images/footer-bg', 'jpg');
