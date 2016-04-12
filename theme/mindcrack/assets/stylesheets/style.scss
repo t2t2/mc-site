@@ -111,7 +111,6 @@ div#content {
 
 // About Panel
 .about-panel {
-	padding-top: 2rem;
 	color: $mc-white;
 	background-color: $mc-blue;
 	@include at2x('../images/about-panel-bg', 'jpg');
@@ -119,6 +118,65 @@ div#content {
 	background-position: center;
 	h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
 		color: $mc-white;
+	}
+
+	&> .container {
+
+		padding-top: 1rem;
+
+		@include media-breakpoint-up(md) {
+			padding-top:2rem;
+			padding-bottom:2rem;
+			display: table;
+			
+			border-collapse: separate;
+  			border-spacing: 1.5rem;
+		}
+
+		.about_logo {
+
+			background-image: url('../images/logo_white_vertical.svg');
+			background-position: center;
+			background-repeat: no-repeat;
+			width: 11.90625rem;
+			height: 7.8125rem;
+
+			@include media-breakpoint-up(md) {
+				display: table-cell; 
+				vertical-align: middle;
+			}
+
+			@include media-breakpoint-down(sm) {
+				margin: 0 auto;
+			}
+
+		}
+
+		.about_text {
+			padding-top: 1rem;
+			padding-bottom: 1rem;
+
+			@include media-breakpoint-up(md) {
+				font-size: 1.125rem;
+				line-height: 2rem;
+				display: table-cell; 
+				vertical-align: middle;
+				border-left: 0.1875rem solid $mc-blue-light;
+				padding-left: 1.5rem;
+			}
+
+			@include media-breakpoint-down(sm) {
+				border-top: 0.1875rem solid $mc-blue-light;
+				margin-top: 1.5rem;
+				text-align: center;
+				padding-left: 1rem;
+				padding-right: 1rem;
+			}
+
+			p:last-child {
+				margin-bottom: 0;
+			}
+		}
 	}
 
 	.about-panel-stat-line {
@@ -149,7 +207,6 @@ div#content {
 				.stat-heading {
 					white-space: nowrap
 				}
-
 			}
 		}
 
@@ -159,30 +216,33 @@ div#content {
 	}
 }
 
-// Less than ideal stat justification for older IE
-.lt-ie10 .about-panel-stat-line .container{
+// Less than ideal non-flex solutions for older IE
+.lt-ie10 {
+	.about-panel-stat-line .container{
 
-	div {
-		text-align: justify;
-		font-size: 0;
-		&>span {
-			display:inline-block;
-			vertical-align: middle;
-			font-size:1rem;
+		div {
+			text-align: justify;
+			font-size: 0;
+			&>span {
+				display:inline-block;
+				vertical-align: middle;
+				font-size:1rem;
+			}
+
+			&:after {
+				content: "";
+				display: inline-block;
+				width: 100%;
+			}
 		}
 
-		&:after {
-			content: "";
-			display: inline-block;
-			width: 100%;
+		&>span.h4 {
+			display: block;
+			font-size: $font-size-h4;
+			margin: 0;
+			margin-right: 2rem;
+			@include pull-left;
 		}
-	}
 
-	&>span.h4 {
-		display: block;
-		font-size: $font-size-h4;
-		margin: 0;
-		margin-right: 2rem;
-		@include pull-left;
 	}
 }

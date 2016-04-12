@@ -1,5 +1,9 @@
 templatefields:
     home.twig: # Homepage
+        about_text:
+            type: html
+            label: About Text
+            default: <p>Mindcrack about text goes here (this is editable on the backend). Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec est velit, ultrices nec aliquet sit amet, hendrerit quis velit. Donec commodo fringilla libero id maximus.</p>
         youtube_subscribers:
             type: biginteger
             label: Youtube Subscribers

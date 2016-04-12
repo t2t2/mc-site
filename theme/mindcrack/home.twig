@@ -3,7 +3,10 @@
 {% block content_outside_container %}
 	<section id="about" class="about-panel">
 		<div class="container">
-			<h1>About</h1>
+			<div class="about_logo"></div>
+			<div class="about_text">
+				{{ record.templatefields.about_text }}
+			</div>
 		</div>
 		<div class="about-panel-stat-line">
 			<div class="container">
