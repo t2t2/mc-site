@@ -1,0 +1,16 @@
+{% macro display_menu_item(item, loop) %}
+    <a href="{{ item.link }}" {% if item.title is defined %}title='{{ item.title|escape }}'{% endif %}
+    class="common-links-link {% if item.class is defined %}{{item.class}}{% endif %} col-xs-4 col-md-12 
+    index-{{ loop.index }}{% if loop.first %} first{% endif %}{% if loop.last %} last{% endif %}">
+        <div class="common-link-icon"></div>
+        <div class="common-link-name">{% if item.label is defined %}{{item.label}}{% else %} - {% endif %}</div>
+    </a>
+{% endmacro %}
+
+{% from _self import display_menu_item %}
+
+{% for item in menu|slice(0, 3) %}
+    {% if item.label is defined %}
+        {{ display_menu_item(item, loop) }}
+    {% endif %}
+{% endfor %}

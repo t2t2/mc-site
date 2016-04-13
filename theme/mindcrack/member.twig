@@ -1,0 +1,17 @@
+{% extends "_layout.twig" %}
+
+{% block content %}
+	TEST
+    <article>
+
+        <h1>{{ record.title }}</h1>
+
+        {{ record.bio }}
+
+        {{ record.image | showimage(200, 200) }}
+
+    </article>
+
+
+
+{% endblock %}

@@ -22,11 +22,11 @@ pages:
     recordsperpage: 100
     icon_many: fa:file-text
 
-people:
-    name: People
-    singular_name: Person
-    slug: people
-    singular_slug: person
+members:
+    name: Members
+    singular_name: Member
+    slug: members
+    singular_slug: member
     fields:
         title:
             type: text
@@ -61,8 +61,10 @@ people:
     icon_one: fa:user
 
 posts:
-    name: Blog Posts
-    singular_name: Blog Post
+    name: News
+    singular_name: News Item
+    slug: news
+    singular_slug: news-item
     fields:
         title:
             type: text

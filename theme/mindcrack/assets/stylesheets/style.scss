@@ -96,7 +96,6 @@ header#main-header
 
 		// Desaturate the image slightly (doesn't work on microsoft browsers by default, but thats okay, this isn't 100% necessary)
 		filter: saturate(50%);
-		-webkit-filter: saturate(50%);
 	}
 
 
@@ -185,6 +184,133 @@ section#content {
 
 section#hero {
 	background-color: $mc-blue-faint;
+	padding-top: 2.5rem;
+	padding-bottom: 2.5rem;
+
+	.common-links-link {
+		display: block;
+
+    	text-align: center;
+		font-family: $headings-font-family;
+		text-transform: uppercase;
+		font-size: 1.5rem;
+		color: $mc-grey-dark;
+
+		&:hover {
+			text-decoration: none;
+			.common-link-icon {
+				// Won't work on IE, but this isn't strictly 100% necessary
+				// using as opposed to image-mask because it's a little more supported
+				filter: brightness(1.33);
+			}
+
+			color:lighten($mc-grey-dark,11.5%);
+		}
+
+		@include media-breakpoint-down(md) {
+			font-size: 1.25rem;
+		}
+
+		@include media-breakpoint-down(xs) {
+			font-size: 1rem;
+		}
+
+		.common-link-icon {
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: center;
+		}
+
+		&.common-link-calendar .common-link-icon {
+			background-image: url('../images/icon_calendar.svg');
+		}
+
+		&.common-link-members .common-link-icon {
+			background-image: url('../images/icon_members.svg');
+
+		}
+
+		&.common-link-store .common-link-icon {
+			background-image: url('../images/icon_store.svg');
+		}
+
+	}
+
+	.promo {
+		img {
+			width: 100%;
+		}
+	}
+
+
+	@include media-breakpoint-up(md) {
+		.container {
+			.row {
+				position: relative;
+				height:auto;
+			}		
+		}
+
+		.common-links {
+			position: absolute;
+			height: 100%;
+
+			.common-links-link {
+				height:33.33333%;
+
+
+				.common-link-icon {
+					height: calc(100% - 2.5em);
+	 				margin-top: 1rem;
+				}
+
+			}
+		}
+
+		.promo {
+			@include pull-right();
+		}
+	}
+
+	@include media-breakpoint-down(sm) {
+		.common-links {
+			margin-bottom: 1rem;
+			.common-links-link {
+
+				.common-link-icon {
+					width: 100%;
+					height: 10vw;
+				}
+
+			}
+		}
+	}
+
+	// SUPER DUPER SMALL
+	@media (max-width: 25rem) {
+		padding-top: 1rem;
+		padding-bottom: 1rem;
+
+		.common-links {
+			.common-links-link {
+				width: 100%;
+				text-align: left;
+				padding-left: 1rem;
+
+				.common-link-icon {
+					vertical-align: middle;
+					display: inline-block;
+					width:15vw !important;
+					height:15vw !important;
+					margin-right: 1rem;
+				}
+
+				.common-link-name {
+					display: inline-block;
+				}
+			}
+		}
+	}
 }
 
 // About Panel

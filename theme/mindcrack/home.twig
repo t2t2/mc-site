@@ -21,12 +21,10 @@
 	<section id="hero">
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-3">
-					<div>Calendar</div>
-					<div>Members</div>
-					<div>Store</div>
+				<div class="col-md-3 col-xs-12 common-links">
+					{{ menu('common_links', '_menu_common_links.twig') }}
 				</div>
-				<div class="col-sm-9"><img src="{{ record.templatefields.promo_image|thumbnail(864, 486) }}" class="img-fluid" alt="{{ record.templatefields.promo_image.title }}"></div>
+				<div class="col-md-9 col-xs-12 promo"><img src="{{ record.templatefields.promo_image|thumbnail(864, 486) }}" class="img-fluid" alt="{{ record.templatefields.promo_image.title }}"></div>
 			</div>
 		</div>
 	</section>

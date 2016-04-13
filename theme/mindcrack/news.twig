@@ -1,0 +1,18 @@
+{% extends "_layout.twig" %}
+
+{% block content %}
+	NEWS LISTING
+    {% for record in records %}
+        <article>
+
+            <h2><a href="{{ record.link }}">{{ record.title }}</a></h2>
+
+            {{ record.excerpt(300) }}
+
+        </article>
+    {% endfor %}
+
+    {{ pager() }}
+
+
+{% endblock %}

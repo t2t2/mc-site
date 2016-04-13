@@ -7,8 +7,19 @@ main:
     - label: Calendar
       path: calendar
     - label: Members
-      path: people
+      path: members
     - label: Podcast
     - label: About
     - label: Contact
     - label: Store
+
+common_links:
+    - label: Calendar
+      path: calendar
+      class: common-link-calendar
+    - label: Members
+      path: members
+      class: common-link-members
+    - label: Store
+      path: #
+      class: common-link-store

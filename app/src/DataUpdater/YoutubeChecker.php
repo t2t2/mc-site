@@ -47,13 +47,13 @@ class YoutubeChecker {
 	}
 
 	/**
-	 * @param Content|Content[] $people
+	 * @param Content|Content[] $members
 	 *
 	 * @return ExtendedPromiseInterface
 	 */
-	public function update($people) {
-		if (!is_array($people)) {
-			$people = [$people];
+	public function update($members) {
+		if (!is_array($members)) {
+			$members = [$members];
 		}
 
 		try {
@@ -62,10 +62,10 @@ class YoutubeChecker {
 			return \React\Promise\reject($e);
 		}
 
-		$keyedPeople = $this->keyPeopleByYTID($people);
+		$keyedMembers = $this->keyMembersByYTID($members);
 
-		$promise = $this->requestYoutubeData($keyedPeople);
-		$promise = $this->parseYoutubeResults($promise, $keyedPeople);
+		$promise = $this->requestYoutubeData($keyedMembers);
+		$promise = $this->parseYoutubeResults($promise, $keyedMembers);
 
 		return $promise;
 	}
@@ -76,8 +76,8 @@ class YoutubeChecker {
 	 * @return ExtendedPromiseInterface
 	 */
 	public function updateAll() {
-		$people = $this->getPeopleToUpdate();
-		$promise = \React\Promise\map($people, [$this, 'update']);
+		$members = $this->getMembersToUpdate();
+		$promise = \React\Promise\map($members, [$this, 'update']);
 
 		$total = \React\Promise\reduce($promise, function ($total, $updated) {
 			return $total + $updated;
@@ -113,52 +113,52 @@ class YoutubeChecker {
 	}
 
 	/**
-	 * Get the list of people that should be updated
+	 * Get the list of members that should be updated
 	 *
 	 * @returns ExtendedPromiseInterface
 	 */
-	protected function getPeopleToUpdate() {
+	protected function getMembersToUpdate() {
 		/** @var Storage $storage */
 		$storage = $this->app['storage'];
 
-		$people = $storage->getContent('people', ['youtube_channel_id' => '!']);
+		$members = $storage->getContent('members', ['youtube_channel_id' => '!']);
 
-		$chunked = array_chunk($people, self::$usersPerRequest);
+		$chunked = array_chunk($members, self::$usersPerRequest);
 
 		return $chunked;
 	}
 
 	/**
-	 * Keys an array of people by youtube ID
+	 * Keys an array of members by youtube ID
 	 *
-	 * @param Content[] $people
+	 * @param Content[] $members
 	 * @param string    $key
 	 *
 	 * @return array
 	 */
-	protected function keyPeopleByYTID($people, $key = 'youtube_channel_id') {
+	protected function keyMembersByYTID($members, $key = 'youtube_channel_id') {
 		$keyed = [];
 
-		foreach ($people as $person) {
-			$keyed[$person->values[$key]] = $person;
+		foreach ($members as $member) {
+			$keyed[$member->values[$key]] = $member;
 		}
 
 		return $keyed;
 	}
 
 	/**
-	 * Request data from youtube based on keyed people list
+	 * Request data from youtube based on keyed members list
 	 *
-	 * @param Content[] $keyedPeople
+	 * @param Content[] $keyedMembers
 	 *
 	 * @return ExtendedPromiseInterface
 	 */
-	protected function requestYoutubeData($keyedPeople) {
+	protected function requestYoutubeData($keyedMembers) {
 
 		return \React\Promise\resolve($this->youtubeClient->get('channels', [
 			'future' => true,
 			'query'  => array_replace_recursive($this->queryDefaults, [
-				'id'   => implode(',', array_keys($keyedPeople)),
+				'id'   => implode(',', array_keys($keyedMembers)),
 				'part' => 'statistics',
 				'fields' => 'items(id,statistics(viewCount,subscriberCount,videoCount))'
 			]),
@@ -169,17 +169,17 @@ class YoutubeChecker {
 	 * Parse the results from the youtube response
 	 *
 	 * @param ExtendedPromiseInterface $promise
-	 * @param Content[]                $keyedPeople
+	 * @param Content[]                $keyedMembers
 	 *
 	 * @return \React\Promise\PromiseInterface
 	 */
-	protected function parseYoutubeResults(ExtendedPromiseInterface $promise, $keyedPeople) {
-		return $promise->then(function (ResponseInterface $response) use ($keyedPeople) {
+	protected function parseYoutubeResults(ExtendedPromiseInterface $promise, $keyedMembers) {
+		return $promise->then(function (ResponseInterface $response) use ($keyedMembers) {
 			$answer = $response->json();
 
 			$updateCount = 0;
-			array_map(function ($channel) use ($keyedPeople, &$updateCount) {
-				$dbChannel = $keyedPeople[$channel['id']];
+			array_map(function ($channel) use ($keyedMembers, &$updateCount) {
+				$dbChannel = $keyedMembers[$channel['id']];
 				if (!$dbChannel) {
 					return;
 				}
@@ -206,15 +206,15 @@ class YoutubeChecker {
 	}
 
 	/**
-	 * Store updated person info in the database
+	 * Store updated member info in the database
 	 *
 	 * @param Content $dbChannel
 	 */
-	protected function storeUpdatedPerson(Content $person) {
+	protected function storeUpdatedPerson(Content $member) {
 		/** @var Storage $storage */
 		$storage = $this->app['storage'];
 
-		$storage->saveContent($person, 'Update by YouTube Checker');
+		$storage->saveContent($member, 'Update by YouTube Checker');
 	}
 
 	/**
@@ -229,14 +229,14 @@ class YoutubeChecker {
 		$storage = $this->app['storage'];
 
 		return \React\Promise\resolve()->then(function() use($storage) {
-			$people = $storage->getContent('people');
+			$members = $storage->getContent('members');
 			
 			$pages_to_update = $storage->getContent('pages', ['template' => 'home.twig']);
 			
-			$totals = array_reduce($people, function($totals, $person) {
-				$totals['youtube_subscribers'] += $person['youtube_subscribers'];
-				$totals['youtube_videos'] += $person['youtube_videos'];
-				$totals['youtube_views'] += $person['youtube_views'];
+			$totals = array_reduce($members, function($totals, $member) {
+				$totals['youtube_subscribers'] += $member['youtube_subscribers'];
+				$totals['youtube_videos'] += $member['youtube_videos'];
+				$totals['youtube_views'] += $member['youtube_views'];
 				
 				return $totals;
 			}, ['youtube_subscribers' => 0, 'youtube_videos' => 0, 'youtube_views' => 0]);
