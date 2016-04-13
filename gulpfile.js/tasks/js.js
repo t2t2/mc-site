@@ -4,8 +4,7 @@ module.exports = function() {
 	var config = require('../config'),
 		extensionsGlob = require('../lib/extensions-glob'),
 		path = require('path'),
-		minify = require('gulp-minify'),
-		replace = require('gulp-replace-path')
+		minify = require('gulp-minify')
 
 	var paths = {
 		src: path.join(config.root.src, '../../../node_modules/retina.js/src/*' + extensionsGlob(config.tasks.js.extensions)),
