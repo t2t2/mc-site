@@ -7,7 +7,7 @@ templatefields:
         promo_image:
             type: image
             label: Promo Image
-            info: The websites handle retina images automatically, so if want the image to be retina, upload the image at double the size.
+            info: Image should be 16x9 to look correct. The websites handle retina images automatically, so if want the image to be retina, upload the image at double the size.
             attrib: title
         youtube_subscribers:
             type: biginteger
