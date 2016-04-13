@@ -26,7 +26,7 @@
 
         {% block content_outside_container %}{% endblock %}
 
-        <div id="content">
+        <section id="main-content">
             <div class="container">
             {% block content %}{% endblock %}
             </div>
@@ -36,6 +36,13 @@
     <footer id="main-footer">
         <div class="container">
             {{ menu('main', '_menu_footer_nav.twig') }}
+            <div class="copyright">
+                Copyright &copy; {{ "now"|date('Y', timezone="America/Los_Angeles") }} <div class="footer_logo"></div>
+            </div>
+            <div class="credits">
+                <p>Design by <a href="http://matthewfraser.ca">Matthew Fraser</a></p>
+                <p>Backend by <a href="http://t2t2.eu">Tavoo-Taur Tammur</a></p>
+            </div>
         </div>
     </footer>
 
