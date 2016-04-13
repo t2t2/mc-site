@@ -4,6 +4,11 @@ templatefields:
             type: html
             label: About Text
             default: <p>Mindcrack about text goes here (this is editable on the backend). Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec est velit, ultrices nec aliquet sit amet, hendrerit quis velit. Donec commodo fringilla libero id maximus.</p>
+        promo_image:
+            type: image
+            label: Promo Image
+            info: The websites handle retina images automatically, so if want the image to be retina, upload the image at double the size.
+            attrib: title
         youtube_subscribers:
             type: biginteger
             label: Youtube Subscribers

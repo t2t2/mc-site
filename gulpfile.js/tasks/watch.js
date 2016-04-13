@@ -7,7 +7,7 @@ gulp.task('watch', function () {
 		path = require('path'),
 		watch = require('gulp-watch')
 
-	var tasks = ['assets', 'css']
+	var tasks = ['assets', 'css', 'js']
 
 	tasks.forEach(function (taskName) {
 		var task = config.tasks[taskName]

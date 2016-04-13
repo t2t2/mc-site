@@ -20,7 +20,14 @@
 	</section>
 	<section id="hero">
 		<div class="container">
-		<h1>Promo, and Commonly Used Links</h1>
+			<div class="row">
+				<div class="col-sm-3">
+					<div>Calendar</div>
+					<div>Members</div>
+					<div>Store</div>
+				</div>
+				<div class="col-sm-9"><img src="{{ record.templatefields.promo_image|thumbnail(864, 486) }}" class="img-fluid" alt="{{ record.templatefields.promo_image.title }}"></div>
+			</div>
 		</div>
 	</section>
 {% endblock %}

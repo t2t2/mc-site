@@ -183,6 +183,14 @@ section#content {
 	margin-bottom: 2rem;
 }
 
+section#hero {
+	background-color: $mc-blue-faint;
+
+	p:last-child {
+		margin-bottom: 0;
+	}
+}
+
 // About Panel
 .about-panel {
 	color: $mc-white;

@@ -17,6 +17,15 @@ var config = {
 			},
 			extensions: ['scss'],
 			sass: {},
+		},
+		js: {
+			extensions: ['js'],
+			minify: {
+				ext:{
+					src: '.js',
+					min: '.min.js'
+				}
+			},
 		}
 	},
 }
