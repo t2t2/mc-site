@@ -7,6 +7,15 @@ h1 {
 	text-transform: uppercase;
 }
 
+.important-link {
+	font-size: 1.125rem;
+	text-transform: uppercase;
+	font-weight: bold;
+	display: block;
+	margin-top: $headings-margin-bottom;
+	margin-bottom: $headings-margin-bottom;
+}
+
 // Sticky Footer Setup (with dynamic height)
 html,
 body { height: 100%; }
@@ -191,7 +200,9 @@ section#main-content {
 }
 
 div#latest-news {
-	div.latest-news-item {
+	.latest-news-item {
+		display: block;
+
 		span {
 			display: block;
 			line-height: 1.25em;
@@ -205,11 +216,16 @@ div#latest-news {
 
 		span.title {
 			font-size: 1.125rem;
+			color: $gray-dark;
+			font-weight:500;
+			&:hover {
+				color: lighten($gray-dark, 20%)
+			}
 		}
 
 	}
 	@include media-breakpoint-down(sm) {
-		div.latest-news-item {
+		.latest-news-item {
 		    margin-top: 15px;
     		overflow: hidden;
     		zoom: 1;
@@ -255,7 +271,7 @@ div#latest-news {
 	@include media-breakpoint-up(md) {
 		@include make-row();
 
-		div.latest-news-item {
+		.latest-news-item {
 			@include make-col();
 
 			@include make-col-span(4);
