@@ -7,6 +7,15 @@ h1 {
 	text-transform: uppercase;
 }
 
+*::selection {
+	background-color: $mc-blue;
+	color: white;
+}
+
+a {
+	font-weight: 500;
+}
+
 .important-link {
 	font-size: 1.125rem;
 	text-transform: uppercase;
@@ -14,6 +23,12 @@ h1 {
 	display: block;
 	margin-top: $headings-margin-bottom;
 	margin-bottom: $headings-margin-bottom;
+}
+
+hr.bold {
+	border-top: 0.625rem solid $hr-border-color;
+	margin-top: 1.5625rem;
+	margin-bottom: 1.5625rem;
 }
 
 // Sticky Footer Setup (with dynamic height)
@@ -189,8 +204,8 @@ footer#main-footer {
 section#main-content {
 	.container {
 
-		padding-top: 1.5625rem;
-		padding-bottom: 1.5625rem;
+		padding-top: 2rem;
+		padding-bottom: 2rem;
 
 		*:last-child {
 			margin-bottom: 0;
@@ -282,7 +297,58 @@ div#latest-news {
 			}
 		}
 	}
+}
 
+dl#upcoming-events {
+	@extend .dl-horizontal;
+	margin-left: 0;
+	margin-right: 0;
+
+	hr {
+		@include make-col();
+
+		@include make-col-span(12);
+
+		margin-top: 0.5rem;
+		padding:0;
+	}
+	dt {
+		@include make-col();
+		@include make-col-span(12);
+		padding-left:0;
+		font-size: 1.5rem;
+
+		@include media-breakpoint-up(md) {
+			@include make-col-span(4);
+		}
+
+		@include media-breakpoint-up(lg) {
+			@include make-col-span(3);
+		}
+	}
+
+	dd {
+		@include make-col();
+		@include make-col-span(12);
+
+		@include media-breakpoint-up(md) {
+			@include make-col-span(8);
+		}
+
+		@include media-breakpoint-up(lg) {
+			@include make-col-span(9);
+		}
+	}
+
+	dd + dd {
+		@include media-breakpoint-up(md) {
+			@include make-col-offset(4);
+		}
+
+		@include media-breakpoint-up(lg) {
+			@include make-col-offset(3);
+		}
+	}
 
 }
 
