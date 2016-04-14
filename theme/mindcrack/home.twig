@@ -37,7 +37,19 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Home</h1>
-
-    <p>{{ record.body }}</p>
+    <h1>Latest News</h1>
+    {% setcontent news = 'news/latest/3' %}
+    {% if news is not empty %}
+    	<div id="latest-news">
+		    {% for item in news %}
+		    	<div class="latest-news-item">
+		    		<div class="latest-news-thumb"><img src="{% if item.image is not empty %}{{ item.image|thumbnail(384, 216) }}{% else %}{{ paths.theme }}assets/images/news_thumbnail.jpg{% endif %}" alt="{{ item.title }}"></div>
+		    		<div class="latest-news-body">
+		    			<span class="published">{{ item.datepublish|date("F jS, Y")}}</span>
+		    			<span class="title">{{ item.title|length > 120 ? item.title|slice(0,120)|striptags ~ ' ...' : item.title }}</span>
+		    		</div>
+		    	</div>
+		    {% endfor %}
+		</div>
+	{% endif %}
 {% endblock %}
