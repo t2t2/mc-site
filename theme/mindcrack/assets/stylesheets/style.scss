@@ -312,6 +312,7 @@ section#hero {
 			width: 100%;
 			height: auto;
 			position: relative;
+			margin-bottom: 0;
 			@include make-col-span(12);
 
 			.common-links-link {
