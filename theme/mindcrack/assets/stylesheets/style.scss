@@ -187,56 +187,71 @@ section#hero {
 	padding-top: 2.5rem;
 	padding-bottom: 2.5rem;
 
-	.common-links-link {
-		display: block;
+	.common-links {
+		@include make-col();
 
-    	text-align: center;
-		font-family: $headings-font-family;
-		text-transform: uppercase;
-		font-size: 1.5rem;
-		color: $mc-grey-dark;
+		.common-links-link {
+			display: block;
 
-		&:hover {
-			text-decoration: none;
-			.common-link-icon {
-				// Won't work on IE, but this isn't strictly 100% necessary
-				// using as opposed to image-mask because it's a little more supported
-				filter: brightness(1.33);
+	    	text-align: center;
+			font-family: $headings-font-family;
+			text-transform: uppercase;
+			font-size: 1.5rem;
+			color: $mc-grey-dark;
+
+			@include make-col();
+	
+			&:hover {
+				text-decoration: none;
+				.common-link-icon {
+					// Won't work on IE, but this isn't strictly 100% necessary
+					// using as opposed to image-mask because it's a little more supported
+					filter: brightness(1.33);
+				}
+
+				color:lighten($mc-grey-dark,11.5%);
 			}
 
-			color:lighten($mc-grey-dark,11.5%);
+			@include media-breakpoint-down(md) {
+				font-size: 1.25rem;
+			}
+
+			@include media-breakpoint-down(xs) {
+				font-size: 1rem;
+			}
+
+			.common-link-icon {
+				background-size: contain;
+				background-repeat: no-repeat;
+				background-position: center;
+			}
+
+			&.common-link-calendar .common-link-icon {
+				background-image: url('../images/icon_calendar.svg');
+			}
+
+			&.common-link-members .common-link-icon {
+				background-image: url('../images/icon_members.svg');
+
+			}
+
+			&.common-link-store .common-link-icon {
+				background-image: url('../images/icon_store.svg');
+			}
 		}
-
-		@include media-breakpoint-down(md) {
-			font-size: 1.25rem;
-		}
-
-		@include media-breakpoint-down(xs) {
-			font-size: 1rem;
-		}
-
-		.common-link-icon {
-			background-size: contain;
-			background-repeat: no-repeat;
-			background-position: center;
-		}
-
-		&.common-link-calendar .common-link-icon {
-			background-image: url('../images/icon_calendar.svg');
-		}
-
-		&.common-link-members .common-link-icon {
-			background-image: url('../images/icon_members.svg');
-
-		}
-
-		&.common-link-store .common-link-icon {
-			background-image: url('../images/icon_store.svg');
-		}
-
 	}
 
 	.promo {
+		@include make-col();
+
+		@include media-breakpoint-up(md) {
+			@include make-col-span(9);
+		}
+
+		@include media-breakpoint-down(sm) {
+			@include make-col-span(12);
+		}
+
 		img {
 			width: 100%;
 		}
@@ -254,10 +269,11 @@ section#hero {
 		.common-links {
 			position: absolute;
 			height: 100%;
+			@include make-col-span(3);
 
 			.common-links-link {
 				height:33.33333%;
-
+				@include make-col-span(12);
 
 				.common-link-icon {
 					height: calc(100% - 2.5em);
@@ -274,8 +290,11 @@ section#hero {
 
 	@include media-breakpoint-down(sm) {
 		.common-links {
+			@include make-col-span(12);
 			margin-bottom: 1rem;
+
 			.common-links-link {
+				@include make-col-span(4);
 
 				.common-link-icon {
 					width: 100%;
@@ -286,12 +305,33 @@ section#hero {
 		}
 	}
 
+	.row.no-promo {
+		position:static;
+
+		.common-links {
+			width: 100%;
+			height: auto;
+			position: relative;
+			@include make-col-span(12);
+
+			.common-links-link {
+				@include make-col-span(4);
+
+				.common-link-icon {
+					width: 100%;
+					height: 10vw;
+					max-height: 5rem;
+				}
+			}
+		}
+	}
+
 	// SUPER DUPER SMALL
 	@media (max-width: 25rem) {
 		padding-top: 1rem;
 		padding-bottom: 1rem;
 
-		.common-links {
+		.row .common-links, .row.no-promo .common-links {
 			.common-links-link {
 				width: 100%;
 				text-align: left;

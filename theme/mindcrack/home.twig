@@ -20,11 +20,13 @@
 	</section>
 	<section id="hero">
 		<div class="container">
-			<div class="row">
-				<div class="col-md-3 col-xs-12 common-links">
+			<div class="row {% if record.templatefields.promo_image is empty %}no-promo{% else %}with-promo{% endif %}">
+				<div class="common-links">
 					{{ menu('common_links', '_menu_common_links.twig') }}
 				</div>
-				<div class="col-md-9 col-xs-12 promo"><img src="{{ record.templatefields.promo_image|thumbnail(864, 486) }}" class="img-fluid" alt="{{ record.templatefields.promo_image.title }}"></div>
+				{% if record.templatefields.promo_image is not empty %}
+				<div class="promo"><img src="{{ record.templatefields.promo_image|thumbnail(864, 486) }}" class="img-fluid" alt="{{ record.templatefields.promo_image.title }}"></div>
+				{% endif %}
 			</div>
 		</div>
 	</section>
