@@ -37,7 +37,7 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Latest News</h1>
+    <h1 class="section-heading">Latest News</h1>
     {% setcontent news = 'news/latest/3' %}
     {% if news is not empty %}
     	<div id="latest-news">
@@ -54,7 +54,7 @@
 		<a class="important-link" href="{{paths.root}}news">More News...</a>
 	{% endif %}
 	<hr class="bold">
-	<h1>Upcoming Events</h1>
+	<h1 class="section-heading">Upcoming Events</h1>
 	{% setcontent events = 'events' where {event_time: '> 3 days ago'} limit 5 orderby 'event_time' %}
 	{% set month = "" %}
 	{% if events is not empty %}

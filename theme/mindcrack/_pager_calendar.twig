@@ -1,0 +1,21 @@
+{% set link = pager.makelink() %}
+
+{% if pager.totalpages > 1 %}
+{# simple previous / next pagination #}
+<nav class="{{class}}">
+  <ul class="pager">
+{# 'first' and 'prev' #}
+{% if pager.current > 1 and class!="narrow" %}
+    <li class="pager-prev"><a href="{{link}}{{pager.current-1}}" rel="noindex, follow">&lsaquo; Previous</a></li>
+{% else %}
+	<li class="pager-prev disabled"><a href="#" rel="noindex, follow">&lsaquo; Previous</a></li>
+{% endif %}
+
+{% if pager.current < pager.totalpages and class!="narrow" %}
+    <li class="pager-next"><a href="{{link}}{{pager.current+1}}" rel="noindex, follow">Next &rsaquo;</a></li>
+{% else %}
+	<li class="pager-next disabled"><a href="#}" rel="noindex, follow">Next &rsaquo;</a></li>
+{% endif %}
+  </ul>
+</nav>
+{% endif %}

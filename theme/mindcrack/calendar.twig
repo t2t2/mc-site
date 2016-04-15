@@ -1,8 +1,20 @@
 {% extends "_layout.twig" %}
 
+
+
 {% block content %}
 
+	<h1 class="section-heading">Calendar</h1>
+	{% set cal_pager = pager('', 1, '_pager_calendar.twig') %}
+
+	{{ cal_pager }}
+	{% set month = "" %}
+
     {% for event in events %}
+		{% if month != event.event_time|date("F Y") %}
+			<dt>{{ event.event_time|date("F Y") }}</dt>
+			{% set month = event.event_time|date("F Y") %}
+		{% endif %}
         <article class="event">
 
             <h3>{{ event.event_time | date('d') }}</h3>
@@ -12,6 +24,8 @@
 
         </article>
     {% endfor %}
+
+    {{ cal_pager }}
 
 
 {% endblock %}
