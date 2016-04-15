@@ -4,28 +4,44 @@
 
 {% block content %}
 
+	{% set month = "" %}
+	<section id="calendar">
 	<h1 class="section-heading">Calendar</h1>
 	{% set cal_pager = pager('', 1, '_pager_calendar.twig') %}
-
 	{{ cal_pager }}
-	{% set month = "" %}
-
-    {% for event in events %}
-		{% if month != event.event_time|date("F Y") %}
-			<dt>{{ event.event_time|date("F Y") }}</dt>
-			{% set month = event.event_time|date("F Y") %}
-		{% endif %}
-        <article class="event">
-
-            <h3>{{ event.event_time | date('d') }}</h3>
-            <h2>{{ event.title }}</h2>
-
-            {{ event.excerpt(300) }}
+    {% for event in records %}
+    	{% set month_change = false %}
+    	{% set month_string = event.event_time|date("F Y") %}
+		{% if month != month_string %}
+			{% if loop.first != true %}<hr class="bold">{% endif %}
+			<div class=cal-month>{{ month_string }}</div>
+			{% set month_change = true %}
+			{% set month = month_string %}
+		{% else %}<hr>{% endif %}
+		<article class="cal-event">
+            <div class="cal-event-date" >{{ event.event_time | date('jS') }}</div>
+            <div class="cal-event-content">
+            	<a href="{{ event.link }}"><h2>{{ event.title }}</h2></a>
+            	<p><span class="cal-event-detail">When? </span>{{ event.event_time | date('h:ia') }}{{ event.event_time_zone != "none" ? " %s"|format(event.event_time_zone) : "" }}</p>
+            	{% if event.location is not empty %}
+	            	{% if event.location.formatted_address is not empty %}
+	            	<p><span class="cal-event-detail">Where? </span>{{ event.location.formatted_address }}</p>
+	            	{% elseif event.location.address is not empty %}
+	            	<p><span class="cal-event-detail">Where? </span>{{ event.location.address }}</p>
+	            	{% endif %}
+            	{% elseif event.web_location is not empty %}
+            		<span class="cal-event-detail">Where? </span><a href="{{ event.web_location }}">{{ event.web_location_title is empty ? event.web_location : event.web_location_title }}</a>
+            	{% endif %}
+            	<p>{{ event.body|excerpt(300) }}</p>
+            	<p><a href="{{ event.link }}">(more info)</a></p>
+        	</div>
 
         </article>
     {% endfor %}
-
     {{ cal_pager }}
+	</section>
+
+    
 
 
 {% endblock %}

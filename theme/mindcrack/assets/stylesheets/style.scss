@@ -5,6 +5,7 @@
 // Generic
 h1.section-heading {
 	text-transform: uppercase;
+	color: $mc-blue
 }
 
 *::selection {
@@ -20,14 +21,19 @@ a {
 	font-size: 1.125rem;
 	text-transform: uppercase;
 	font-weight: bold;
-	margin-top: $headings-margin-bottom;
 	margin-bottom: $headings-margin-bottom;
+	display: inline-block;
 }
 
 hr.bold {
 	border-top: 0.625rem solid $hr-border-color;
-	margin-top: 1.5625rem;
 	margin-bottom: 1.5625rem;
+	margin-top: 0.5625rem;
+	border-color: $mc-blue-faint;
+}
+
+hr {
+	margin-top: 0;
 }
 
 // Sticky Footer Setup (with dynamic height)
@@ -201,15 +207,9 @@ footer#main-footer {
 
 // Main Content
 section#main-content {
-	.container {
-
+	>.container {
 		padding-top: 2rem;
-		padding-bottom: 2rem;
-
-		*:last-child {
-			margin-bottom: 0;
-		}
-
+		padding-bottom: 1rem;
 	}
 }
 
@@ -225,7 +225,7 @@ div#latest-news {
 		span.published {
 			margin-top: 0.5rem;
 			margin-bottom: 0.25rem;
-			color: $mc-grey;
+			@extend .text-muted;
 		}
 
 		span.title {
@@ -298,6 +298,63 @@ div#latest-news {
 	}
 }
 
+.cal-month {
+	font-size: 1.5rem;
+	font-weight: bold;
+}
+
+section#calendar {
+
+	.pager {
+		margin-top:0;
+		margin-bottom:1rem;
+	}
+
+	article.cal-event {
+		@include make-row();
+
+		.cal-event-date {
+			@include make-col();
+			font-family: $headings-font-family;
+			font-size: 3rem;
+			line-height: 3rem;
+		}
+
+		.cal-event-content {
+			@include make-col();
+
+			h2 {
+				margin-bottom: 0.25rem;
+			}
+
+			p {
+				margin-bottom:0.25rem;
+
+				&:last-child {margin-bottom: 1rem}
+			}
+
+			.cal-event-detail {
+				font-weight: bold;
+			}
+		}
+		@include media-breakpoint-down(xs) {
+			.cal-event-content { @include make-col-span(10); h2 {font-size:1.3rem;} };
+			.cal-event-date { @include make-col-span(2) };
+			.cal-event-date {font-size: 1.2rem;line-height: 1.3rem;}
+		}
+
+		@include media-breakpoint-up(sm) {
+			.cal-event-content { @include make-col-span(9) };
+			.cal-event-date { @include make-col-span(3) };
+		}
+
+		@include media-breakpoint-up(lg) {
+			.cal-event-content { @include make-col-span(10) };
+			.cal-event-date { @include make-col-span(2) };
+		}
+	}
+}
+
 dl#upcoming-events {
 	@extend .dl-horizontal;
 	margin-left: 0;
@@ -315,7 +372,7 @@ dl#upcoming-events {
 		@include make-col();
 		@include make-col-span(12);
 		padding-left:0;
-		font-size: 1.5rem;
+		@extend .cal-month;
 
 		@include media-breakpoint-up(md) {
 			@include make-col-span(4);

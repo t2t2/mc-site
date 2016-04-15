@@ -87,16 +87,34 @@ events:
     sort: -event_time
     fields:
         title:
+            label: Event Name
             type: text
             class: large
             group: content
         slug:
+            label: Slug
             type: slug
             uses: title
         event_time:
+            label: Event Time
             type: datetime
+            info: Input time in 24 hour format (select below the timezone that the time is meant to be in)
+        event_time_zone:
+            label: Display Timezone (optional)
+            info: Only used for display on the events page / the calendar, doesn't actually modify the time displayed
+            type: select
+            values: [none, Pacific, Mountain, Central, Eastern, UTC, Local Time]
         location:
+            label: Address / Geolocation
             type: geolocation
+        web_location:
+            label: Internet Location URL (not used if geolocation set)
+            type: text
+            info: List related websites to an in person event in the main body if needed.
+            pattern: "url"
+        web_location_title:
+            label: Internet Location Title (optional)
+            type: text
         body:
             type: html
             height: 300px
