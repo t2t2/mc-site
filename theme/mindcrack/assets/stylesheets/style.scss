@@ -311,27 +311,31 @@ div#latest-news {
 	font-weight: bold;
 }
 
-.cal-event-content {
-	.cal-event-details {
-		p {
-			margin-bottom:0.25rem;
-			&:last-child {margin-bottom: 1rem}
-		}
+.cal-event-details {
+	@include make-col();
+	@include make-col-span(12);
+	p {
+		margin-bottom:0.25rem;
+		&:last-child {margin-bottom: 1rem}
+	}
+}
+
+.cal-event-map {
+	@include make-col();
+	@include make-col-span(12);
+	margin-bottom: 1rem;
+}
+
+@include media-breakpoint-up(lg) {
+
+	.row.with-map .cal-event-details {
+		
+		@include make-col-span(6);
 	}
 
-	.cal-event-map {
-		margin-bottom: 1rem;
-	}
-
-	@include media-breakpoint-up(lg) {
-		.cal-event-map {
-			@include make-row();
-
-			.cal-event-map-col {
-				@include make-col();
-				@include make-col-span(6);
-			}
-		}
+	.row.with-map .cal-event-map {
+		
+		@include make-col-span(6);
 	}
 }
 
@@ -618,7 +622,6 @@ section#hero {
 	}
 }
 
-// About Panel
 .about-panel {
 	color: $mc-white;
 	background-color: $mc-blue;
@@ -629,13 +632,39 @@ section#hero {
 		color: $mc-white;
 	}
 
-	&> .container {
+	a {
+		color: white;
+		&:hover {
+			text-decoration: underline;
+		}
+	}
 
+	> .container {
 		padding-top: 1rem;
+		padding-bottom: 0;
+
+		h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
+			font-weight: 500;
+			font-family: $font-family-sans-serif;
+		}
 
 		@include media-breakpoint-up(md) {
 			padding-top:2rem;
-			padding-bottom:2rem;
+			padding-bottom:1rem;
+		}
+	}
+}
+
+// About Panel
+#about.about-panel {
+
+	&> .container {
+
+		// Because not normal paragraph content, with 1 margin at the bottom,
+		// make the padding account for that to be even
+		padding-bottom: 2rem;
+
+		@include media-breakpoint-up(md) {
 			display: table;
 
 			border-collapse: separate;
