@@ -789,4 +789,20 @@ section#hero {
 		}
 
 	}
+
+	header#main-header {
+		background-image: url('../images/mindcrack_header.jpg');
+		background-size: cover;
+		background-position: 50% 55%;
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#14000000', endColorstr='#191919',GradientType=0 ),
+				progid:DXImageTransform.Microsoft.gradient( startColorstr='#40000000', endColorstr='#40191919',GradientType=0 );
+		&:before {
+			background-image: none;
+		}
+
+		@include media-breakpoint-down(xs) {
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#20000000', endColorstr='#191919',GradientType=0 ),
+					progid:DXImageTransform.Microsoft.gradient( startColorstr='#90000000', endColorstr='#70191919',GradientType=0 );
+		}
+	}
 }
