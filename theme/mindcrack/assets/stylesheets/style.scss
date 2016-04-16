@@ -606,6 +606,12 @@ section#hero {
 				text-align: left;
 				padding-left: 1rem;
 
+				margin-bottom: 0.5rem;
+
+				&:last-child {
+					margin-bottom: 0;
+				}
+
 				.common-link-icon {
 					vertical-align: middle;
 					display: inline-block;
