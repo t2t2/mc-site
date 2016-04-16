@@ -55,6 +55,9 @@ members:
         youtube_views:
             type: biginteger
             label: Youtube Views
+        youtube_trailer:
+            type: text
+            label: Youtube Trailer Video ID
     sort: title
     show_on_dashboard: false
     icon_many: fa:users

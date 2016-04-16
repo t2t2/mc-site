@@ -82,10 +82,10 @@ class YoutubeChecker {
 		$total = \React\Promise\reduce($promise, function ($total, $updated) {
 			return $total + $updated;
 		}, 0);
-		
-		return $total->then(function($updated) {
+
+		return $total->then(function ($updated) {
 			// Store updated so it's sent back once done
-			return $this->updateTotals()->then(function() use($updated) {
+			return $this->updateTotals()->then(function () use ($updated) {
 				return $updated;
 			});
 		});
@@ -157,10 +157,10 @@ class YoutubeChecker {
 
 		return \React\Promise\resolve($this->youtubeClient->get('channels', [
 			'future' => true,
-			'query'  => array_replace_recursive($this->queryDefaults, [
-				'id'   => implode(',', array_keys($keyedMembers)),
-				'part' => 'statistics',
-				'fields' => 'items(id,statistics(viewCount,subscriberCount,videoCount))'
+			'query' => array_replace_recursive($this->queryDefaults, [
+				'id' => implode(',', array_keys($keyedMembers)),
+				'part' => 'brandingSettings,statistics',
+				'fields' => 'items(id,brandingSettings(channel(unsubscribedTrailer)),statistics(viewCount,subscriberCount,videoCount))'
 			]),
 		]));
 	}
@@ -187,6 +187,7 @@ class YoutubeChecker {
 				$dbChannel->values['youtube_subscribers'] = $channel['statistics']['subscriberCount'];
 				$dbChannel->values['youtube_videos'] = $channel['statistics']['videoCount'];
 				$dbChannel->values['youtube_views'] = $channel['statistics']['viewCount'];
+				$dbChannel->values['youtube_trailer'] = $channel['brandingSettings']['channel']['unsubscribedTrailer'];
 
 				$this->storeUpdatedPerson($dbChannel);
 
@@ -208,7 +209,7 @@ class YoutubeChecker {
 	/**
 	 * Store updated member info in the database
 	 *
-	 * @param Content $dbChannel
+	 * @param Content $member
 	 */
 	protected function storeUpdatedPerson(Content $member) {
 		/** @var Storage $storage */
@@ -228,24 +229,24 @@ class YoutubeChecker {
 		/** @var Storage $storage */
 		$storage = $this->app['storage'];
 
-		return \React\Promise\resolve()->then(function() use($storage) {
+		return \React\Promise\resolve()->then(function () use ($storage) {
 			$members = $storage->getContent('members');
-			
+
 			$pages_to_update = $storage->getContent('pages', ['template' => 'home.twig']);
-			
-			$totals = array_reduce($members, function($totals, $member) {
+
+			$totals = array_reduce($members, function ($totals, $member) {
 				$totals['youtube_subscribers'] += $member['youtube_subscribers'];
 				$totals['youtube_videos'] += $member['youtube_videos'];
 				$totals['youtube_views'] += $member['youtube_views'];
-				
+
 				return $totals;
 			}, ['youtube_subscribers' => 0, 'youtube_videos' => 0, 'youtube_views' => 0]);
-			
-			array_map(function($page) use($totals, $storage) {
+
+			array_map(function ($page) use ($totals, $storage) {
 				$page['templatefields']['youtube_subscribers'] = $totals['youtube_subscribers'];
 				$page['templatefields']['youtube_videos'] = $totals['youtube_videos'];
 				$page['templatefields']['youtube_views'] = $totals['youtube_views'];
-				
+
 				$storage->saveContent($page, 'Update by YouTube Checker');
 			}, $pages_to_update);
 		});
