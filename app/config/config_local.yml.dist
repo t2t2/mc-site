@@ -10,3 +10,4 @@
 # API keys for the site
 # services:
 #     youtube: ""
+#     google_maps_embed: ""

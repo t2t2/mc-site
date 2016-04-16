@@ -1,0 +1,38 @@
+{% extends "_layout.twig" %}
+
+{% block content %}
+
+    <article class="cal-event-content">
+        <h1 class="main">{{ record.title }}</h1>
+
+        <section class="cal-event-details">
+        	<p><span class="cal-event-detail">When? </span>{{ record.event_time | date('F jS, Y @ h:ia') }}{{ record.event_time_zone != "none" ? " %s"|format(record.event_time_zone) : "" }}</p>
+        	{% if record.location is not empty %}
+            	{% if record.location.formatted_address is not empty %}
+            	<p><span class="cal-event-detail">Where? </span>{{ record.location.formatted_address }}</p>
+            	{% elseif record.location.address is not empty %}
+            	<p><span class="cal-event-detail">Where? </span>{{ record.location.address }}</p>
+            	{% endif %}
+        	{% elseif record.web_location is not empty %}
+        		<span class="cal-event-detail">Where? </span><a href="{{ record.web_location }}">{{ record.web_location_title is empty ? record.web_location : record.web_location_title }}</a>
+        	{% endif %}
+
+        </section>
+        {% if event.location is not empty and app.config.get('general/services/google_maps_embed') is not empty %}
+        <section class="cal-event-map">
+        	<div class="cal-event-map-col"><div class="embed-responsive embed-responsive-16by9">
+	        	<iframe src="https://www.google.com/maps/embed/v1/place?zoom=14
+	        	&q={{ record.location.formatted_address }}
+	      		&center={{ record.location.latitude }},{{ record.location.longitude }}
+	      		&key={{ app.config.get('general/services/google_maps_embed') }}">
+	  			</iframe>
+  			</div></div>
+        </section>
+    	{% endif %}
+
+        <section class="cal-event-body">
+        	{{ record.body }}
+        </section>
+    </article>
+    
+{% endblock %}

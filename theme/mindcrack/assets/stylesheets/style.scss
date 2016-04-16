@@ -5,7 +5,11 @@
 // Generic
 h1.section-heading {
 	text-transform: uppercase;
-	color: $mc-blue
+	color: $mc-blue;
+}
+
+h1.main {
+	color: $mc-blue;
 }
 
 *::selection {
@@ -303,6 +307,34 @@ div#latest-news {
 	font-weight: bold;
 }
 
+.cal-event-detail {
+	font-weight: bold;
+}
+
+.cal-event-content {
+	.cal-event-details {
+		p {
+			margin-bottom:0.25rem;
+			&:last-child {margin-bottom: 1rem}
+		}
+	}
+
+	.cal-event-map {
+		margin-bottom: 1rem;
+	}
+
+	@include media-breakpoint-up(lg) {
+		.cal-event-map {
+			@include make-row();
+
+			.cal-event-map-col {
+				@include make-col();
+				@include make-col-span(6);
+			}
+		}
+	}
+}
+
 section#calendar {
 
 	.pager {
@@ -333,9 +365,7 @@ section#calendar {
 				&:last-child {margin-bottom: 1rem}
 			}
 
-			.cal-event-detail {
-				font-weight: bold;
-			}
+
 		}
 		@include media-breakpoint-down(xs) {
 			.cal-event-content { @include make-col-span(10); h2 {font-size:1.3rem;} };
