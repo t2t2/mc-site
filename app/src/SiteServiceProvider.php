@@ -4,11 +4,15 @@ namespace Mindcrack\Site;
 
 
 use Bolt\Config;
+use Bolt\Events\StorageEvent;
+use Bolt\Events\StorageEvents;
 use Bolt\Nut;
 use Mindcrack\Site\Commands\DataUpdaterCommand;
+use Mindcrack\Site\DataUpdater\YoutubeChecker;
 use Mindcrack\Site\Field\BigIntegerField;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;
 
 class SiteServiceProvider implements ServiceProviderInterface {
@@ -34,6 +38,7 @@ class SiteServiceProvider implements ServiceProviderInterface {
 	 */
 	public function boot(Application $app) {
 		$this->registerCustomFields($app);
+		$this->watchForUpdates($app);
 	}
 
 	/**
@@ -48,7 +53,7 @@ class SiteServiceProvider implements ServiceProviderInterface {
 			// Get the current request for default commands
 			try {
 				$request = $app['request'];
-			} catch(\Exception $e) {
+			} catch (\Exception $e) {
 				$request = Request::createFromGlobals();
 			}
 
@@ -91,5 +96,23 @@ class SiteServiceProvider implements ServiceProviderInterface {
 		$config->getFields()->addField(new BigIntegerField());
 
 		$app['twig.loader.filesystem']->prependPath(__DIR__ . '/Field', 'MindcrackSiteFields');
+	}
+
+	protected function watchForUpdates(Application $app) {
+		/** @var EventDispatcher $dispatcher */
+		$dispatcher = $app['dispatcher'];
+
+		$dispatcher->addListener(StorageEvents::POST_SAVE, function(StorageEvent $event) use($app) {
+			$this->handleUpdateEvent($app, $event);
+		});
+	}
+
+	public function handleUpdateEvent(Application $app, StorageEvent $event) {
+		// Member creation
+		if ($event->getContentType() == 'members' && $event->isCreate()) {
+			$updater = new YoutubeChecker($app);
+
+			$updater->update([$event->getContent()]);
+		}
 	}
 }
