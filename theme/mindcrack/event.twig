@@ -6,7 +6,7 @@
 			<div class="row{% if event.location is not empty and app.config.get('general/services/google_maps_embed') is not empty %} with-map{% endif %}">
 		        <section class="cal-event-details">
 		        	<h1 class="main">{{ record.title }}</h1>
-		        	<p><span class="cal-event-detail">When? </span>{{ record.event_time | date('F jS, Y @ h:ia') }}{{ record.event_time_zone != "none" ? " %s"|format(record.event_time_zone) : "" }}</p>
+		        	<p><span class="cal-event-detail">When? </span>{{ record.event_time | date('F jS, Y @ h:ia') }}{#{{ record.event_time_zone != "none" ? " %s"|format(record.event_time_zone) : "" }} // Need to reimpliment #}</p>
 		        	{% if record.location is not empty %}
 		            	{% if record.location.formatted_address is not empty %}
 		            	<p><span class="cal-event-detail">Where? </span>{{ record.location.formatted_address }}</p>

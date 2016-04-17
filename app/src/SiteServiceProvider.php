@@ -10,6 +10,7 @@ use Bolt\Nut;
 use Mindcrack\Site\Commands\DataUpdaterCommand;
 use Mindcrack\Site\DataUpdater\YoutubeChecker;
 use Mindcrack\Site\Field\BigIntegerField;
+use Mindcrack\Site\Field\TimeZoneField;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
@@ -94,6 +95,7 @@ class SiteServiceProvider implements ServiceProviderInterface {
 		$config = $app['config'];
 
 		$config->getFields()->addField(new BigIntegerField());
+		$config->getFields()->addField(new TimeZoneField($app));
 
 		$app['twig.loader.filesystem']->prependPath(__DIR__ . '/Field', 'MindcrackSiteFields');
 	}

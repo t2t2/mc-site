@@ -103,10 +103,16 @@ events:
             type: datetime
             info: Input time in 24 hour format (select below the timezone that the time is meant to be in)
         event_time_zone:
-            label: Display Timezone (optional)
-            info: Only used for display on the events page / the calendar, doesn't actually modify the time displayed
+            label: Event Time Timezone (Important!)
+            info: Enter the timezone the above event time is meant to be in (need to know for the dynamic time display on the calendar/event pages)
+            default: "America/Los_Angeles"
+            type: timezone
+            autocomplete: true
+        time_display_mode:
+            label: Event Time Display
             type: select
-            values: [none, Pacific, Mountain, Central, Eastern, UTC, Local Time]
+            values: {'local':"Local Event Time",'user':"Visitors Time",'both':"Both"}
+            info: Changes how the event times are shown. It can show the time in the zone set above, or automatically adjust on the visitors end to show the time for their timezone, or both.
         location:
             label: Address / Geolocation
             type: geolocation

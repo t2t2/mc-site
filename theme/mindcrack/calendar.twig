@@ -22,7 +22,7 @@
             <div class="cal-event-date" >{{ event.event_time | date('jS') }}</div>
             <div class="cal-event-content">
             	<a href="{{ event.link }}"><h2>{{ event.title }}</h2></a>
-            	<p><span class="cal-event-detail">When? </span>{{ event.event_time | date('h:ia') }}{{ event.event_time_zone != "none" ? " %s"|format(event.event_time_zone) : "" }}</p>
+            	<p><span class="cal-event-detail">When? </span>{{ event.event_time | date('h:ia') }}{#{{ event.event_time_zone != "none" ? " %s"|format(event.event_time_zone) : "" }} // Need to reimpliment #}</p>
             	{% if event.location is not empty %}
 	            	{% if event.location.formatted_address is not empty %}
 	            	<p><span class="cal-event-detail">Where? </span>{{ event.location.formatted_address }}</p>
