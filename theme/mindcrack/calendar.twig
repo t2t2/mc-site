@@ -29,8 +29,9 @@
 	            	{% elseif event.location.address is not empty %}
 	            	<p><span class="cal-event-detail">Where? </span>{{ event.location.address }}</p>
 	            	{% endif %}
-            	{% elseif event.web_location is not empty %}
-            		<p><span class="cal-event-detail">Where? </span><a href="{{ event.web_location }}">{{ event.web_location_title is empty ? event.web_location : event.web_location_title }}</a></p>
+	            {% endif %}
+            	{% if event.web_location is not empty %}
+            		<p><span class="cal-event-detail">Link? </span><a href="{{ event.web_location }}">{{ event.web_location_title is empty ? event.web_location : event.web_location_title }}</a></p>
             	{% endif %}
             	<p>{{ event.body|excerpt(300) }}</p>
             	<p><a href="{{ event.link }}">(more info)</a></p>

@@ -111,12 +111,11 @@ events:
             label: Address / Geolocation
             type: geolocation
         web_location:
-            label: Internet Location URL (not used if geolocation set)
+            label: Website Link URL
             type: text
-            info: List related websites to an in person event in the main body if needed.
             pattern: "url"
         web_location_title:
-            label: Internet Location Title (optional)
+            label: Website Link Title (optional)
             type: text
         body:
             type: html

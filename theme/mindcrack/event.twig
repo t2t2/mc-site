@@ -13,10 +13,10 @@
 		            	{% elseif record.location.address is not empty %}
 		            	<p><span class="cal-event-detail">Where? </span>{{ record.location.address }}</p>
 		            	{% endif %}
-		        	{% elseif record.web_location is not empty %}
-		        		<p><span class="cal-event-detail">Where? </span><a href="{{ record.web_location }}">{{ record.web_location_title is empty ? record.web_location : record.web_location_title }}</a></p>
+		            {% endif %}
+		        	{% if record.web_location is not empty %}
+		        		<p><span class="cal-event-detail">Link? </span><a href="{{ record.web_location }}">{{ record.web_location_title is empty ? record.web_location : record.web_location_title }}</a></p>
 		        	{% endif %}
-
 		        </section>
 		        {% if event.location is not empty and app.config.get('general/services/google_maps_embed') is not empty %}
 		        <section class="cal-event-map">
