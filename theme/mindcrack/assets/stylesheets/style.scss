@@ -346,6 +346,12 @@ section#calendar {
 		margin-bottom:1rem;
 	}
 
+	@include media-breakpoint-up(md) {
+		.cal-month + .cal-event > .cal-event-content {
+			margin-top: -2.25rem;
+		}
+	}
+
 	article.cal-event {
 		@include make-row();
 
@@ -382,9 +388,14 @@ section#calendar {
 			.cal-event-date { @include make-col-span(3) };
 		}
 
+		@include media-breakpoint-up(md) {
+			.cal-event-content { @include make-col-span(8) };
+			.cal-event-date { @include make-col-span(4) };
+		}
+
 		@include media-breakpoint-up(lg) {
-			.cal-event-content { @include make-col-span(10) };
-			.cal-event-date { @include make-col-span(2) };
+			.cal-event-content { @include make-col-span(9) };
+			.cal-event-date { @include make-col-span(3) };
 		}
 	}
 }
