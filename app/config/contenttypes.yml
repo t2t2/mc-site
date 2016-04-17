@@ -116,6 +116,10 @@ events:
         location:
             label: Address / Geolocation
             type: geolocation
+        location_informal:
+            label: Informal address (optional, shown in addition to formal address)
+            info: For cases where the well known name of the building/location can be just as helpful as the actual address.
+            type: text
         web_location:
             label: Website Link URL
             type: text

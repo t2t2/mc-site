@@ -1,7 +1,5 @@
 {% extends "_layout.twig" %}
 
-
-
 {% block content %}
 
 	{% set month = "" %}
@@ -41,12 +39,12 @@
 	        		{% endif %}
 	        		</p>
 	        	{% endif %}
-            	{% if event.location is not empty %}
-	            	{% if event.location.formatted_address is not empty %}
-	            	<p><span class="cal-event-detail">Where? </span>{{ event.location.formatted_address }}</p>
-	            	{% elseif event.location.address is not empty %}
-	            	<p><span class="cal-event-detail">Where? </span>{{ event.location.address }}</p>
-	            	{% endif %}
+            	{% if event.location is not empty and event.location.formatted_address is not empty %}
+            		{% if event.location_informal is empty %}
+            			<p><span class="cal-event-detail">Where? </span>{{ event.location.formatted_address }}</p>
+            		{% else %}
+            			<p><span class="cal-event-detail">Where? </span>{{ event.location_informal }}<br>({{ event.location.formatted_address }})</p>
+            		{% endif %}
 	            {% endif %}
             	{% if event.web_location is not empty %}
             		<p><span class="cal-event-detail">Link? </span><a href="{{ event.web_location }}">{{ event.web_location_title is empty ? event.web_location : event.web_location_title }}</a></p>

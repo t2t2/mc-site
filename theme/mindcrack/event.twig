@@ -3,7 +3,13 @@
 {% block content_outside_container %}
 	<section class="about-panel">
 		<div class="container">
-			<div class="row{% if event.location is not empty and app.config.get('general/services/google_maps_embed') is not empty %} with-map{% endif %}">
+			{% set show_map =	event.location is not empty 
+		        			and record.location.formatted_address is not empty 
+		        			and record.location.latitude is not empty
+		        			and app.config.get('general/services/google_maps_embed') is not empty 
+		    %}
+
+			<div class="row{% if show_map %} with-map{% endif %}">
 		        <section class="cal-event-details">
 		        	<h1 class="main">{{ record.title }}</h1>
 		        	{% if record.event_time is not empty %}
@@ -25,18 +31,18 @@
 		        		</p>
 		        	{% endif %}
 		        	
-		        	{% if record.location is not empty %}
-		            	{% if record.location.formatted_address is not empty %}
-		            	<p><span class="cal-event-detail">Where? </span>{{ record.location.formatted_address }}</p>
-		            	{% elseif record.location.address is not empty %}
-		            	<p><span class="cal-event-detail">Where? </span>{{ record.location.address }}</p>
-		            	{% endif %}
-		            {% endif %}
-		        	{% if record.web_location is not empty %}
-		        		<p><span class="cal-event-detail">Link? </span><a href="{{ record.web_location }}">{{ record.web_location_title is empty ? record.web_location : record.web_location_title }}</a></p>
-		        	{% endif %}
+            	{% if record.location is not empty and record.location.formatted_address is not empty %}
+            		{% if record.location_informal is empty %}
+            			<p><span class="cal-event-detail">Where? </span>{{ record.location.formatted_address }}</p>
+            		{% else %}
+            			<p><span class="cal-event-detail">Where? </span>{{ record.location_informal }}<br>({{ record.location.formatted_address }})</p>
+            		{% endif %}
+	            {% endif %}
+	        	{% if record.web_location is not empty %}
+	        		<p><span class="cal-event-detail">Link? </span><a href="{{ record.web_location }}">{{ record.web_location_title is empty ? record.web_location : record.web_location_title }}</a></p>
+	        	{% endif %}
 		        </section>
-		        {% if event.location is not empty and app.config.get('general/services/google_maps_embed') is not empty %}
+		        {% if show_map %}
 		        <section class="cal-event-map">
 		        	<div class="embed-responsive embed-responsive-16by9">
 			        	<iframe src="https://www.google.com/maps/embed/v1/place?zoom=14
