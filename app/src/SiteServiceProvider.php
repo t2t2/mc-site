@@ -9,6 +9,7 @@ use Bolt\Events\StorageEvents;
 use Bolt\Nut;
 use Mindcrack\Site\Commands\DataUpdaterCommand;
 use Mindcrack\Site\DataUpdater\YoutubeChecker;
+use Mindcrack\Site\Extensions\AssetVersioningExtension;
 use Mindcrack\Site\Field\BigIntegerField;
 use Mindcrack\Site\Field\TimeZoneField;
 use Silex\Application;
@@ -87,8 +88,14 @@ class SiteServiceProvider implements ServiceProviderInterface {
 		});
 	}
 
+	/**
+	 * Install twig extensions
+	 *
+	 * @param Application $app
+	 */
 	protected function installTwigExtensions(Application $app) {
 		$app['twig']->addExtension(new PhpFunctionExtension(['timezone_identifiers_list']));
+		$app['twig']->addExtension(new AssetVersioningExtension($app));
 	}
 
 	/**
@@ -106,6 +113,11 @@ class SiteServiceProvider implements ServiceProviderInterface {
 		$app['twig.loader.filesystem']->prependPath(__DIR__ . '/Field', 'MindcrackSiteFields');
 	}
 
+	/**
+	 * Watch for updated items
+	 *
+	 * @param Application $app
+	 */
 	protected function watchForUpdates(Application $app) {
 		/** @var EventDispatcher $dispatcher */
 		$dispatcher = $app['dispatcher'];
@@ -115,6 +127,12 @@ class SiteServiceProvider implements ServiceProviderInterface {
 		});
 	}
 
+	/**
+	 * Handler for updated items
+	 *
+	 * @param Application  $app
+	 * @param StorageEvent $event
+	 */
 	public function handleUpdateEvent(Application $app, StorageEvent $event) {
 		// Member creation
 		if ($event->getContentType() == 'members' && $event->isCreate()) {

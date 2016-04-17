@@ -10,8 +10,8 @@ Point server to `/public` and open the site to install everything
 
 ### Production
 
-Todo
+`npm run build`
 
 ### Development
 
-`gulp`
+`npm run dev`

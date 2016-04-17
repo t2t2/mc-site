@@ -10,7 +10,7 @@
 
     <meta name="viewport" content="width=device-width, maximum-scale=1.0"/>
 
-    <link rel="stylesheet" href="{{ paths.theme }}assets/stylesheets/style.css"/>
+    <link rel="stylesheet" href="{{ (paths.theme ~ 'assets/main.css') | versioned }}"/>
     <link href='https://fonts.googleapis.com/css?family=Montserrat:700|Work+Sans:400,500,700' rel='stylesheet' type='text/css'>
 
     {% block head %}
@@ -46,9 +46,7 @@
         </div>
     </footer>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
-    <script src="{{ paths.theme }}assets/scripts/retina.min.js"></script> 
+    <script src="{{ (paths.theme ~ 'assets/main.js') | versioned }}"></script>
 
 </body>
 </html>

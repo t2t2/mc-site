@@ -5,6 +5,7 @@ app/database/*
 extensions/vendor
 public/bolt-public/*
 public/theme/*
+public/manifest.json
 thumbs/
 vendor/
 
