@@ -171,7 +171,7 @@ header#main-header
 footer#main-footer {
 	@extend .row-sticky;
 	color: $mc-white;
-	background-color: $mc-blue;
+	background-color: $mc-grey-textured-background;
 	@include at2x('../images/footer-bg', 'jpg');
 	background-size:cover;
 	background-position: center;
