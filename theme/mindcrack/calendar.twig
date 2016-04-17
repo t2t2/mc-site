@@ -22,7 +22,25 @@
             <div class="cal-event-date" >{{ event.event_time | date('jS') }}</div>
             <div class="cal-event-content">
             	<a href="{{ event.link }}"><h2>{{ event.title }}</h2></a>
-            	<p><span class="cal-event-detail">When? </span>{{ event.event_time | date('h:ia') }}{#{{ event.event_time_zone != "none" ? " %s"|format(event.event_time_zone) : "" }} // Need to reimpliment #}</p>
+        		{% if event.event_time is not empty %}
+	        		<p><span class="cal-event-detail">When? </span>
+	        		{% set date_with_tz = "#{event.event_time} #{event.event_time_zone}" %}
+	        		{% if event.time_display_mode == "user" %}
+	        			{# set the title to the event time, convert the text #}
+	        			{# Need to show full dates on the user calculated times, for cases where the change in timezone affects the day/month/year  #}
+	        			<time title="{{ date_with_tz | date("g:ia T", timezone=event.event_time_zone) }}" data-local-time="text" data-time="{{ event.event_time | date('Y-m-d H:i')}}" date-zone="{{ event.event_time_zone }}" >{{ date_with_tz | date("g:ia T",  timezone=event.event_time_zone) }}</time>
+	        			}
+	        		{% elseif event.time_display_mode == "both" %}
+	        			{# show both times in text #}
+	        			<time>{{ date_with_tz | date("g:ia T",  timezone=event.event_time_zone) }}</time><time data-secondary-time data-local-time="text" data-time="{{ event.event_time | date('Y-m-d H:i')}}" date-zone="{{ event.event_time_zone }}"></time>
+	        			{# should add space and bracket around the user time with the js, so it falls back with no js well, use data-secondary-time to differentiate #}
+	        		{# Either set to local or nothing#}
+	        		{% else %}
+	        			{# show local event time, convert title to user time #}
+	        			<time data-local-time="title" data-time="{{ event.event_time | date('Y-m-d H:i')}}" date-zone="{{ event.event_time_zone }}" >{{ date_with_tz | date("g:ia T", timezone=event.event_time_zone) }}</time>
+	        		{% endif %}
+	        		</p>
+	        	{% endif %}
             	{% if event.location is not empty %}
 	            	{% if event.location.formatted_address is not empty %}
 	            	<p><span class="cal-event-detail">Where? </span>{{ event.location.formatted_address }}</p>
