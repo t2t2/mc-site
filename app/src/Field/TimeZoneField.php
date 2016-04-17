@@ -7,11 +7,6 @@ use Bolt\Field\FieldInterface;
 
 class TimeZoneField implements FieldInterface {
 
-	// Used to add timezones to twig for use in the template
-	public function __construct(Application $app) {
-		$app['twig']->addGlobal('timezones', timezone_identifiers_list());
-	}
-
 	/**
 	 * Returns the name of the field.
 	 *

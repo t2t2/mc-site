@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b8c9a91c6352b360f5e800f043335824",
-    "content-hash": "20c71aa3c9f069205c38157d79d2a32d",
+    "hash": "bd80bbcf010fad75cf93c14de96d14c5",
+    "content-hash": "d9d71b0358eb051aa52c55b62db4afb3",
     "packages": [
         {
             "name": "bolt/bolt",
@@ -4203,6 +4203,47 @@
             ],
             "description": "A multi-language port of Browserscope's user agent parser.",
             "time": "2015-12-13 17:08:15"
+        },
+        {
+            "name": "umpirsky/twig-php-function",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/umpirsky/twig-php-function.git",
+                "reference": "53b4b1eb0c5eacbd7d66c504b7d809c79b4bedbc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/umpirsky/twig-php-function/zipball/53b4b1eb0c5eacbd7d66c504b7d809c79b4bedbc",
+                "reference": "53b4b1eb0c5eacbd7d66c504b7d809c79b4bedbc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "twig/twig": "~1.12"
+            },
+            "require-dev": {
+                "phpspec/phpspec": "~2.0",
+                "phpunit/phpunit": "~4.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Umpirsky\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Saša Stamenković",
+                    "email": "umpirsky@gmail.com"
+                }
+            ],
+            "description": "Call (almost) any PHP function from your Twig templates.",
+            "time": "2016-03-12 16:36:32"
         }
     ],
     "packages-dev": [],
@@ -4210,7 +4251,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "composer/composer": 20,
-        "ircmaxell/random-lib": 20
+        "ircmaxell/random-lib": 20,
+        "umpirsky/twig-php-function": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

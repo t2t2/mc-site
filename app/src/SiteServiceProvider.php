@@ -15,6 +15,7 @@ use Silex\Application;
 use Silex\ServiceProviderInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;
+use Umpirsky\Twig\Extension\PhpFunctionExtension;
 
 class SiteServiceProvider implements ServiceProviderInterface {
 
@@ -38,6 +39,7 @@ class SiteServiceProvider implements ServiceProviderInterface {
 	 * @param Application $app
 	 */
 	public function boot(Application $app) {
+		$this->installTwigExtensions($app);
 		$this->registerCustomFields($app);
 		$this->watchForUpdates($app);
 	}
@@ -85,6 +87,10 @@ class SiteServiceProvider implements ServiceProviderInterface {
 		});
 	}
 
+	protected function installTwigExtensions(Application $app) {
+		$app['twig']->addExtension(new PhpFunctionExtension(['timezone_identifiers_list']));
+	}
+
 	/**
 	 * Registers custom fields onto the application
 	 *
@@ -95,7 +101,7 @@ class SiteServiceProvider implements ServiceProviderInterface {
 		$config = $app['config'];
 
 		$config->getFields()->addField(new BigIntegerField());
-		$config->getFields()->addField(new TimeZoneField($app));
+		$config->getFields()->addField(new TimeZoneField());
 
 		$app['twig.loader.filesystem']->prependPath(__DIR__ . '/Field', 'MindcrackSiteFields');
 	}
