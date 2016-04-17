@@ -1,53 +1,56 @@
 {# Bootstrap Navigation#}
 
-{% macro display_sub_menu_item(item, loop) %}
+{%- macro display_sub_menu_item(item, loop) -%}
     <a href="{{ item.link }}" class="dropdown-item index-{{ loop.index }}{% if loop.first %} first{% endif %}{% if loop.last %} last{% endif %}{% if item|current %} active{% endif %} {% if item.class is defined %}{{item.class}}{% endif %}">
         {% if item.label is defined %}{{item.label}}{% else %} - {% endif %}
     </a>
-{% endmacro %}
+{%- endmacro -%}
 
-{% macro display_menu_item(item, loop) %}
-    {% from _self import display_menu_item %}
-    {% from _self import display_sub_menu_item %}
+{%- macro display_menu_item(item, loop) -%}
+    {%- from _self import display_menu_item -%}
+    {%- from _self import display_sub_menu_item %}
+
+    {% spaceless %}
     <li class="nav-item index-{{ loop.index }}{% if loop.first %} first{% endif %}{% if loop.last %} last{% endif %}{% if item.submenu is defined %} dropdown{% endif %}{% if item|current %} active{% endif %}">
-        <a href="{{ item.link }}" {% if item.title is defined %}title='{{ item.title|escape }}'{% endif %}
-            class='nav-link {% if item.class is defined %}{{item.class}}{% endif %} {% if item.submenu is defined %}dropdown-toggle{% endif %}'
-            {% if item.submenu is defined %} data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"{% endif %}>
-            {% if item.label is defined %}{{item.label}}{% else %} - {% endif %}
+        <a href="{{ item.link }}" {% if item.title is defined %}title='{{ item.title|escape }}'{% endif -%}
+            class="nav-link{% if item.class is defined %} {{item.class}}{% endif %}{% if item.submenu is defined %} dropdown-toggle{% endif %}"
+            {%- if item.submenu is defined %} data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"{% endif %}>
+            {%- if item.label is defined %}{{item.label}}{% else %} - {% endif -%}
         </a>
-        {% if item.submenu is defined %}
+        {%- if item.submenu is defined %}
             <div class="dropdown-menu">
             {% for submenu in item.submenu %}
                 {{ display_sub_menu_item(submenu, loop) }}
             {% endfor %}
             </div>
-        {% endif %}
+        {%- endif -%}
     </li>
-{% endmacro %}
+    {% endspaceless -%}
+{% endmacro -%}
 
-{% from _self import display_menu_item %}
+{%- from _self import display_menu_item -%}
 
-{# Allow added menu items either before or after what was provided by the yml #}
-{% set extra_menu_items_before = extra_menu_items_before | default([]) %}
-{% set extra_menu_items_after = extra_menu_items_after | default([]) %}
+{#- Allow added menu items either before or after what was provided by the yml -#}
+{%- set extra_menu_items_before = extra_menu_items_before | default([]) -%}
+{%- set extra_menu_items_after = extra_menu_items_after | default([]) -%}
 
-{% if extra_menu_items_before is not empty %}
-{% set menu = extra_menu_items_before|merge(menu) %}
-{% endif %}
+{%- if extra_menu_items_before is not empty -%}
+{%- set menu = extra_menu_items_before|merge(menu) -%}
+{%- endif -%}
 
-{% if extra_menu_items_after is not empty %}
-{% set menu = menu|merge(extra_menu_items_after) %}
-{% endif %}
+{%- if extra_menu_items_after is not empty -%}
+{%- set menu = menu|merge(extra_menu_items_after) -%}
+{%- endif %}
 
 {% block nav_main %}
 <nav class="navbar navbar-dark">
     {% block before_nav %}{% endblock %}
     <ul class="nav navbar-nav">
-        {% for item in menu %}
-            {% if item.label is defined %}
+        {%- for item in menu -%}
+            {%- if item.label is defined -%}
                 {{ display_menu_item(item, loop) }}
-            {% endif %}
-        {% endfor %}
+            {%- endif -%}
+        {%- endfor -%}
     </ul>
 </nav>
 {% endblock %}
