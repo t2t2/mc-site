@@ -184,11 +184,11 @@ class YoutubeChecker {
 					return;
 				}
 
-				$dbChannel->values['youtube_subscribers'] = $channel['statistics']['subscriberCount'];
-				$dbChannel->values['youtube_videos'] = $channel['statistics']['videoCount'];
-				$dbChannel->values['youtube_views'] = $channel['statistics']['viewCount'];
-				$dbChannel->values['youtube_trailer'] = $channel['brandingSettings']['channel']['unsubscribedTrailer'];
-				$dbChannel->values['youtube_uploads_playlist'] = $channel['contentDetails']['relatedPlaylists']['uploads'];
+				$dbChannel->values['youtube_subscribers'] = $channel['statistics']['subscriberCount'] ?: $dbChannel->values['youtube_subscribers'];
+				$dbChannel->values['youtube_videos'] = $channel['statistics']['videoCount'] ?: $dbChannel->values['youtube_videos'];
+				$dbChannel->values['youtube_views'] = $channel['statistics']['viewCount'] ?: $dbChannel->values['youtube_views'];
+				$dbChannel->values['youtube_trailer'] = $channel['brandingSettings']['channel']['unsubscribedTrailer'] ?: $dbChannel->values['youtube_trailer'];
+				$dbChannel->values['youtube_uploads_playlist'] = $channel['contentDetails']['relatedPlaylists']['uploads'] ?: $dbChannel->values['youtube_uploads_playlist'];
 
 				$this->storeUpdatedPerson($dbChannel);
 
