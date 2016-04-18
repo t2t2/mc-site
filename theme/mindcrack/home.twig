@@ -57,6 +57,8 @@
 		    {% endfor %}
 		</div>
 		<a class="important-link" href="{{paths.root}}news">More News...</a>
+	{% else %}
+	<p class="no-content">There is no news.</p>
 	{% endif %}
 	<hr class="bold">
 	<h1 class="section-heading">Upcoming Events</h1>
@@ -74,5 +76,7 @@
 		{% endfor %}
 		</dl>
 		<a class="important-link" href="{{paths.root}}calendar">Full Calendar...</a>
+	{% else %}
+	<p class="no-content">There are no upcoming events.</p>
 	{% endif %}
 {% endblock %}

@@ -1,10 +1,12 @@
 {% extends "_layout.twig" %}
 
 {% block content %}
-
 	{% set month = "" %}
 	<section id="calendar">
 	<h1 class="section-heading">Calendar</h1>
+	{% if records is empty %}
+	<p class="no-content">There are no events.</p>
+	{% endif %}
 	{% set cal_pager = pager('', 1, '_pager_calendar.twig') %}
 	{{ cal_pager }}
     {% for event in records %}

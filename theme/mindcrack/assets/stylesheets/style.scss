@@ -60,6 +60,11 @@ hr {
 	margin-top: 0;
 }
 
+p.no-content {
+	font-weight: bold;
+	font-size: 1.25rem;
+}
+
 // Sticky Footer Setup (with dynamic height)
 html,
 body { height: 100%; }
