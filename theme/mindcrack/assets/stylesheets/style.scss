@@ -280,7 +280,7 @@ div#latest-news {
 	}
 	@include media-breakpoint-down(sm) {
 		.latest-news-item {
-		    margin-top: 15px;
+		    margin-bottom: 1rem;
     		overflow: hidden;
     		zoom: 1;
 		    &:first-child {
