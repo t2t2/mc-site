@@ -1,6 +1,26 @@
 @import "./settings";
 @import "../../../../node_modules/bootstrap/scss/bootstrap";
-@import "../../../../node_modules/retina.js/src/retina.scss";
+
+// our own retina mixin based on the one from retina.js, allows cover/contain/etc background-sizes
+@mixin at2x($path, $ext: "jpg", $w: auto, $h: auto, $dyn_size: null) {
+  $at1x_path: "#{$path}.#{$ext}";
+  $at2x_path: "#{$path}@2x.#{$ext}";
+
+  background-image: url("#{$at1x_path}");
+
+  @media all and (-webkit-min-device-pixel-ratio : 1.5),
+         all and (-o-min-device-pixel-ratio: 3/2),
+         all and (min--moz-device-pixel-ratio: 1.5),
+         all and (min-device-pixel-ratio: 1.5) {
+           background-image: url("#{$at2x_path}");
+           @if $dyn_size != null {
+           		background-size: $dyn_size;
+           } @else {
+           		background-size: $w $h;
+           }
+           
+  }
+}
 
 // Generic
 h1.section-heading {
@@ -172,7 +192,7 @@ footer#main-footer {
 	@extend .row-sticky;
 	color: $mc-white;
 	background-color: $mc-grey-textured-background;
-	@include at2x('../images/footer-bg', 'jpg');
+	@include at2x('../images/footer-bg', 'jpg', $dyn_size: cover);
 	background-size:cover;
 	background-position: center;
 
@@ -241,6 +261,17 @@ div#latest-news {
 			}
 		}
 
+		.latest-news-thumb > .no-thumb {
+			position: relative;
+			display: block;
+			height: 0;
+			padding: 0;
+			overflow: hidden;
+			@include at2x('../images/news_thumbnail', 'jpg', $dyn_size: cover);
+			background-size: cover;
+			padding-bottom: percentage(9 / 16);
+		}
+
 	}
 	@include media-breakpoint-down(sm) {
 		.latest-news-item {
@@ -261,6 +292,12 @@ div#latest-news {
 					max-width: none;
 					width: 20vw;
 					height: auto;
+				}
+
+				div.no-thumb {
+					display: block;
+					max-width: none;
+					width: 20vw;
 				}
 			}
 
@@ -642,7 +679,7 @@ section#hero {
 .about-panel {
 	color: $mc-white;
 	background-color: $mc-blue;
-	@include at2x('../images/about-panel-bg', 'jpg');
+	@include at2x('../images/about-panel-bg', 'jpg', $dyn_size: cover);
 	background-size:cover;
 	background-position: center;
 	h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {

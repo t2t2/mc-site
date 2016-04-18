@@ -44,7 +44,11 @@
     	<div id="latest-news">
 		    {% for item in news %}
 		    	<a href="{{ item.link }}" class="latest-news-item">
-		    		<div class="latest-news-thumb"><img src="{% if item.image is not empty %}{{ item.image|thumbnail(384, 216) }}{% else %}{{ paths.theme }}assets/images/news_thumbnail.jpg{% endif %}" alt="{{ item.title }}"></div>
+		    		{% if item.image is not empty %}
+		    		<div class="latest-news-thumb"><img src="{{ item.image|thumbnail(384, 216) }}" alt="{{ item.title }}"></div>
+		    		{% else %}
+		    		<div class="latest-news-thumb"><div class="no-thumb"></div></div>
+		    		{% endif %}
 		    		<div class="latest-news-body">
 		    			<span class="published">{{ item.datepublish|date("F jS, Y")}}</span>
 		    			<span class="title">{{ item.title|length > 120 ? item.title|slice(0,120)|striptags ~ ' ...' : item.title }}</span>
