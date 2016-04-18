@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "build": "npm run clean && npm run build:prod",
-    "build:dev": "cross-env NODE_ENV=development webpack -d --progress --color --watch",
+    "build:dev": "cross-env NODE_ENV=development webpack -d --progress --color",
     "build:prod": "cross-env NODE_ENV=production webpack -p --progress --color",
     "clean": "rimraf public/manifest.json public/theme/mindcrack/assets/*",
-    "dev": "npm run clean && npm run build:dev"
+    "dev": "npm run clean && npm run build:dev -- --watch"
   },
   "dependencies": {
     "bootstrap": "4.0.0-alpha.2",

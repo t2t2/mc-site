@@ -1,4 +1,4 @@
-import "jquery"
+import $ from "jquery"
 
 // todo: Any extra crap we can remove from here? (or, is anything from bootstrap js used?)
 import "bootstrap/dist/js/umd/alert"
@@ -13,3 +13,16 @@ import "bootstrap/dist/js/umd/tab"
 // import "bootstrap/dist/js/umd/popover" // Requires tooltip
 
 import "retina.js"
+
+// Testing code splitting
+var times = $('[data-local-time]')
+if (times.length) {
+	console.log('Loading convertor')
+
+	System.import("./localTimes").then(module => {
+		console.log('Module loaded', module)
+		module.convert()
+	}).catch(err => {
+		console.error('Loading failed', err)
+	})
+}

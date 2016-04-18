@@ -2,6 +2,14 @@ var path = require('path')
 var webpack = require('webpack')
 var ExtractTextPlugin = require("extract-text-webpack-plugin")
 
+var isProd = process.env.NODE_ENV == 'production'
+
+var cssLoaderOptions = JSON.stringify({
+	autoprefixer: {
+		add: true // overwrite cssnano
+	}
+})
+
 var config = module.exports = {
 	context: path.join(__dirname, 'theme', 'mindcrack', 'assets'),
 	entry: {
@@ -10,7 +18,8 @@ var config = module.exports = {
 	output: {
 		filename: '[name].js',
 		path: path.join(__dirname, 'public', 'theme', 'mindcrack', 'assets'),
-		publicPath: '/theme/mindcrack/assets/'
+		publicPath: '/theme/mindcrack/assets/',
+		chunkFilename: '[name].[id].js'
 	},
 	module: {
 		loaders: [
@@ -31,7 +40,8 @@ var config = module.exports = {
 			{
 				// Sass
 				test: /\.scss$/,
-				loader: ExtractTextPlugin.extract(['css', 'sass'])
+				// Disable sass minification so css-loader handles it
+				loader: ExtractTextPlugin.extract(['css?' + cssLoaderOptions, 'sass?outputStyle=nested'])
 			},
 			{
 				// Images
@@ -45,16 +55,17 @@ var config = module.exports = {
 		]
 	},
 	plugins: [
-		new ExtractTextPlugin("[name].css")
+		new ExtractTextPlugin(isProd ? "[name].[hash].css" : "[name].css")
 	]
 }
 
 // Production settings
-if(process.env.NODE_ENV == 'production') {
+if(isProd) {
 	var ManifestPlugin = require('webpack-manifest-plugin')
 
 	// Versioning
 	config.output.filename = '[name].[chunkhash].bundle.js'
+	config.output.chunkFilename = '[name].[id].[chunkhash].js'
 
 	// Plugins
 	config.plugins.push(
