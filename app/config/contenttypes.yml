@@ -58,6 +58,9 @@ members:
         youtube_trailer:
             type: text
             label: Youtube Trailer Video ID
+        youtube_uploads_playlist:
+            type: text
+            label: Youtube Channel Uploads Playlist ID
     sort: title
     show_on_dashboard: false
     icon_many: fa:users

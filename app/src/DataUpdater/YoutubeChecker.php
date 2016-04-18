@@ -159,8 +159,8 @@ class YoutubeChecker {
 			'future' => true,
 			'query' => array_replace_recursive($this->queryDefaults, [
 				'id' => implode(',', array_keys($keyedMembers)),
-				'part' => 'brandingSettings,statistics',
-				'fields' => 'items(id,brandingSettings(channel(unsubscribedTrailer)),statistics(viewCount,subscriberCount,videoCount))'
+				'part' => 'brandingSettings,contentDetails,statistics',
+				'fields' => 'items(id,contentDetails(relatedPlaylists(uploads)),brandingSettings(channel(unsubscribedTrailer)),statistics(viewCount,subscriberCount,videoCount))'
 			]),
 		]));
 	}
@@ -188,6 +188,7 @@ class YoutubeChecker {
 				$dbChannel->values['youtube_videos'] = $channel['statistics']['videoCount'];
 				$dbChannel->values['youtube_views'] = $channel['statistics']['viewCount'];
 				$dbChannel->values['youtube_trailer'] = $channel['brandingSettings']['channel']['unsubscribedTrailer'];
+				$dbChannel->values['youtube_uploads_playlist'] = $channel['contentDetails']['relatedPlaylists']['uploads'];
 
 				$this->storeUpdatedPerson($dbChannel);
 
