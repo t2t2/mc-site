@@ -1,16 +1,19 @@
-{% macro render(time, timezone, mode="user") %}
+{% macro render(time, timezone, mode="user", full_date=false) %}
 	{%- set date_with_tz = date("#{time} #{timezone}", timezone) -%}
+	{%- set event_time_format = full_date ? "F j, Y g:i A T" : "g:i A T"-%}
 	{%- if mode == "user" -%}
 		{# set the title to the event time, convert the text #}
-		<time title="{{ date_with_tz | date("g:ia T", timezone=timezone) }}"
+		{# always show full date for event local title here, otherwise if the day differs it can be confusing. The timezone, and full date help clear this up. #}
+		<time title="{{ date_with_tz | date("F j, Y g:i A T", timezone=timezone) }}"
+		      {% if full_date %}data-full-date="1"{% endif %}
 		      data-local-time="text"
 		      data-time="{{ date_with_tz | date("U") }}"
 		      data-shown-date="{{ date_with_tz | date("Y-m-d", timezone=timezone) }}">
-			{{ date_with_tz | date("g:ia T",  timezone=timezone) }}
+			{{ date_with_tz | date(event_time_format,  timezone=timezone) }}
 		</time>
 	{%- elseif mode == "both" -%}
 		{# show both times in text #}
-		<time>{{ date_with_tz | date("g:ia T", timezone=timezone) }}</time>
+		<time>{{ date_with_tz | date(event_time_format, timezone=timezone) }}</time>
 		<time data-secondary-time="1"
 		      data-local-time="text"
 		      data-time="{{ date_with_tz | date('U') }}"
@@ -22,7 +25,7 @@
 		<time data-local-time="title"
 		      data-time="{{ date_with_tz | date('U', timezone=timezone) }}"
 		      data-shown-date="{{ date_with_tz | date("Y-m-d", timezone=timezone) }}">
-			{{ date_with_tz | date("g:ia T", timezone=timezone) }}
+			{{ date_with_tz | date(event_time_format, timezone=timezone) }}
 		</time>
 	{%- endif -%}
 {% endmacro %}

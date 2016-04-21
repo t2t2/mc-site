@@ -15,7 +15,7 @@ export function convert($times) {
 
 		// Check if different day
 		let format = 'LLL'
-		if ($time.data('shown-date')) {
+		if ($time.data('shown-date') && !($time.data("full-date"))) {
 			if ($time.data('shown-date') == local.format('Y-MM-DD')) {
 				format = 'LT'
 			}
