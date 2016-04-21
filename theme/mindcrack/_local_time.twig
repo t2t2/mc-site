@@ -1,0 +1,28 @@
+{% macro render(time, timezone, mode="user") %}
+	{%- set date_with_tz = date("#{time} #{timezone}", timezone) -%}
+	{%- if mode == "user" -%}
+		{# set the title to the event time, convert the text #}
+		<time title="{{ date_with_tz | date("g:ia T", timezone=timezone) }}"
+		      data-local-time="text"
+		      data-time="{{ date_with_tz | date("U") }}"
+		      data-shown-date="{{ date_with_tz | date("Y-m-d", timezone=timezone) }}">
+			{{ date_with_tz | date("g:ia T",  timezone=timezone) }}
+		</time>
+	{%- elseif mode == "both" -%}
+		{# show both times in text #}
+		<time>{{ date_with_tz | date("g:ia T", timezone=timezone) }}</time>
+		<time data-secondary-time="1"
+		      data-local-time="text"
+		      data-time="{{ date_with_tz | date('U') }}"
+		      data-shown-date="{{ date_with_tz | date("Y-m-d", timezone=timezone) }}">
+		</time>
+	{%- else -%}
+		{# Either set to local or nothing#}
+		{# show local event time, convert title to user time #}
+		<time data-local-time="title"
+		      data-time="{{ date_with_tz | date('U', timezone=timezone) }}"
+		      data-shown-date="{{ date_with_tz | date("Y-m-d", timezone=timezone) }}">
+			{{ date_with_tz | date("g:ia T", timezone=timezone) }}
+		</time>
+	{%- endif -%}
+{% endmacro %}
