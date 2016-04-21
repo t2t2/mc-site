@@ -38,6 +38,15 @@ var config = module.exports = {
 				]
 			},
 			{
+				// ES6
+				test: /\.js$/,
+				exclude: /(node_modules)/,
+				loader: 'babel',
+				query: {
+					presets: ['es2015-webpack']
+				}
+			},
+			{
 				// Sass
 				test: /\.scss$/,
 				// Disable sass minification so css-loader handles it
