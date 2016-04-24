@@ -41,21 +41,24 @@
     <h1 class="section-heading">Latest News</h1>
     {% setcontent news = 'news/latest/3' %}
     {% if news is not empty %}
-    	<div id="latest-news">
+    	<section id="latest-news">
 		    {% for item in news %}
-		    	<a href="{{ item.link }}" class="latest-news-item">
-		    		{% if item.image is not empty %}
-		    		<div class="latest-news-thumb"><img src="{{ item.image|thumbnail(384, 216) }}" alt="{{ item.title }}"></div>
-		    		{% else %}
-		    		<div class="latest-news-thumb"><div class="no-thumb"></div></div>
-		    		{% endif %}
-		    		<div class="latest-news-body">
-		    			<span class="published">{{ item.datepublish|date("F jS, Y")}}</span>
-		    			<span class="title">{{ item.title|length > 120 ? item.title|slice(0,120)|striptags ~ ' ...' : item.title }}</span>
+		    	<a href="{{ item.link }}" class="news-item news-item-list news-item-latest">
+		    		<div class="news-item-thumb">
+			    		{%- if item.image is not empty -%}
+			    			<img src="{{ item.image|thumbnail(384, 216) }}" alt="{{ item.values.image.title }}">
+			    		{%- else -%}
+			    			<div class="no-thumb"></div>
+			    		{%- endif -%}
+		    		</div>
+
+		    		<div class="news-item-body">
+		    			<div class="detail published">{{ item.datepublish|date("F jS, Y")}}</div>
+		    			<h2>{{ item.title|length > 120 ? item.title|slice(0,120)|striptags ~ ' ...' : item.title }}</h2>
 		    		</div>
 		    	</a>
 		    {% endfor %}
-		</div>
+		</section>
 		<a class="important-link" href="{{paths.root}}news">More News...</a>
 	{% else %}
 	<p class="no-content">There is no news.</p>

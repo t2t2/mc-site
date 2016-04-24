@@ -2,7 +2,7 @@
 
 {% if pager.totalpages > 1 %}
 {# simple previous / next pagination #}
-<nav class="{{class}}">
+<nav class="nav-pager {{class}}">
   <ul class="pager">
 {# 'first' and 'prev' #}
 {% if pager.current > 1 and class!="narrow" %}

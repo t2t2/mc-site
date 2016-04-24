@@ -66,6 +66,22 @@ hr {
 	}
 }
 
+.no-thumb {
+	position: relative;
+	display: block;
+	height: 0;
+	padding: 0;
+	overflow: hidden;
+	@include at2x('../images/news_thumbnail', 'jpg', $dyn_size: cover);
+	background-size: cover;
+	padding-bottom: percentage(9 / 16);
+}
+
+.pager, .pagination,  {
+	margin-top:0;
+	margin-bottom:1rem;
+}
+
 p.no-content {
 	font-weight: bold;
 	font-size: 1.25rem;
@@ -248,108 +264,6 @@ section#main-content {
 	}
 }
 
-div#latest-news {
-	margin-bottom: 1rem;
-	.latest-news-item {
-		display: block;
-
-		span {
-			display: block;
-			line-height: 1.25em;
-		}
-
-		span.published {
-			margin-top: 0.5rem;
-			margin-bottom: 0.25rem;
-		}
-
-		span.title {
-			font-size: 1.125rem;
-			color: $gray-dark;
-			font-weight:500;
-			&:hover {
-				color: lighten($gray-dark, 20%)
-			}
-		}
-
-		.latest-news-thumb > .no-thumb {
-			position: relative;
-			display: block;
-			height: 0;
-			padding: 0;
-			overflow: hidden;
-			@include at2x('../images/news_thumbnail', 'jpg', $dyn_size: cover);
-			background-size: cover;
-			padding-bottom: percentage(9 / 16);
-		}
-
-	}
-	@include media-breakpoint-down(sm) {
-		.latest-news-item {
-		    margin-bottom: 1rem;
-    		overflow: hidden;
-    		zoom: 1;
-		    &:first-child {
-		      margin-top: 0;
-    		}
-
-			.latest-news-thumb{
-    			display: table-cell;
-    			vertical-align: top;
-    			padding-right: 10px;
-
-				img {
-					display: block;
-					max-width: none;
-					width: 20vw;
-					height: auto;
-				}
-
-				div.no-thumb {
-					display: block;
-					max-width: none;
-					width: 20vw;
-				}
-			}
-
-			.latest-news-body {
-			    overflow: hidden;
-			    zoom: 1;
-			    width: 10000px;
-   				display: table-cell;
-    			vertical-align: top;
-
-    			span.published {
-    				display: table-footer-group;
-    				&:before { 
-    					content: "";
-    					display:block;
-    					padding-top:0.25rem;
-    				}
-    			}
-
-    			span.title {
-    				display: table-header-group;
-    			}
-			}
-		}
-	}
-	@include media-breakpoint-up(md) {
-		@include make-row();
-
-		.latest-news-item {
-			@include make-col();
-
-			@include make-col-span(4);
-
-			img { 
-				@include img-fluid();
-				width: 100%;
-			}
-		}
-	}
-}
-
 .cal-month {
 	font-size: 1.5rem;
 	font-weight: bold;
@@ -385,11 +299,6 @@ div#latest-news {
 
 section#calendar {
 
-	.pager {
-		margin-top:0;
-		margin-bottom:1rem;
-	}
-
 	@include media-breakpoint-up(md) {
 		.cal-month + .cal-event > .cal-event-content {
 			margin-top: -2.25rem;
@@ -422,7 +331,7 @@ section#calendar {
 
 		}
 		@include media-breakpoint-down(xs) {
-			.cal-event-content { @include make-col-span(10); h2 {font-size:1.3rem;} };
+			.cal-event-content { @include make-col-span(10); h2 {font-size:$font-size-h2 / 1.75} };
 			.cal-event-date { @include make-col-span(2) };
 			.cal-event-date {font-size: 1.2rem;line-height: 1.3rem;}
 		}
@@ -819,11 +728,112 @@ section#hero {
 	}
 }
 
-article.news-item {
+.news-item {
+	display: block; // needed to override in case it's an <a> tag
 
 	.detail {
 		@extend .text-muted;
+	}
+
+	h1 + .detail, h2 + .detail {
 		margin-top: -0.75rem;
+	}
+
+	.detail + p {
+		margin-top: 1rem;
+	}
+
+	@include media-breakpoint-down(xs) {
+		h2 {font-size:$font-size-h2 / 1.75}
+		h1 {font-size:$font-size-h1 / 1.75}
+	}
+
+	&.news-item-list {
+		margin-bottom: 1rem;
+
+		&:first-child {
+			margin-top: 0;
+		}
+
+		@include make-row();
+		@include make-col();
+		@include make-col-span(12);
+
+		.news-item-thumb {
+			@include make-col();
+			@include make-col-span(3);
+
+			img {
+				@include img-fluid();
+			}
+
+			div.no-thumb {
+				width: 100%;
+			}
+		}
+
+		.news-item-body {
+			@include make-col();
+			@include make-col-span(9);
+		}
+
+		@include media-breakpoint-down(md) {
+			@include make-row(1rem);
+
+			.news-item-thumb, .news-item-body {
+				@include make-col(1rem);
+			}
+		}
+
+		@include media-breakpoint-up(md) {
+			margin-bottom: 2rem;
+
+			&:last-child {
+				margin-bottom: 1rem;
+			}
+		}
+	}
+
+	&.news-item-latest {
+		
+		.published {
+			// Used to switch ordering
+			display: table-footer-group;
+		}
+
+		h2 {
+			// Used to switch ordering
+			display: table-header-group; 
+
+			// Custom style
+			font-size: 1.125rem;
+			color: $gray-dark;
+			font-weight:500;
+		}
+
+		&:hover h2 {
+			color: lighten($gray-dark, 20%)
+		}
+
+		@include media-breakpoint-up(md) {
+			@include make-col-span(4);
+			margin-left: 0;
+			margin-right: 0;
+
+			.news-item-thumb, .news-item-body {
+				padding: 0;
+				width:100%;
+
+				.published, h2 {
+					display: block;
+				}
+			}
+
+			.published {
+				margin-top: 0.5rem;
+				margin-bottom:0.25rem;
+			}
+		}
 	}
 
 	figure {
@@ -854,6 +864,23 @@ article.news-item {
 			@extend .text-xs-right;
 		}
 	}
+}
+
+.news-list {
+	@include make-row();
+
+	hr {
+		width: calc(100% - #{$grid-gutter-width});
+		display: block;
+
+		@include media-breakpoint-up(md) {
+			margin-bottom: 2rem;
+		}
+	}
+}
+
+section#latest-news {
+	@extend .news-list;
 }
 
 // Less than ideal non-flex solutions for older IE

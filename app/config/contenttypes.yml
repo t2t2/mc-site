@@ -86,6 +86,7 @@ posts:
             type: image
             attrib: title
     icon_many: fa:newspaper-o
+    listing_records: 5
 
 events:
     name: Events

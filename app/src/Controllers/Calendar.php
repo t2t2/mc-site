@@ -25,7 +25,7 @@ class Calendar extends Frontend {
 		
 		$content = $storage->getContent($contentType['slug'], [
 			'event_time' => '> 3 days ago',
-			'limit' => 10,
+			'limit' => 5,
 			'order' => 'event_time',
 			'paging' => true
 		]);

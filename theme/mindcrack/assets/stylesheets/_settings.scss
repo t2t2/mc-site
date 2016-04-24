@@ -27,11 +27,13 @@ $link-hover-decoration: none;
 $headings-margin-bottom: 1rem;
 
 $pager-border-radius: 0;
+$border-radius: 0;
 $pagination-hover-bg: $mc-blue-faint;
 $pagination-border-color: $mc-blue-faint;
-
+$pagination-hover-border: $pagination-border-color;
 $pagination-color: $mc-orange;
-
+$pagination-active-bg: $mc-orange;
+$pagination-active-border: $mc-orange;
 $pagination-disabled-color: $mc-grey;
 
 $enable-hover-media-query: true;

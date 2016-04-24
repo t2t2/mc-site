@@ -1,18 +1,29 @@
 {% extends "_layout.twig" %}
 
 {% block content %}
-	NEWS LISTING
-    {% for record in records %}
-        <article>
-
-            <h2><a href="{{ record.link }}">{{ record.title }}</a></h2>
-
-            {{ record.excerpt(300) }}
-
-        </article>
+<h1 class="section-heading">News</h1>
+	{% set news_pager = pager('', 2, '_pagination_general.twig') %}
+	{{ news_pager }}
+	<div class="news-list">
+    {% for item in records %}
+    	{{ (loop.first == true) ? "" : "<hr>" }}
+    	<article class="news-item news-item-list">
+    		<div class="news-item-thumb"><a href="{{ item.link }}">
+	    		{%- if item.image is not empty -%}
+	    			<img src="{{ item.image|thumbnail(384, 216) }}" alt="{{ item.values.image.title }}">
+	    		{%- else -%}
+	    			<div class="no-thumb"></div>
+	    		{%- endif -%}
+    		</a></div>
+    		<div class="news-item-body">
+    			<h2><a href="{{ item.link }}">{{ item.title|length > 120 ? item.title|slice(0,120)|striptags ~ ' ...' : item.title }}</a></h2>
+    			<div class="detail">{{ item.datepublish|date("F jS, Y")}}</div>
+    			{{ item.body|excerpt(300) }}
+    		</div>
+    	</article>
     {% endfor %}
-
-    {{ pager() }}
+	</div>
+    {{ news_pager }}
 
 
 {% endblock %}
