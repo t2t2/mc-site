@@ -12,7 +12,14 @@ import "bootstrap/dist/js/umd/tab"
 // import "bootstrap/dist/js/umd/tooltip" // Requires tether
 // import "bootstrap/dist/js/umd/popover" // Requires tooltip
 
-import "retina.js"
+import {Retina} from "retina.js"
+
+// https://github.com/t2t2/mc-site/issues/12
+// Check if retina, simplified because http://caniuse.com/#feat=devicepixelratio
+if (window.devicePixelRatio > 1) {
+	Retina.init(window)
+}
+
 
 // Convert times to local time
 var $times = $('[data-local-time]')
