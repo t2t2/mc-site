@@ -60,6 +60,12 @@ hr {
 	margin-top: 0;
 }
 
+.detail {
+	.detail-label {
+		font-weight: bold;
+	}
+}
+
 p.no-content {
 	font-weight: bold;
 	font-size: 1.25rem;
@@ -255,7 +261,6 @@ div#latest-news {
 		span.published {
 			margin-top: 0.5rem;
 			margin-bottom: 0.25rem;
-			@extend .text-muted;
 		}
 
 		span.title {
@@ -347,10 +352,6 @@ div#latest-news {
 
 .cal-month {
 	font-size: 1.5rem;
-	font-weight: bold;
-}
-
-.cal-event-detail {
 	font-weight: bold;
 }
 
@@ -819,12 +820,29 @@ section#hero {
 }
 
 article.news-item {
+
+	.detail {
+		@extend .text-muted;
+		margin-top: -0.75rem;
+	}
+
 	figure {
 		@extend .figure;
-		@extend .center-block;
 		margin-top: 1rem;
 		margin-bottom: 1rem;
-		width: 100%;
+
+		img {
+			@extend .figure-img;
+			@extend .img-fluid;
+		}
+
+		figcaption {
+			@extend .figure-caption;
+		}
+	}
+
+	figure.main-image {
+		@extend .center-block;
 
 		@include media-breakpoint-up(md) {
 			margin-top: 2rem;
@@ -832,9 +850,8 @@ article.news-item {
 			width: 75%;
 		}
 
-		img {
-			@extend .figure-img;
-			@extend .img-fluid;
+		figcaption {
+			@extend .text-xs-right;
 		}
 	}
 }

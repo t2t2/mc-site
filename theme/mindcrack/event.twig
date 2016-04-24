@@ -14,20 +14,20 @@
 		        <section class="cal-event-details">
 		        	<h1 class="main">{{ record.title }}</h1>
 		        	{% if record.event_time is not empty %}
-		        		<p><span class="cal-event-detail">When? </span>
+		        		<p class="detail"><span class="detail-label">When? </span>
 					        {{ localTime.render(event.event_time, event.event_time_zone, event.time_display_mode, true) }}
 		        		</p>
 		        	{% endif %}
 		        	
             	{% if record.location is not empty and record.location.formatted_address is not empty %}
             		{% if record.location_informal is empty %}
-            			<p><span class="cal-event-detail">Where? </span>{{ record.location.formatted_address }}</p>
+            			<p class="detail"><span class="detail-label">Where? </span>{{ record.location.formatted_address }}</p>
             		{% else %}
-            			<p><span class="cal-event-detail">Where? </span>{{ record.location_informal }}<br>({{ record.location.formatted_address }})</p>
+            			<p class="detail"><span class="detail-label">Where? </span>{{ record.location_informal }}<br>({{ record.location.formatted_address }})</p>
             		{% endif %}
 	            {% endif %}
 	        	{% if record.web_location is not empty %}
-	        		<p><span class="cal-event-detail">Link? </span><a href="{{ record.web_location }}">{{ record.web_location_title is empty ? record.web_location : record.web_location_title }}</a></p>
+	        		<p class="detail"><span class="detail-label">Link? </span><a href="{{ record.web_location }}">{{ record.web_location_title is empty ? record.web_location : record.web_location_title }}</a></p>
 	        	{% endif %}
 		        </section>
 		        {% if show_map %}

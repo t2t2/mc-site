@@ -24,19 +24,19 @@
             <div class="cal-event-content">
             	<h2><a href="{{ event.link }}">{{ event.title }}</a></h2>
         		{% if event.event_time is not empty %}
-					<p><span class="cal-event-detail">When? </span>
+					<p class="detail"><span class="detail-label">When? </span>
 						{{ localTime.render(event.event_time, event.event_time_zone, event.time_display_mode) }}
 	        		</p>
 	        	{% endif %}
             	{% if event.location is not empty and event.location.formatted_address is not empty %}
             		{% if event.location_informal is empty %}
-            			<p><span class="cal-event-detail">Where? </span>{{ event.location.formatted_address }}</p>
+            			<p class="detail"><span class="detail-label">Where? </span>{{ event.location.formatted_address }}</p>
             		{% else %}
-            			<p><span class="cal-event-detail">Where? </span>{{ event.location_informal }}<br>({{ event.location.formatted_address }})</p>
+            			<p class="detail"><span class="detail-label">Where? </span>{{ event.location_informal }}<br>({{ event.location.formatted_address }})</p>
             		{% endif %}
 	            {% endif %}
             	{% if event.web_location is not empty %}
-            		<p><span class="cal-event-detail">Link? </span><a href="{{ event.web_location }}">{{ event.web_location_title is empty ? event.web_location : event.web_location_title }}</a></p>
+            		<p class="detail"><span class="detail-label">Link? </span><a href="{{ event.web_location }}">{{ event.web_location_title is empty ? event.web_location : event.web_location_title }}</a></p>
             	{% endif %}
             	<p>{{ event.body|excerpt(300) }}</p>
             	<p><a href="{{ event.link }}">(more info)</a></p>

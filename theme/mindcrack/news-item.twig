@@ -4,11 +4,12 @@
     <article class="news-item">
 
         <h1>{{ record.title }}</h1>
+        <div class="detail"><span class="detail-label">Date Published: </span>{{ item.datepublish|date("F jS, Y")}}</div>
 		{% if record.image is not empty %}
-		<figure>
+		<figure class="main-image">
 			<img src="{{ record.image|thumbnail(832, 468) }}" alt="{{ record.title }}">
 			{%- if record.values.image.title is not empty -%}
-			<figcaption class="figure-caption text-xs-right">{{ record.values.image.title }}</figcaption>
+			<figcaption>{{ record.values.image.title }}</figcaption>
 			{%- endif -%}
 		</figure>
 		{% endif %}
