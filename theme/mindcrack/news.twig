@@ -1,11 +1,12 @@
 {% extends "_layout.twig" %}
 
 {% block content %}
+{% spaceless %}
 <h1 class="section-heading">News</h1>
-	{% set news_pager = pager('', 2, '_pagination_general.twig') %}
+	{%- set news_pager = pager('', 2, '_pagination_general.twig','news') -%}
 	{{ news_pager }}
 	<div class="news-list">
-    {% for item in records %}
+    {%- for item in records -%}
     	{{ (loop.first == true) ? "" : "<hr>" }}
     	<article class="news-item news-item-list">
     		<div class="news-item-thumb"><a href="{{ item.link }}">
@@ -24,6 +25,6 @@
     {% endfor %}
 	</div>
     {{ news_pager }}
-
+{% endspaceless %}
 
 {% endblock %}

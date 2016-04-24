@@ -80,7 +80,23 @@ hr {
 .pager, .pagination,  {
 	margin-top:0;
 	margin-bottom:1rem;
+	vertical-align: middle; // Removes weird spacing
 }
+
+h1.section-heading + .nav-pagination.news {
+	ul {
+		margin-bottom:1.5rem;
+	}
+}
+
+.news-list + .nav-pagination.news {
+	ul {
+		margin-top:0.5rem;
+	}
+}
+
+
+
 
 p.no-content {
 	font-weight: bold;

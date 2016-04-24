@@ -1,5 +1,5 @@
 {% set link = pager.makelink() %}
-
+{% spaceless %}
 {% if pager.totalpages > 1 %}
 <nav class="nav-pagination {{class}}">
   <ul class="pagination">
@@ -25,3 +25,4 @@
   </ul>
 </nav>
 {% endif %}
+{% endspaceless %}
