@@ -22,7 +22,7 @@
 		<article class="cal-event">
             <div class="cal-event-date" >{{ event.event_time | date('jS') }}</div>
             <div class="cal-event-content">
-            	<a href="{{ event.link }}"><h2>{{ event.title }}</h2></a>
+            	<h2><a href="{{ event.link }}">{{ event.title }}</a></h2>
         		{% if event.event_time is not empty %}
 					<p><span class="cal-event-detail">When? </span>
 						{{ localTime.render(event.event_time, event.event_time_zone, event.time_display_mode) }}

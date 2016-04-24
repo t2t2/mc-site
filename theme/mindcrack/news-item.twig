@@ -1,14 +1,19 @@
 {% extends "_layout.twig" %}
 
-{% block content %}
-    <article>
+{%- block content -%}
+    <article class="news-item">
 
         <h1>{{ record.title }}</h1>
+		{% if record.image is not empty %}
+		<figure>
+			<img src="{{ record.image|thumbnail(832, 468) }}" alt="{{ record.title }}">
+			{%- if record.values.image.title is not empty -%}
+			<figcaption class="figure-caption text-xs-right">{{ record.values.image.title }}</figcaption>
+			{%- endif -%}
+		</figure>
+		{% endif %}
 
         {{ record.body }}
 
     </article>
-
-
-
-{% endblock %}
+{%- endblock -%}

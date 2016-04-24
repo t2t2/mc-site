@@ -84,6 +84,7 @@ posts:
             height: 300px
         image:
             type: image
+            attrib: title
     icon_many: fa:newspaper-o
 
 events:

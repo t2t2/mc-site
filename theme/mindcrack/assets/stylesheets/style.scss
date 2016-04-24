@@ -560,6 +560,10 @@ section#hero {
 
 		@include media-breakpoint-up(md) {
 			@include make-col-span(9);
+
+			// make sure height of this section is full regardless of image being loaded yet (fixes blip of ugliness with the common links while loading)
+			height:0;
+			padding-bottom: calc(#{(9/16 * 75%)} - #{($grid-gutter-width * (9/16))});
 		}
 
 		@include media-breakpoint-down(sm) {
@@ -810,6 +814,27 @@ section#hero {
 
 		.stat-heading {
 			font-weight: bold;
+		}
+	}
+}
+
+article.news-item {
+	figure {
+		@extend .figure;
+		@extend .center-block;
+		margin-top: 1rem;
+		margin-bottom: 1rem;
+		width: 100%;
+
+		@include media-breakpoint-up(md) {
+			margin-top: 2rem;
+			margin-bottom: 2rem;
+			width: 75%;
+		}
+
+		img {
+			@extend .figure-img;
+			@extend .img-fluid;
 		}
 	}
 }
