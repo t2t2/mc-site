@@ -14,7 +14,7 @@
 	    		{%- if item.image is not empty -%}
 	    			<img {{ retina_crop(item.image, 384, 216) }} alt="{{ item.values.image.title }}">
 	    		{%- else -%}
-	    			<div class="no-thumb"></div>
+                    <div class="no-thumb no-thumb-16x9"></div>
 	    		{%- endif -%}
     		</a></div>
     		<div class="news-item-body">
