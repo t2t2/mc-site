@@ -838,6 +838,7 @@ section#hero {
 			@include make-col-span(4);
 			margin-left: 0;
 			margin-right: 0;
+			margin-bottom: 1rem;
 
 			.news-item-thumb, .news-item-body {
 				padding: 0;
@@ -852,6 +853,8 @@ section#hero {
 				margin-top: 0.5rem;
 				margin-bottom:0.25rem;
 			}
+
+			h2 { margin-bottom: 0; }
 		}
 	}
 
@@ -919,7 +922,7 @@ section#latest-news {
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center;
-	
+
 	&.site-link-youtube {
 		background-image: url('../images/icon_youtube.svg');
 	}
@@ -1044,6 +1047,40 @@ section#latest-news {
 
 	&:last-child {
 		margin-bottom: 1rem;
+	}
+}
+
+.member-body {
+	@include make-row();
+
+	.member-vid {
+		margin-bottom: 2rem;
+
+		&:last-child {
+			margin-bottom: 1rem;
+		}
+	}
+
+	.member-featured-vid {
+		@include make-col();
+		@include make-col-span(12);
+	}
+
+	.member-latest-vid {
+		@include make-col();
+		@include make-col-span(12);
+	}
+
+	@include media-breakpoint-up(lg) {
+		.member-featured-vid {
+			@include make-col-span(10);
+			@include make-col-offset(1);
+		}
+
+		.member-latest-vid {
+			@include make-col-span(10);
+			@include make-col-offset(1);
+		}
 	}
 }
 

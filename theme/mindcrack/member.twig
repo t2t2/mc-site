@@ -47,8 +47,23 @@
 {% endblock %}
 {% block content %}
 
-    <article>
-
+    <article class="member-body">
+    	{% if record.youtube_trailer is not empty %}
+    	<section class="member-vid member-featured-vid">
+    	<h1 class="section-heading">Featured Video</h1>
+    	<div class="embed-responsive embed-responsive-16by9">
+    		<iframe src="https://www.youtube.com/embed/{{ record.youtube_trailer }}" allowfullscreen>
+    		</iframe>
+    	</div></section>
+    	{% endif %}
+    	{% if record.youtube_uploads_playlist is not empty %}
+    	<section class="member-vid member-latest-vid">
+    	<h1 class="section-heading">Latest Videos</h1>
+    	<div class="embed-responsive embed-responsive-16by9">
+    		<iframe src="https://www.youtube.com/embed/videoseries?list={{ record.youtube_uploads_playlist }}" allowfullscreen>
+    		</iframe>
+    	</div></section>
+    	{% endif %}
     </article>
 
 {% endblock %}
