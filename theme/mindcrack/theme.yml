@@ -8,7 +8,9 @@ templatefields:
             type: image
             label: Promo Image
             info: Image should be 16x9 to look correct. The websites handle retina images automatically, so if want the image to be retina, upload the image at double the size.
-            attrib: title
+        promo_image_title:
+            type: text
+            label: Promo Title (not displayed, used as alt text for image)
         promo_link:
             type: text
             label: Promo Link

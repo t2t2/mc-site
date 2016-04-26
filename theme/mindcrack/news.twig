@@ -1,4 +1,5 @@
 {% extends "_layout.twig" %}
+{% from "_utilities.twig" import retina_crop %}
 
 {% block content %}
 {% spaceless %}
@@ -11,7 +12,7 @@
     	<article class="news-item news-item-list">
     		<div class="news-item-thumb"><a href="{{ item.link }}">
 	    		{%- if item.image is not empty -%}
-	    			<img src="{{ item.image|thumbnail(384, 216) }}" alt="{{ item.values.image.title }}">
+	    			<img {{ retina_crop(item.image, 384, 216) }} alt="{{ item.values.image.title }}">
 	    		{%- else -%}
 	    			<div class="no-thumb"></div>
 	    		{%- endif -%}

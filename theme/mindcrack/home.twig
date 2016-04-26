@@ -1,4 +1,5 @@
 {% extends "_layout.twig" %}
+{% from "_utilities.twig" import retina_crop %}
 
 {% block content_outside_container %}
 	<section id="about" class="about-panel">
@@ -28,7 +29,7 @@
 				{% if record.templatefields.promo_image is not empty %}
 				<div class="promo">
 					{% if record.templatefields.promo_link is not empty %}<a href="{{ record.templatefields.promo_link }}">{% endif %}
-						<img src="{{ record.templatefields.promo_image|thumbnail(864, 486) }}" class="img-fluid" alt="{{ record.templatefields.promo_image.title }}">
+						<img {{ retina_crop(record.templatefields.promo_image, 864, 486) }} class="img-fluid" alt="{{ record.templatefields.promo_image_title }}">
 					{% if record.templatefields.promo_link is not empty %}</a>{% endif %}
 				</div>
 				{% endif %}
@@ -46,7 +47,7 @@
 		    	<a href="{{ item.link }}" class="news-item news-item-list news-item-latest">
 		    		<div class="news-item-thumb">
 			    		{%- if item.image is not empty -%}
-			    			<img src="{{ item.image|thumbnail(384, 216) }}" alt="{{ item.values.image.title }}">
+			    			<img {{ retina_crop(item.image, 384, 216) }} alt="{{ item.values.image.title }}">
 			    		{%- else -%}
 			    			<div class="no-thumb"></div>
 			    		{%- endif -%}

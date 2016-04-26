@@ -1,0 +1,28 @@
+{% macro retina_crop(image, target_w, target_h) %}
+{% spaceless %}
+	
+	{%- if image -%}
+	   	{% set w = imageinfo(image).width %}
+		{% set h = imageinfo(image).height %}
+		{% set target_aspect = target_w / target_h %}
+		{% set w_n = min(target_w,min(h*target_aspect,w)) %}
+		{% set h_n = min(target_h,min(w/target_aspect,h)) %}
+		{% set w_n2x = min(target_w*2,min(h*target_aspect,w)) %}
+		{% set h_n2x = min(target_h*2,min(w/target_aspect,h)) %}
+		{% set retina = w_n2x > w_n %}
+		{% set default_retina = w_n2x == target_w*2 %}
+
+		{%- if retina -%}
+			{%- if not default_retina -%}
+			{{ "data-at2x='#{ image | thumbnail(w_n2x, h_n2x) }'"|raw }}
+			{%- endif -%}
+		{%- else -%}
+			{{ "data-no-retina='1'"|raw }}
+		{%- endif -%}
+		{{ " src='#{ image | thumbnail(w_n, h_n) }'"|raw }}
+	{%- else -%}
+		{{ " src='#{ image | thumbnail(target_w, target_H) }'"|raw }}
+	{%- endif -%}
+
+{% endspaceless %}
+{% endmacro %}

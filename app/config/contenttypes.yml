@@ -65,6 +65,7 @@ members:
     show_on_dashboard: false
     icon_many: fa:users
     icon_one: fa:user
+    listing_records: 100
 
 posts:
     name: News

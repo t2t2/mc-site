@@ -899,6 +899,32 @@ section#latest-news {
 	@extend .news-list;
 }
 
+article.member-list {
+	@include make-col();
+	@include make-col-span(3);
+
+	.member-thumb {
+		width: 100%;
+		img {
+			width: 100%;
+		}
+	}
+}
+
+.member-row-2 {
+	@include media-breakpoint-down(sm) {
+		@include make-row();
+
+		article.member-list {
+			@include make-col-span(6);
+		}
+	}
+}
+
+.member-row-4 {
+	@include make-row();
+}
+
 // Less than ideal non-flex solutions for older IE
 .lt-ie10 {
 	.about-panel-stat-line .container{

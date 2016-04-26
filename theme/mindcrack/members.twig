@@ -1,17 +1,25 @@
 {% extends "_layout.twig" %}
+{% from "_utilities.twig" import retina_crop %}
 
 {% block content %}
-	MEMBERS LISTING
     {% for record in records %}
-        <article>
-
+    	{% if loop.first %}
+    		<div class="member-row-4"><div class="member-row-2">
+    	{% else %}
+	    	{% if loop.index0 is divisible by(2) %}
+	    		{% if loop.index0 is divisible by(4) %}
+	    			</div></div><div class="member-row-4"><div class="member-row-2">
+	    		{% else %}
+	    			</div><div class="member-row-2">
+	    		{% endif %}
+	    	{% endif %}
+    	{% endif %}
+        <article class="member-list">
+        	<div class="member-thumb"><img {{ retina_crop(record.image, 285, 285) }} alt="record.title"></div>
             <h2><a href="{{ record.link }}">{{ record.title }}</a></h2>
-
-            {{ record.excerpt(300) }}
-
         </article>
     {% endfor %}
-
+    </div></div>{# end the rows #}
     {{ pager() }}
 
 

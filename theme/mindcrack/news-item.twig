@@ -1,4 +1,5 @@
 {% extends "_layout.twig" %}
+{% from "_utilities.twig" import retina_crop %}
 
 {%- block content -%}
     <article class="news-item">
@@ -7,7 +8,7 @@
         <div class="detail"><span class="detail-label">Date Published: </span>{{ item.datepublish|date("F jS, Y")}}</div>
 		{% if record.image is not empty %}
 		<figure class="main-image">
-			<img src="{{ record.image|thumbnail(832, 468) }}" alt="{{ record.title }}">
+			<img {{ retina_crop(record.image, 832, 468) }} alt="{{ record.title }}">
 			{%- if record.values.image.title is not empty -%}
 			<figcaption>{{ record.values.image.title }}</figcaption>
 			{%- endif -%}
