@@ -61,6 +61,20 @@ members:
         youtube_uploads_playlist:
             type: text
             label: Youtube Channel Uploads Playlist ID
+        social_twitter_username:
+            type: text
+            label: Twitter Username
+            group: Social Links
+        social_reddit_username:
+            type: text
+            label: Reddit Username
+        social_youtube_custom_name:
+            type: text
+            label: Youtube Custom Name (e.g. youtube.com/{ custom name } )
+            info: If left empty, will just generate link the with the channel id, which is not exactly readable 
+        social_twitch_username:
+            type: text
+            label: Twitch Username
     sort: title
     show_on_dashboard: false
     icon_many: fa:users

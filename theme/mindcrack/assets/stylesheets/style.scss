@@ -645,6 +645,42 @@ section#hero {
 			padding-bottom:1rem;
 		}
 	}
+
+	.about-panel-stat-line {
+		background-color:rgba(0,0,0,0.14);
+
+		.container {
+			padding-top: 0.75rem;
+			padding-bottom: 0.75rem;
+
+			display: flex;
+			flex-wrap: wrap;
+
+			span.h4 {
+				flex: none;
+				margin: 0;
+				padding-right:1rem;
+			}
+
+			div {
+				display: flex;
+				flex: 2;
+				flex-wrap: wrap;
+				justify-content: space-between; 
+
+				&>span {
+					padding-left:1rem;
+				}
+				.stat-heading {
+					white-space: nowrap
+				}
+			}
+		}
+
+		.stat-heading {
+			font-weight: bold;
+		}
+	}
 }
 
 // About Panel
@@ -706,42 +742,6 @@ section#hero {
 			p:last-child {
 				margin-bottom: 0;
 			}
-		}
-	}
-
-	.about-panel-stat-line {
-		background-color:rgba(0,0,0,0.14);
-
-		.container {
-			padding-top: 0.75rem;
-			padding-bottom: 0.75rem;
-
-			display: flex;
-			flex-wrap: wrap;
-
-			span.h4 {
-				flex: none;
-				margin: 0;
-				padding-right:1rem;
-			}
-
-			div {
-				display: flex;
-				flex: 2;
-				flex-wrap: wrap;
-				justify-content: space-between; 
-
-				&>span {
-					padding-left:1rem;
-				}
-				.stat-heading {
-					white-space: nowrap
-				}
-			}
-		}
-
-		.stat-heading {
-			font-weight: bold;
 		}
 	}
 }
@@ -902,18 +902,96 @@ section#latest-news {
 	@extend .news-list;
 }
 
+.member-thumb {
+	width: 100%;
+	margin-bottom: 1rem;
+	img {
+		width: 100%;
+		height: auto;
+	}
+}
+
+.site-link {
+	display: inline-block;
+	vertical-align: middle;
+	width: 2.5rem;
+	height: 2.5rem;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	
+	&.site-link-youtube {
+		background-image: url('../images/icon_youtube.svg');
+	}
+	
+	&.site-link-twitch {
+		background-image: url('../images/icon_twitch.svg');
+	}
+
+	&.site-link-twitter {
+		background-image: url('../images/icon_twitter.svg');
+	}
+
+	&.site-link-reddit {
+		background-image: url('../images/icon_reddit.svg');
+	}
+}
+
+.member-header-container {
+
+	.member-thumb {
+		display: table-cell; 
+		vertical-align: middle;
+		width: 20%;
+		margin-bottom: 0;
+		padding-bottom: 1rem;
+
+		@include media-breakpoint-down(md) {
+			width: 30%;
+		}
+
+		@include media-breakpoint-down(xs) {
+			vertical-align: top;
+		}
+	}
+
+	.member-details {
+		display: table-cell; 
+		vertical-align: middle;
+		padding-left: 2rem;
+
+		h1 { margin-bottom: 0.5rem; }
+
+		p.site-links {
+			margin-top: -0.2rem;
+			margin-bottom: 1rem;
+
+			a {
+				margin-right:0.5rem;
+
+				&:last-child {
+					margin-left: 0;
+				}
+			}
+		}
+
+		@include media-breakpoint-down(xs) {
+			padding-left: 1rem;
+
+			h1 {
+				font-size: 1.5rem;
+			}
+		}
+	}
+}
+
 .member-list {
 	display: block;
 	@include make-col();
 	@include make-col-span(3);
 
 	.member-thumb {
-		width: 100%;
 		margin-bottom: 0.75rem;
-		img {
-			width: 100%;
-			height: auto;
-		}
 	}
 
 	h2 {
