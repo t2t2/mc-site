@@ -907,14 +907,13 @@ article.member-list {
 		width: 100%;
 		img {
 			width: 100%;
+			height: auto;
 		}
 	}
 }
 
 .member-row-2 {
 	@include media-breakpoint-down(sm) {
-		@include make-row();
-
 		article.member-list {
 			@include make-col-span(6);
 		}
