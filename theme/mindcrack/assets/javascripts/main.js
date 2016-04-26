@@ -30,3 +30,13 @@ if ($times.length) {
 		console.error('Loading local times failed', err)
 	})
 }
+
+var $live_config = $('[data-live-config]')
+var $members = $('[data-member-slug]')
+if ($live_config.length) {
+	System.import("./live").then(module => {
+		module.startLive($live_config,$members)
+	}).catch(err => {
+		console.error('Loading live failed', err)
+	})
+}

@@ -8,6 +8,9 @@
 # debug: true
 
 # API keys for the site
+# livehub interval in ms, livehub config url should point to /live/config on the livehub server
 # services:
 #     youtube: ""
 #     google_maps_embed: ""
+#	  livehub_config_url: ""
+#	  livehub_interval: ""

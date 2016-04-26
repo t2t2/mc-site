@@ -15,7 +15,7 @@
 				{% endif %}
 			{% endif %}
 		{% endif %}
-		<a href="{{ record.link }}" class="member-list">
+		<a href="{{ record.link }}" class="member-list" data-member-slug="{{ record.slug}}">
 			<div class="member-thumb">
 			{%- if record.image is not empty -%}
 				<img {{ retina_crop(record.image, 285, 285) }} alt="record.title">

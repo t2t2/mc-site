@@ -45,7 +45,10 @@
             </div>
         </div>
     </footer>
-
+    {%- if app.config.get('general/services/livehub_config_url') is not empty 
+        and app.config.get('general/services/livehub_interval') is not empty -%}
+    <div data-live-config="{{ app.config.get('general/services/livehub_config_url') }}" data-live-check-interval="{{ app.config.get('general/services/livehub_interval') }}"></div>
+    {%- endif -%}
     <script src="{{ (paths.theme ~ 'assets/main.js') | versioned }}"></script>
 
 </body>
