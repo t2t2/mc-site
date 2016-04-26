@@ -15,7 +15,7 @@
 				{% endif %}
 			{% endif %}
 		{% endif %}
-		<article class="member-list">
+		<a href="{{ record.link }}" class="member-list">
 			<div class="member-thumb">
 			{%- if record.image is not empty -%}
 				<img {{ retina_crop(record.image, 285, 285) }} alt="record.title">
@@ -23,8 +23,8 @@
 				<div class="no-thumb no-thumb-square"></div>
 			{%- endif -%}
 			</div>
-			<h2><a href="{{ record.link }}">{{ record.title }}</a></h2>
-		</article>
+			<h2>{{ record.title }}</h2>
+		</a>
 	{% endfor %}
 	</div></div>{# end the rows #}
 	{{ pager() }}

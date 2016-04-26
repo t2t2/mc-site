@@ -902,7 +902,8 @@ section#latest-news {
 	@extend .news-list;
 }
 
-article.member-list {
+.member-list {
+	display: block;
 	@include make-col();
 	@include make-col-span(3);
 
@@ -945,7 +946,7 @@ article.member-list {
 		&:last-child {
 			margin-bottom: 0;
 		}
-		article.member-list {
+		.member-list {
 			@include make-col-span(6);
 		}
 	}
