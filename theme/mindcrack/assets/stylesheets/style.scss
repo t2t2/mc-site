@@ -177,23 +177,23 @@ header#main-header
 		background-image: url('../images/mindcrack_header.jpg');
 
 		// Need to fix for some microsoft browsers
-		background-image: linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(25,25,25,1.0) 90%),
-						  linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(25,25,25,0.25) 100%),
+		background-image: linear-gradient(to bottom, rgba(0,0,0,0.0) 20%, rgba(0,0,0,0.9) 85%),
 						  url('../images/mindcrack_header.jpg'); 
 
 		// When the screen is super small, the logo moves up and becomes less readable, this darkens it
-		@include media-breakpoint-down(xs) {
-			background-image: linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(25,25,25,1.0) 90%),
-				linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(25,25,25,0.5) 100%),
+		@include media-breakpoint-down(sm) {
+			background-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.9) 75%),
+				url('../images/mindcrack_header.jpg'); 
+	 	}
+
+	 	@include media-breakpoint-down(xs) {
+			background-image: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,1.0) 65%),
 				url('../images/mindcrack_header.jpg'); 
 	 	}
 
 	 	// Scale the background with the size of the header (may need to look into compatibility)
 		background-size: cover;
-		background-position: 50% 55%;
-
-		// Desaturate the image slightly (doesn't work on microsoft browsers by default, but thats okay, this isn't 100% necessary)
-		filter: saturate(50%);
+		background-position: 50% 19%;
 	}
 
 
@@ -216,6 +216,7 @@ header#main-header
 	 		li.nav-item {
 	 			margin-right: 0;
  				margin-left: 1rem;
+ 				text-shadow: 0 0 3em rgba(0,0,0,1.0);
  			}
 
 	 		@include media-breakpoint-up(lg) {
@@ -623,6 +624,7 @@ section#hero {
 	h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
 		color: $mc-white;
 	}
+	text-shadow: 0 0 3em rgba(0,0,0,0.5);
 
 	a {
 		color: white;
@@ -926,7 +928,7 @@ section#latest-news {
 	&.site-link-youtube {
 		background-image: url('../images/icon_youtube.svg');
 	}
-	
+
 	&.site-link-twitch {
 		background-image: url('../images/icon_twitch.svg');
 	}
@@ -1118,15 +1120,17 @@ section#latest-news {
 		background-image: url('../images/mindcrack_header.jpg');
 		background-size: cover;
 		background-position: 50% 55%;
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#14000000', endColorstr='#191919',GradientType=0 ),
-				progid:DXImageTransform.Microsoft.gradient( startColorstr='#40000000', endColorstr='#40191919',GradientType=0 );
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#000000',GradientType=0 );
 		&:before {
 			background-image: none;
 		}
 
+		@include media-breakpoint-down(sm) {
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1a000000', endColorstr='#e6000000',GradientType=0 );
+		}
+
 		@include media-breakpoint-down(xs) {
-			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#20000000', endColorstr='#191919',GradientType=0 ),
-					progid:DXImageTransform.Microsoft.gradient( startColorstr='#90000000', endColorstr='#70191919',GradientType=0 );
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1a000000', endColorstr='#000000',GradientType=0 );
 		}
 	}
 }
