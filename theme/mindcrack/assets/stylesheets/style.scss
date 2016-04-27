@@ -140,6 +140,10 @@ nav.navbar
 			margin-right: 1rem;
 			margin-left: 0;
 			a {font-weight: normal;}
+
+			&.active {
+				a {font-weight: 500;}
+			}
  		}
 
  		li.nav-item a{
