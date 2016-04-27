@@ -4,6 +4,7 @@
 
 
 <head>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:700|Work+Sans:400,500,700' rel='stylesheet' type='text/css'>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <title>{% if record.title is defined %}{{ record.title|striptags }} - {% endif %}{{ app.config.get('general/sitename') }}</title>
@@ -11,8 +12,6 @@
     <meta name="viewport" content="width=device-width, maximum-scale=1.0"/>
 
     <link rel="stylesheet" href="{{ (paths.theme ~ 'assets/main.css') | versioned }}"/>
-    <link href='https://fonts.googleapis.com/css?family=Montserrat:700|Work+Sans:400,500,700' rel='stylesheet' type='text/css'>
-
     {% block head %}
     {% endblock %}
 </head>
