@@ -177,12 +177,12 @@ header#main-header
 		background-image: url('../images/mindcrack_header.jpg');
 
 		// Need to fix for some microsoft browsers
-		background-image: linear-gradient(to bottom, rgba(0,0,0,0.0) 20%, rgba(0,0,0,0.9) 85%),
+		background-image: linear-gradient(to bottom, rgba(0,0,0,0.0) 20%, rgba(0,0,0,0.95) 85%),
 						  url('../images/mindcrack_header.jpg'); 
 
 		// When the screen is super small, the logo moves up and becomes less readable, this darkens it
 		@include media-breakpoint-down(sm) {
-			background-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.9) 75%),
+			background-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.95) 75%),
 				url('../images/mindcrack_header.jpg'); 
 	 	}
 
@@ -1121,13 +1121,13 @@ section#latest-news {
 		background-image: url('../images/mindcrack_header.jpg');
 		background-size: cover;
 		background-position: 50% 55%;
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#000000',GradientType=0 );
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#F2000000',GradientType=0 );
 		&:before {
 			background-image: none;
 		}
 
 		@include media-breakpoint-down(sm) {
-			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1a000000', endColorstr='#e6000000',GradientType=0 );
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1a000000', endColorstr='#F2000000',GradientType=0 );
 		}
 
 		@include media-breakpoint-down(xs) {
