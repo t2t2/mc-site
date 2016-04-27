@@ -193,7 +193,7 @@ header#main-header
 
 	 	// Scale the background with the size of the header (may need to look into compatibility)
 		background-size: cover;
-		background-position: 50% 19%;
+		background-position: 50% 14%;
 	}
 
 
@@ -1120,7 +1120,7 @@ section#latest-news {
 	header#main-header {
 		background-image: url('../images/mindcrack_header.jpg');
 		background-size: cover;
-		background-position: 50% 55%;
+		background-position: 50% 14%;
 		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#F2000000',GradientType=0 );
 		&:before {
 			background-image: none;
