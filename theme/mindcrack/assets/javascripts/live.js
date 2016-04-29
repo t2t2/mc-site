@@ -2,6 +2,7 @@ import $ from 'jquery'
 
 const youtube_re = /youtube\.com\/embed\/(.+)\?/
 const twitch_re = /twitch\.tv\/(.+)\/embed/
+var old_data;
 
 /*	
 	Each member on livehub should have a corresponding show with the same slug as the member on this site,
@@ -32,21 +33,25 @@ function check(url, interval, $members) {
 	$.ajax({
 		url: url,
 		type: "GET",
-		dataType: "json",
+		dataType: "text",
 		crossDomain: true,
 		success: data => {
-			dataMap = convertDataToMap(data.streams.data)
+			if (old_data !== data) {
+				old_data = data;
+				jsonData = $.parseJSON(data)
+				dataMap = convertDataToMap(jsonData.streams.data)
 
-			if ($members.length > 0) {
-				// Check to see if member page, or members listing
-				if ($($members[0]).hasClass('member-live-streams'))  {
-					update_member_page(dataMap, $($members[0]))
-				} else {
-					update_members(dataMap, $members)
+				if ($members.length > 0) {
+					// Check to see if member page, or members listing
+					if ($($members[0]).hasClass('member-live-streams'))  {
+						update_member_page(dataMap, $($members[0]))
+					} else {
+						update_members(dataMap, $members)
+					}
 				}
-			}
 
-			update_live_notification(dataMap)
+				update_live_notification(dataMap)
+			}
 		},
 		complete: () => {
 			setTimeout(check,interval,url,interval, $members)
@@ -158,7 +163,7 @@ function update_live_notification(streams) {
  */
 function convertDataToMap(data) {
 	var map = {}
-
+	
 	data.forEach(function(item, index) {
 		if (item.state === "live") {
 			var updated_item = {}
