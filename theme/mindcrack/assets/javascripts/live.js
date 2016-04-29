@@ -40,7 +40,7 @@ function check(url, interval, $members) {
 			if ($members.length > 0) {
 				// Check to see if member page, or members listing
 				if ($($members[0]).hasClass('member-live-streams'))  {
-					update_member_page(dataMap, $members[0])
+					update_member_page(dataMap, $($members[0]))
 				} else {
 					update_members(dataMap, $members)
 				}
@@ -89,9 +89,8 @@ function update_members(streams, $members) {
 				$youtube_link.fadeOut()
 			}
 
-			if ($member.css('display') === 'none') {
-				$member.fadeIn()
-			}
+			$member.fadeIn()
+
 		} else if ($member.css('display') !== 'none') {
 			$member.fadeOut()
 		}
@@ -105,7 +104,39 @@ function update_members(streams, $members) {
  * @param $members JQuery array of member elements (if any, when on members page)
  */
 function update_member_page(streams, $member) {
-	// TODO UPDATE MEMBER PAGE WITH SOME DISPLAY OF STREAM, POTENTIALLY EMBEDDING THE STREAM
+	const slug = $member.data('member-slug')
+
+	if (slug in streams) {
+		$twitch_section = $member.children(".member-vid-twitch-live")
+		if ("twitch" in streams[slug]) {
+			const stream = streams[slug]["twitch"]
+			if ($twitch_section.data("live-stream-id") !== stream.stream_id) {
+				$twitch_section.find("iframe").attr("src", stream.video_url)
+				$twitch_section.data("live-stream-id", stream.stream_id)
+				$twitch_section.find(".important-link").attr("href", stream.stream_url)
+			}
+			$twitch_section.slideDown()
+		} else if ($twitch_section.css('display') !== 'none') {
+			$twitch_section.slideUp()
+			$twitch_section.data("live-stream-id","")
+			$twitch_section.find("iframe").attr("src", "")
+		}
+
+		$youtube_section = $member.children(".member-vid-youtube-live")
+		if ("youtube" in streams[slug]) {
+			const stream = streams[slug]["youtube"]
+			if ($youtube_section.data("live-stream-id") != stream.stream_id) {
+				$youtube_section.find("iframe").attr("src", stream.video_url)
+				$youtube_section.data("live-stream-id", stream.stream_id)
+				$youtube_section.find(".important-link").attr("href", stream.stream_url)
+			}
+			$youtube_section.slideDown()
+		} else if ($youtube_section.css('display') !== 'none') {
+			$youtube_section.slideUp()
+			$youtube_section.data("live-stream-id","")
+			$youtube_section.find("iframe").attr("src", "")
+		}
+	}
 }
 
 /**
@@ -144,9 +175,11 @@ function convertDataToMap(data) {
 				updated_item["stream_type"] = "youtube"
 				updated_item["stream_url"] = "https://youtu.be/" + youtube_match[1]
 				updated_item["video_url"] = "https://www.youtube.com/embed/" + youtube_match[1] + "?autohide=1"
+				updated_item["stream_id"] = youtube_match[1]
 			} else if (twitch_match) {
 				updated_item["stream_type"] = "twitch"
 				updated_item["stream_url"] = "https://twitch.tv/" + twitch_match[1]
+				updated_item["stream_id"] = twitch_match[1]
 			}
 
 			if (("stream_type" in updated_item) && ("stream_url" in updated_item) && (updated_item.stream_url !== "")) {

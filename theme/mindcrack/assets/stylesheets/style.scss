@@ -1100,6 +1100,14 @@ section#latest-news {
 
 	.member-vid-youtube-live, .member-vid-twitch-live {
 		display: none;
+		&:last-child {
+			margin-bottom: 2rem;
+		}
+
+		.important-link {
+			margin-bottom: 0;
+			margin-top: 1rem;
+		}
 	}
 
 
