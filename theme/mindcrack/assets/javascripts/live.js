@@ -36,7 +36,16 @@ function check(url, interval, $members) {
 		crossDomain: true,
 		success: data => {
 			dataMap = convertDataToMap(data.streams.data)
-			update_members(dataMap, $members)
+
+			if ($members.length > 0) {
+				// Check to see if member page, or members listing
+				if ($($members[0]).hasClass('member-live-streams'))  {
+					update_member_page(dataMap, $members[0])
+				} else {
+					update_members(dataMap, $members)
+				}
+			}
+
 			update_live_notification(dataMap)
 		},
 		complete: () => {
@@ -55,20 +64,48 @@ function update_members(streams, $members) {
 	$members.map(function () {
 		var $member = $(this)
 		const slug = $member.data('member-slug')
+
 		if (slug in streams)
 		{
-			for (var key in streams[slug]) {
-				const stream = streams[slug][key]
-				$stream_link = $member.children('.site-link-'+key)
+			$twitch_link = $member.children(".site-link-twitch")
+			if ("twitch" in streams[slug]) {
+				const stream = streams[slug]["twitch"]
 
-				$stream_link.attr("href", stream.stream_url)
-				$stream_link.attr("title", stream.stream_title)
-				$stream_link.show()
+				$twitch_link.attr("href", stream.stream_url)
+				$twitch_link.attr("title", stream.stream_title)
+				$twitch_link.fadeIn()
+			} else if ($twitch_link.css('display') !== 'none') {
+				$twitch_link.fadeOut()
 			}
 
-			$member.fadeIn()
+			$youtube_link = $member.children(".site-link-youtube")
+			if ("youtube" in streams[slug]) {
+				const stream = streams[slug]["youtube"]
+
+				$youtube_link.attr("href", stream.stream_url)
+				$youtube_link.attr("title", stream.stream_title)
+				$youtube_link.fadeIn()
+			} else if ($youtube_link.css('display') !== 'none') {
+				$youtube_link.fadeOut()
+			}
+
+			if ($member.css('display') === 'none') {
+				$member.fadeIn()
+			}
+		} else if ($member.css('display') !== 'none') {
+			$member.fadeOut()
 		}
 	})
+}
+
+/**
+ * Updates the member page with the livestream data
+ *
+ * @param streams the processed map of the stream data
+ * @param $members JQuery array of member elements (if any, when on members page)
+ */
+function update_member_page(streams, $member) {
+	// TODO UPDATE MEMBER PAGE WITH SOME DISPLAY OF STREAM, POTENTIALLY EMBEDDING THE STREAM
 }
 
 /**

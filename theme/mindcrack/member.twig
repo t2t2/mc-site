@@ -49,6 +49,10 @@
 
     <article class="member-body">
     	{% if record.youtube_trailer is not empty %}
+    	<section class="member-live-streams" data-member-slug="{{ record.slug}}">
+    		<section class="member-vid member-vid-youtube-live"></section>
+    		<section class="member-vid member-vid-twitch-live"></section>
+    	</section>
     	<section class="member-vid member-featured-vid">
     	<h1 class="section-heading">Featured Video</h1>
     	<div class="embed-responsive embed-responsive-16by9">

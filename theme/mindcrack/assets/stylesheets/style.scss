@@ -1089,6 +1089,8 @@ section#latest-news {
 	@include make-row();
 
 	.member-vid {
+		@include make-col();
+		@include make-col-span(12);
 		margin-bottom: 2rem;
 
 		&:last-child {
@@ -1096,23 +1098,13 @@ section#latest-news {
 		}
 	}
 
-	.member-featured-vid {
-		@include make-col();
-		@include make-col-span(12);
+	.member-vid-youtube-live, .member-vid-twitch-live {
+		display: none;
 	}
 
-	.member-latest-vid {
-		@include make-col();
-		@include make-col-span(12);
-	}
 
 	@include media-breakpoint-up(lg) {
-		.member-featured-vid {
-			@include make-col-span(10);
-			@include make-col-offset(1);
-		}
-
-		.member-latest-vid {
+		.member-vid {
 			@include make-col-span(10);
 			@include make-col-offset(1);
 		}
