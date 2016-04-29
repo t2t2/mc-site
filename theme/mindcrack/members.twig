@@ -15,16 +15,20 @@
 				{% endif %}
 			{% endif %}
 		{% endif %}
-		<a href="{{ record.link }}" class="member-list" data-member-slug="{{ record.slug}}">
+		<div class="member-list">
 			<div class="member-thumb">
 			{%- if record.image is not empty -%}
-				<img {{ retina_crop(record.image, 285, 285) }} alt="record.title">
+				<a href="{{ record.link }}"><img {{ retina_crop(record.image, 285, 285) }} alt="record.title"></a>
 			{%- else -%}
 				<div class="no-thumb no-thumb-square"></div>
 			{%- endif -%}
+				<div class="member-live" data-member-slug="{{ record.slug}}">Live
+					<a class="site-link site-link-youtube" href="#" title="Youtube Stream"></a>
+					<a class="site-link site-link-twitch" href="#" title="Twitch Stream"></a>
+				</div>
 			</div>
-			<h2>{{ record.title }}</h2>
-		</a>
+			<h2><a href="{{ record.link }}">{{ record.title }}</a></h2>
+		</div>
 	{% endfor %}
 	</div></div>{# end the rows #}
 	{{ pager() }}

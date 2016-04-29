@@ -1002,6 +1002,34 @@ section#latest-news {
 
 	.member-thumb {
 		margin-bottom: 0.75rem;
+		position: relative;
+	}
+
+	.member-live {
+		position: absolute;
+		bottom:0;
+		left:0;
+		right: 0;
+		height: 2rem;
+		line-height: 2rem;
+		background-color: $mc-blue;
+		color: white;
+		text-transform: uppercase;
+		padding: 0 0.5rem;
+		vertical-align: middle;
+		font-weight: 500;
+		display: none;
+
+		.site-link {
+			width: 1.5rem;
+			height: 1.5rem;
+			float:right;
+			margin-right: 0;
+			margin-top: 0.25rem;
+			margin-bottom: 0.25rem;
+			margin-left: 0.5rem;
+			display:none;
+		}
 	}
 
 	h2 {

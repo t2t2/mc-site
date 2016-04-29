@@ -53,12 +53,20 @@ function check(url, interval, $members) {
  */
 function update_members(streams, $members) {
 	$members.map(function () {
-		const $member = $(this)
+		var $member = $(this)
 		const slug = $member.data('member-slug')
 		if (slug in streams)
 		{
-			// TO DO ACTUALLY UPDATE THE MEMBER ELEMENTS ON THE PAGE
-			//console.log(streams[slug])
+			for (var key in streams[slug]) {
+				const stream = streams[slug][key]
+				$stream_link = $member.children('.site-link-'+key)
+
+				$stream_link.attr("href", stream.stream_url)
+				$stream_link.attr("title", stream.stream_title)
+				$stream_link.show()
+			}
+
+			$member.fadeIn()
 		}
 	})
 }
@@ -89,6 +97,7 @@ function convertDataToMap(data) {
 			
 			updated_item["name"] = item.show.data.name
 			updated_item["slug"] = item.show.data.slug
+			updated_item["stream_title"] = item.title
 			updated_item["video_url"] = item.video_url
 
 			const youtube_match = updated_item.video_url.match(youtube_re)
