@@ -441,3 +441,6 @@ backend:
 # API keys for the site
 # services:
 #     youtube: ""
+#     google_maps_embed: ""
+#	  livehub_config_url: ""
+#	  livehub_interval: "" # IN MICROSECONDS

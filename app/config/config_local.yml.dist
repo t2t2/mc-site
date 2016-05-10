@@ -13,4 +13,4 @@
 #     youtube: ""
 #     google_maps_embed: ""
 #	  livehub_config_url: ""
-#	  livehub_interval: ""
+#	  livehub_interval: "" # IN MICROSECONDS
