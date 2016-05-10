@@ -701,9 +701,10 @@ section#hero {
 
 		// Because not normal paragraph content, with 1 margin at the bottom,
 		// make the padding account for that to be even
-		padding-bottom: 2rem;
+		padding-bottom: 1rem;
 
 		@include media-breakpoint-up(md) {
+			padding-bottom: 2rem;
 			display: table;
 
 			border-collapse: separate;
@@ -748,6 +749,7 @@ section#hero {
 				text-align: center;
 				padding-left: 1rem;
 				padding-right: 1rem;
+				padding-bottom: 0;
 			}
 
 			p:last-child {
