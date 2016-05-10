@@ -201,7 +201,7 @@ function update_live_notification(streams, $stream_section) {
 
 	// Add new elements
 	if (streams.count > 0) {
-		$stream_section.find(".live-notification").html(streams.count + (streams.count > 1 ? " members": " member") + " are streaming. Click to view")
+		$stream_section.find(".live-notification").html(streams.count + (streams.count > 1 ? " members are ": " member is ") + "streaming. Click to view")
 		$stream_section.slideDown()
 		var member_elements = ""
 		for (var member_slug in streams.members) {
@@ -236,7 +236,7 @@ function update_live_notification(streams, $stream_section) {
 
 		// Sort elements
 		$("#live-members div").sort(function(a,b) {
-			return $(a).data("member-slug") > $(b).data("member-slug")
+			return ($(a).data("member-slug") < $(b).data("member-slug") ? -1: ($(a).data("member-slug") > $(b).data("member-slug")? 1 : 0))
 		}).appendTo("#live-members")
 	} else {
 		$stream_section.slideUp()
