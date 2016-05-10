@@ -47,42 +47,12 @@ class SiteServiceProvider implements ServiceProviderInterface {
 
 	/**
 	 * Registers nut commands
-	 * Soooo... BaseCommand likes to rewrite the request object on every new object initialised... yeaahh...
-	 * In addition the way to register commands is just a big nesting doll of arrays.
 	 *
 	 * @param Application $app
 	 */
 	protected function registerCommands(Application $app) {
-		$app['nut.commands'] = $app->share(function ($app) {
-			// Get the current request for default commands
-			try {
-				$request = $app['request'];
-			} catch (\Exception $e) {
-				$request = Request::createFromGlobals();
-			}
-
+		$app['nut.commands.add'] = $app->share(function ($app) {
 			return [
-				new Nut\CronRunner($app, $request),
-				new Nut\CacheClear($app, $request),
-				new Nut\Info($app, $request),
-				new Nut\LogTrim($app, $request),
-				new Nut\LogClear($app, $request),
-				new Nut\DatabaseCheck($app, $request),
-				new Nut\DatabaseExport($app, $request),
-				new Nut\DatabaseImport($app, $request),
-				new Nut\DatabasePrefill($app, $request),
-				new Nut\DatabaseRepair($app, $request),
-				new Nut\TestRunner($app, $request),
-				new Nut\ConfigGet($app, $request),
-				new Nut\ConfigSet($app, $request),
-				new Nut\Extensions($app, $request),
-				new Nut\ExtensionsAutoloader($app, $request),
-				new Nut\ExtensionsEnable($app, $request),
-				new Nut\ExtensionsDisable($app, $request),
-				new Nut\UserAdd($app, $request),
-				new Nut\UserRoleAdd($app, $request),
-				new Nut\UserRoleRemove($app, $request),
-				// Custom Commands
 				new DataUpdaterCommand($app),
 			];
 		});

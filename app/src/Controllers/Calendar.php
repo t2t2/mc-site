@@ -3,7 +3,7 @@
 namespace Mindcrack\Site\Controllers;
 
 
-use Bolt\Controllers\Frontend;
+use Bolt\Controller\Frontend;
 use Bolt\Storage;
 use Silex\Application;
 
