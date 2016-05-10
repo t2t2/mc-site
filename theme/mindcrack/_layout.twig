@@ -23,6 +23,16 @@
             </div>
         </header>
 
+        {%- if app.config.get('general/services/livehub_config_url') is not empty 
+            and app.config.get('general/services/livehub_interval') is not empty -%}
+        <section id="live" data-live-config="{{ app.config.get('general/services/livehub_config_url') }}" data-live-check-interval="{{ app.config.get('general/services/livehub_interval') }}">
+            <div class="container">
+                <div class="icon-live"></div><a class="live-notification" data-toggle="collapse" href="#live-members" aria-expanded="false">Members Live Now</a>
+                <div id="live-members" class="collapse"><hr></div>
+            </div>
+        </section>
+        {%- endif -%}
+
         {% block content_outside_container %}{% endblock %}
 
         <section id="main-content">
@@ -44,10 +54,6 @@
             </div>
         </div>
     </footer>
-    {%- if app.config.get('general/services/livehub_config_url') is not empty 
-        and app.config.get('general/services/livehub_interval') is not empty -%}
-    <div data-live-config="{{ app.config.get('general/services/livehub_config_url') }}" data-live-check-interval="{{ app.config.get('general/services/livehub_interval') }}"></div>
-    {%- endif -%}
     <script src="{{ (paths.theme ~ 'assets/main.js') | versioned }}"></script>
 
 </body>
