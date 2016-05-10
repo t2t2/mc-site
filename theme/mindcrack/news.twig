@@ -3,9 +3,12 @@
 
 {% block content %}
 {% spaceless %}
-<h1 class="section-heading">News</h1>
+    <h1 class="section-heading">News</h1>
 	{%- set news_pager = pager('', 2, '_pagination_general.twig','news') -%}
 	{{ news_pager }}
+    {% if records is empty %}
+    <p class="no-content">There are is no news.</p>
+    {% endif %}
 	<div class="news-list">
     {%- for item in records -%}
     	{{ (loop.first == true) ? "" : "<hr>" }}

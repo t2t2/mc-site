@@ -3,6 +3,9 @@
 
 {% block content %}
 	<h1 class="section-heading">Members</h1>
+	{% if records is empty %}
+	<p class="no-content">There are no members. Ooops.</p>
+	{% endif %}
 	{% for record in records %}
 		{% if loop.first %}
 			<div class="member-row-4"><div class="member-row-2">
