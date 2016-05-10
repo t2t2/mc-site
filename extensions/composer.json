@@ -1,4 +1,26 @@
 {
+    "autoload": {
+        "psr-4": {
+            "Bolt\\Composer\\": "",
+            "Bolt\\Composer\\EventListener\\": "../vendor/bolt/bolt/src/Composer/EventListener"
+        }
+    },
+    "config": {
+        "discard-changes": true,
+        "preferred-install": "dist"
+    },
+    "description": "Bolt extension installation interface",
+    "extra": {
+        "bolt-web-path": "..",
+        "bolt-root-path": ".."
+    },
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "name": "bolt/extensions",
+    "prefer-stable": true,
+    "provide": {
+        "bolt/bolt": "3.0.0"
+    },
     "repositories": {
         "packagist": false,
         "bolt": {
@@ -6,25 +28,9 @@
             "url": "https://extensions.bolt.cm/satis/"
         }
     },
-    "minimum-stability": "stable",
-    "prefer-stable": true,
-    "config": {
-        "discard-changes": true,
-        "preferred-install": "dist"
-    },
-    "provide": {
-        "bolt/bolt": "2.2.13"
-    },
-    "extra": {
-        "bolt-web-path": "../public/"
-    },
-    "autoload": {
-        "psr-4": {
-            "Bolt\\Composer\\": ""
-        }
-    },
     "scripts": {
-        "post-package-install": "Bolt\\Composer\\ExtensionInstaller::handle",
-        "post-package-update": "Bolt\\Composer\\ExtensionInstaller::handle"
+        "post-package-install": "Bolt\\Composer\\EventListener\\PackageEventListener::handle",
+        "post-package-update": "Bolt\\Composer\\EventListener\\PackageEventListener::handle",
+        "post-autoload-dump": "Bolt\\Composer\\EventListener\\PackageEventListener::dump"
     }
 }

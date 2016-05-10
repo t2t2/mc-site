@@ -3,7 +3,9 @@
 	"description": "TODO",
 	"license": "MIT",
 	"require": {
-		"bolt/bolt": "~2.2",
+		"bolt/bolt": "^3.0",
+		"bolt/filesystem": "^2.0",
+		"bolt/thumbs": "^3.0",
 		"composer/composer": "1.0.*@dev",
 		"ircmaxell/random-lib": "dev-master",
 		"guzzlehttp/guzzle": "~5.3",
@@ -11,6 +13,7 @@
 	},
 	"authors": [
 	],
+	"minimum-stability": "beta",
 	"prefer-stable": true,
 	"autoload": {
 		"psr-4": {
