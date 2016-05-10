@@ -236,7 +236,7 @@ function update_live_notification(streams, $stream_section) {
 
 		// Sort elements
 		$("#live-members div").sort(function(a,b) {
-			return $(a).data("member-slug") > $(b).data("member-slug")
+			return ($(a).data("member-slug") < $(b).data("member-slug") ? -1: ($(a).data("member-slug") > $(b).data("member-slug")? 1 : 0))
 		}).appendTo("#live-members")
 	} else {
 		$stream_section.slideUp()
