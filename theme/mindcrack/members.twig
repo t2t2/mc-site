@@ -23,7 +23,7 @@
 			{%- if record.image is not empty -%}
 				<a href="{{ record.link }}"><img {{ retina_crop(record.image, 285, 285) }} alt="record.title"></a>
 			{%- else -%}
-				<div class="no-thumb no-thumb-square"></div>
+				<a href="{{ record.link }}"><div class="no-thumb no-thumb-square"></div></a>
 			{%- endif -%}
 				<div class="member-live" data-member-slug="{{ record.slug}}">Live
 					<a class="site-link site-link-youtube" href="#" title="Youtube Stream"></a>
