@@ -15,41 +15,41 @@
 homepage:
     path: '/'
     defaults:
-         _controller: 'Bolt\Controllers\Frontend::homepage'
+         _controller: controller.frontend:homepage
          template: 'home'
 
 search:
     path: '/search'
     defaults:
-        _controller: 'Bolt\Controllers\Frontend::search'
+        _controller: controller.frontend:search
 
 preview:
     path: '/preview/{contenttypeslug}'
     defaults:
-        _controller: 'Bolt\Controllers\Frontend::preview'
+        _controller: controller.frontend:preview
     requirements:
-        contenttypeslug: 'Bolt\Controllers\Routing::getAnyContentTypeRequirement'
+        contenttypeslug: controller.requirement:anyContentType
 
 contentlink:
     path: '/{contenttypeslug}/{slug}'
     defaults:
-        _controller: 'Bolt\Controllers\Frontend::record'
+        _controller: controller.frontend:record
     requirements:
-        contenttypeslug: 'Bolt\Controllers\Routing::getAnyContentTypeRequirement'
+        contenttypeslug: controller.requirement:anyContentType
 
 taxonomylink:
     path: '/{taxonomytype}/{slug}'
     defaults:
-        _controller: 'Bolt\Controllers\Frontend::taxonomy'
+        _controller: controller.frontend:taxonomy
     requirements:
-        taxonomytype: 'Bolt\Controllers\Routing::getAnyTaxonomyTypeRequirement'
+        taxonomytype: controller.requirement:anyTaxonomyType
 
 contentlisting:
     path: '/{contenttypeslug}'
     defaults:
-        _controller: 'Bolt\Controllers\Frontend::listing'
+        _controller: controller.frontend:listing
     requirements:
-        contenttypeslug: 'Bolt\Controllers\Routing::getPluralContentTypeRequirement'
+        contenttypeslug: controller.requirement:pluralContentTypes
 
 # ------------------------------------------------------------------------------
 # Place your own routes here, that have a LOWER priority than the default routes.

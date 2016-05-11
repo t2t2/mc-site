@@ -158,6 +158,7 @@ caching:
     request: false
     duration: 10
     authenticated: false
+    thumbnails: true
 
 # Set 'enabled' to 'true' to log all content changes in the database.
 #
@@ -239,6 +240,8 @@ accept_file_types: [ twig, html, js, css, scss, gif, jpg, jpeg, png, ico, zip, t
 #     name: SuperCMS
 #     path: /admin
 #     provided_by: [ supercool@example.org, "Supercool Webdesign Co." ]
+#     news_source: http://news.example.org
+#     news_variable: news
 
 # Show the 'debug' nut in the lower right corner for logged-in user. By default,
 # the debugbar is only shown to logged-in users. Use the 'debug_show_loggedoff'
@@ -248,7 +251,7 @@ debug: true
 developer_notices: false
 debug_show_loggedoff: false
 debug_permission_audit_mode: false
-debug_error_level: 6135 # equivalent to E_ALL &~ E_NOTICE &~ E_DEPRECATED &~ E_USER_DEPRECATED
+debug_error_level: 8181 # equivalent to E_ALL &~ E_NOTICE &~ E_DEPRECATED &~ E_USER_DEPRECATED &~ E_WARNING
 # debug_error_level: 30719 # equivalent to E_ALL
 debug_enable_whoops: true # change this to false to use PHP's built-in error handling instead of Whoops
 
@@ -276,24 +279,23 @@ strict_variables: false
 # enable them for your editors, please instruct them thoroughly on their
 # responsibility not to break the layout.
 wysiwyg:
-    images: false
-    anchor: false
-    tables: false
+    images: false            # Allow users to insert images in the content.
+    anchor: false            # Adds a button to create internal anchors to link to.
+    tables: false            # Adds a button to insert and modify tables in the content.
     fontcolor: false         # Allow users to mess around with font coloring.
-    align: false             # Add 'align left', 'align right',etc.
-    subsuper: false          # Add buttons for subscript and superscript, using <sub> and <sup>
-    embed: false             # allows the user to insert embedded video's from Youtube, Vimeo, etc.
-    underline: false         # add a button to underline text, using the <u>-tag.
-    strike: false            # add a button to add stikethrough, using the <s>-tag.
-    blockquote: false
-    codesnippet: false
-    specialchar: false       # adds a button to insert special chars like '€' or '™'.
+    align: false             # Adds buttons for 'align left', 'align right', etc.
+    subsuper: false          # Adds buttons for subscript and superscript, using `<sub>` and `<sup>`.
+    embed: false             # Allows the user to insert embedded video's from Youtube, Vimeo, etc.
+    underline: false         # Adds a button to underline text, using the `<u>`-tag.
+    ruler: false             # Adds a button to add a horizontal ruler, using the `<hr>`-tag.
+    strike: false            # Adds a button to add stikethrough, using the `<s>`-tag.
+    blockquote: false        # Allows the user to insert blockquotes using the `<blockquote>`-tag.
+    codesnippet: false       # Allows the user to insert code snippets using `<pre><code>`-tags.
+    specialchar: false       # Adds a button to insert special chars like '€' or '™'.
     ck:
-        allowedContent: true # If set to 'true', any elements and attributes are allowed in Wysiwg Elements
-        autoParagraph: true  # If set to 'true', any pasted content is wrapped in <p> tags for multiple line-breaks
+        autoParagraph: true  # If set to 'true', any pasted content is wrapped in `<p>`-tags for multiple line-breaks
         disableNativeSpellChecker: true # If set to 'true' it will stop browsers from underlining spelling mistakes
         allowNbsp: false     # If set to 'false', the editor will strip out `&nbsp;` characters. If set to 'true', it will allow them. ¯\_(ツ)_/¯
-        # viewSourceRoles: [ 'admin', 'developer' ] # the roles which are allowed to use the [Source]-button.
 
 # Global option to enable/disable the live editor
 liveeditor: true
@@ -352,14 +354,6 @@ cookies_lifetime: 1209600
 # If you'd like it to be valid for all subdomains of 'www.example.org', set this
 # to '.example.org'.
 cookies_domain:
-
-# If your system is using a custom session configuration (such as a Redis 
-# handler from a PHP extension) then we need to disable our session storage
-# handler. In that case, set this setting to false.
-# See: http://silex.sensiolabs.org/doc/providers/session.html#custom-session-configurations
-#
-# Do not change this, unless you know what you're doing!
-session_use_storage_handler: true
 
 # The hash_strength determines the amount of iterations for encrypting 
 # passwords.
@@ -424,12 +418,6 @@ extensions:
 #     host: my.proxy.server
 #     user: usr
 #     password: pwd
-
-
-# Options for when you're working with Grunt.
-# grunt:
-#    livereload: false
-#    livereloadport: 35729
 
 # Options for backend user interface
 backend:
