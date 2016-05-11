@@ -51,11 +51,11 @@ class SiteServiceProvider implements ServiceProviderInterface {
 	 * @param Application $app
 	 */
 	protected function registerCommands(Application $app) {
-		$app['nut.commands.add'] = $app->share(function ($app) {
+		$app['nut.commands.add'](function ($app) {
 			return [
 				new DataUpdaterCommand($app),
 			];
-		});
+		}) ;
 	}
 
 	/**
