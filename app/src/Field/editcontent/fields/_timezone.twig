@@ -19,9 +19,6 @@
     {% set selection = [ selection ] %}
 {% endif %}
 
-{# If the current selection contains an existing id, we must use _only_ the id, and not accept a fallback. #}
-{% set onlyids = selection|first in values|keys %}
-
 {# Build the select options array #}
 {% set options = [] %}
 {% for id, value in values %}
@@ -29,7 +26,7 @@
     {% set options = options|merge([{
         value:     value,
         text:      value | replace({'_': ' ', '/': ': '}),
-        selected:  id in selection or (not onlyids and (is_array ? value[0] : value) in selection),
+        selected:  value in selection,
     }]) %}
 {% endfor %}
 
