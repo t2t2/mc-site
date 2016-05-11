@@ -2,43 +2,50 @@
 
 namespace Mindcrack\Site\Field;
 
-use Bolt\Field\FieldInterface;
+use Bolt\Storage\EntityManager;
+use Bolt\Storage\Field\Type\FieldTypeBase;
+use Bolt\Storage\QuerySet;
 
-class BigIntegerField implements FieldInterface {
+class BigIntegerField extends FieldTypeBase {
+	public function persist(QuerySet $queries, $entity, EntityManager $em = null) {
+		$key = $this->mapping['fieldname'];
+		$qb = $queries->getPrimary();
+		$value = $entity->get($key);
+
+		$qb->setValue($key, ':' . $key);
+		$qb->set($key, ':' . $key);
+		$qb->setParameter($key, $value);
+	}
+
+	public function hydrate($data, $entity) {
+		$key = $this->mapping['fieldname'];
+
+		$value = isset($data[$key]) ? $data[$key] : null;
+		if ($value !== null) {
+			$this->set($entity, $value);
+		}
+	}
 
 	/**
-	 * Returns the name of the field.
-	 *
-	 * @return string The field name
+	 * @return string
 	 */
 	public function getName() {
 		return 'biginteger';
 	}
 
 	/**
-	 * Returns the path to the template.
-	 *
-	 * @return string The template name
-	 */
-	public function getTemplate() {
-		return '@MindcrackSiteFields/_biginteger.twig';
-	}
-
-	/**
-	 * Returns the storage type.
-	 *
-	 * @return string A Valid Storage Type
+	 * @return string
 	 */
 	public function getStorageType() {
 		return 'bigint';
 	}
 
 	/**
-	 * Returns additional options to be passed to the storage field.
-	 *
-	 * @return array An array of options
+	 * @return array
 	 */
 	public function getStorageOptions() {
-		return array();
+		return [
+			'default' => 0
+		];
 	}
 }

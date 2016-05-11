@@ -3,7 +3,7 @@
 namespace Mindcrack\Site\Field;
 
 use Silex\Application;
-use Bolt\Field\FieldInterface;
+use Bolt\Storage\Field\FieldInterface;
 
 class TimeZoneField implements FieldInterface {
 
@@ -22,7 +22,7 @@ class TimeZoneField implements FieldInterface {
 	 * @return string The template name
 	 */
 	public function getTemplate() {
-		return '@MindcrackSiteFields/_timezone.twig';
+		return '@bolt/editcontent/fields/_timezone.twig';
 	}
 
 	/**
