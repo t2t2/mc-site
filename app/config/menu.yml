@@ -9,6 +9,7 @@ main:
     - label: Members
       path: members
     - label: Podcast
+      path: podcast
     - label: About
     - label: Contact
     - label: Store

@@ -1195,6 +1195,29 @@ section#latest-news {
 	}
 }
 
+article.podcast {
+	.podcast-embed {
+		@include make-col();
+		@include make-col-span(12);
+		margin-bottom: 2rem;
+		margin-top: 1rem;
+	}
+
+	.askcrack {
+		@include make-col();
+		@include make-col-span(12);
+		margin-bottom: 2rem;
+		margin-top: 1rem;
+	}
+
+	@include media-breakpoint-up(lg) {
+		.podcast-embed {
+			@include make-col-span(10);
+			@include make-col-offset(1);
+		}
+	}
+}
+
 // Less than ideal non-flex solutions for older IE
 .lt-ie10 {
 	.about-panel-stat-line .container{

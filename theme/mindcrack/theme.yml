@@ -24,3 +24,11 @@ templatefields:
         youtube_views:
             type: biginteger
             label: Youtube Views
+    podcast.twig: # Podcast page
+        podcast_playlist:
+            type: text
+            label: Podcast Playlist ID
+        askcrack_embed_url:
+            type: text
+            label: AskCrack Embed url
+            pattern: "url"

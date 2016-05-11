@@ -1,0 +1,23 @@
+{% extends "_layout.twig" %}
+{% from "_utilities.twig" import retina_crop %}
+
+{% block content %}
+	<article class="podcast">
+		<h1 class="section-heading">{{ record.title }}</h1>
+		{% if record.templatefields.podcast_playlist is not empty %}
+		<div class="row">
+			<div class="podcast-embed"><div class="embed-responsive embed-responsive-16by9">
+	    		<iframe src="https://www.youtube.com/embed/videoseries?list={{ record.templatefields.podcast_playlist }}" allowfullscreen>
+	    		</iframe>
+	    	</div></div>
+    	</div>
+    	{% endif %}
+		{{ record.body }}
+		{% if record.templatefields.askcrack_embed_url is not empty %}
+		<hr class="bold">
+		<h1 class="section-heading">AskCrack</h1>
+		<div class="row"><iframe class="askcrack" frameborder="0" height="720" marginheight="0" marginwidth="0" src=" {{ record.templatefields.askcrack_embed_url }}">Loading...</iframe></div>
+		{% endif %}
+	</article>
+
+{% endblock %}
