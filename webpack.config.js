@@ -13,7 +13,8 @@ var cssLoaderOptions = JSON.stringify({
 var config = module.exports = {
 	context: path.join(__dirname, 'theme', 'mindcrack', 'assets'),
 	entry: {
-		main: ['./javascripts/main.js', './stylesheets/style.scss']
+		main: ['./javascripts/main.js', './stylesheets/style.scss'],
+		polyfill: ['core-js/es6/promise.js']
 	},
 	output: {
 		filename: '[name].js',

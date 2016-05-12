@@ -54,6 +54,10 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        if (!window.Promise) { document.write('<script src="{{ (paths.theme ~ 'assets/polyfill.js') | versioned }}"><\/script>'); }
+    </script>
     <script src="{{ (paths.theme ~ 'assets/main.js') | versioned }}"></script>
 
 </body>
