@@ -3,7 +3,7 @@
 
 main:
     - label: Home
-      path: home
+      path: /
     - label: News
       path: news
     - label: Calendar
