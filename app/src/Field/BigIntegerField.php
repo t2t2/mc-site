@@ -12,6 +12,10 @@ class BigIntegerField extends FieldTypeBase {
 		$qb = $queries->getPrimary();
 		$value = $entity->get($key);
 
+		if (!$value) {
+			$value = 0;
+		}
+
 		$qb->setValue($key, ':' . $key);
 		$qb->set($key, ':' . $key);
 		$qb->setParameter($key, $value);
