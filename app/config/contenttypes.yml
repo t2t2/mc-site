@@ -21,6 +21,7 @@ pages:
             filter: '*.twig'
     recordsperpage: 100
     icon_many: fa:file-text
+    record_template: page.twig
 
 members:
     name: Members
