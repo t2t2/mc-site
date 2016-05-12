@@ -16,13 +16,13 @@ templatefields:
             label: Promo Link
             pattern: "url"
         youtube_subscribers:
-            type: biginteger
+            type: text
             label: Youtube Subscribers
         youtube_videos:
             type: integer
             label: Youtube Videos
         youtube_views:
-            type: biginteger
+            type: text
             label: Youtube Views
     podcast.twig: # Podcast page
         podcast_playlist:
