@@ -2,6 +2,8 @@
 # details: http://docs.bolt.cm/menus
 
 main:
+    - label: Home
+      path: home
     - label: News
       path: news
     - label: Calendar
@@ -12,7 +14,8 @@ main:
       path: podcast
     - label: About
     - label: Contact
-    - label: Store
+#    - label: Store
+#   Removed until a store is set up
 
 common_links:
     - label: Calendar

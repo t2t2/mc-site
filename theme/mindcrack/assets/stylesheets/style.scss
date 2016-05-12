@@ -211,7 +211,7 @@ header#main-header
 	 	a.navbar-brand {
 	 		background-image: url('../images/logo_header.svg');
 	 		height: 4.3125rem;
-	 		width: 17.5rem;
+	 		width: 15.5rem;
 	 		background-size: contain;
 	 		background-repeat: no-repeat;
 	 		@include text-hide();
@@ -219,9 +219,14 @@ header#main-header
 	 		// Scale down the logo at super small mobile sizes
 	 		max-width: 100%;
 	 		max-height: calc((100vw - 4rem) / 4.0579710);
+
+	 		@include media-breakpoint-up(xl) {
+	 			width: 18rem;
+	 		}
 	 	}
 
 	 	ul.nav {
+	 		padding-top: 0;
 	 		li.nav-item {
 	 			margin-right: 0;
  				margin-left: 1rem;
@@ -230,7 +235,7 @@ header#main-header
 
 	 		@include media-breakpoint-up(lg) {
 	 			@include pull-right;
-	 			padding-top: 1rem;
+	 			padding-top: 0.75rem;
 	 		}
 
 	 		// mix-in for media-break-point-down(sm) not accurate enough, used to move menu items into a different alignment for small sizes
