@@ -13,7 +13,9 @@ main:
     - label: Podcast
       path: podcast
     - label: About
+      path: about
     - label: Contact
+      path: contact
 #    - label: Store
 #    Removed until a store is set up
 
