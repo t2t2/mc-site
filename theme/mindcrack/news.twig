@@ -7,7 +7,7 @@
 	{%- set news_pager = pager('', 2, '_pagination_general.twig','news') -%}
 	{{ news_pager }}
     {% if records is empty %}
-    <p class="no-content">There are is no news.</p>
+    <p class="no-content">There is no news.</p>
     {% endif %}
 	<div class="news-list">
     {%- for item in records -%}
