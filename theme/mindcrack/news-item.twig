@@ -5,7 +5,7 @@
     <article class="news-item">
 
         <h1 class="main">{{ record.title }}</h1>
-        <div class="detail"><span class="detail-label">Date Published: </span>{{ item.datepublish|date("F jS, Y")}}</div>
+        <div class="detail"><span class="detail-label">Date Published: </span>{{ record.datepublish|date("F jS, Y")}}</div>
 		{% if record.image is not empty %}
 		<figure class="main-image">
 			<img {{ retina_crop(record.image, 832, 468) }} alt="{{ record.title }}">

@@ -102,11 +102,27 @@ h1.section-heading + .nav-pagination.news {
 }
 
 
-
-
 p.no-content {
 	font-weight: bold;
 	font-size: 1.25rem;
+}
+
+
+.full-embed {
+	@include make-col();
+	@include make-col-span(12);
+	margin-bottom: 2rem;
+
+	&:last-child {
+		margin-bottom: 1rem;
+	}
+}
+
+@include media-breakpoint-up(lg) {
+	.full-embed {
+		@include make-col-span(10);
+		@include make-col-offset(1);
+	}
 }
 
 // Sticky Footer Setup (with dynamic height)
@@ -798,7 +814,7 @@ figure.main-image {
 		@extend .text-xs-right;
 	}
 }
-	
+
 .news-item {
 	display: block; // needed to override in case it's an <a> tag
 
