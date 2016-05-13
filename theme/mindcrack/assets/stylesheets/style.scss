@@ -708,6 +708,8 @@ section#hero {
 
 	&> .container {
 
+		&:after {display: none;}
+
 		// Because not normal paragraph content, with 1 margin at the bottom,
 		// make the padding account for that to be even
 		padding-bottom: 1rem;
