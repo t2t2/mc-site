@@ -4,6 +4,25 @@ DirectoryIndex index.php index.html index.htm
 # Prevent directory listing
 Options -Indexes
 
+<IfModule mod_mime.c>
+    AddCharset utf-8 .atom \
+                     .bbaw \
+                     .css \
+                     .geojson \
+                     .js \
+                     .json \
+                     .jsonld \
+                     .manifest \
+                     .rdf \
+                     .rss \
+                     .topojson \
+                     .vtt \
+                     .webapp \
+                     .webmanifest \
+                     .xloc \
+                     .xml
+</IfModule>
+
 <FilesMatch "\.(yml|db|twig|md)$">
     <IfModule mod_authz_core.c>
         Require all denied
