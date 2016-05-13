@@ -670,7 +670,7 @@ section#hero {
 				padding-right:1rem;
 			}
 
-			div {
+			&>div {
 				display: flex;
 				flex: 2;
 				flex-wrap: wrap;
@@ -681,6 +681,18 @@ section#hero {
 				}
 				.stat-heading {
 					white-space: nowrap
+				}
+
+				&.twitch {
+					justify-content: flex-start;
+					
+					&>span {
+						margin-right: 12%;
+
+						&:last-child {
+							margin-right: 0;
+						}
+					}
 				}
 			}
 		}
@@ -1114,6 +1126,9 @@ section#latest-news {
 		}
 	}
 
+	.member-vid-twitch-live.twitch-primary {
+		display: block;
+	}
 
 	@include media-breakpoint-up(lg) {
 		.member-vid {
@@ -1144,8 +1159,7 @@ section#latest-news {
 	background-size:cover;
 	background-position: center;
 	color: white;
-	//border-bottom: 0.5rem  solid;
-	//box-shadow: inset 0px 0px 2rem rgba(0,0,0,0.5);
+
 	a {
 		color: white;
 	}
@@ -1219,7 +1233,7 @@ article.podcast {
 .lt-ie10 {
 	.about-panel-stat-line .container{
 
-		div {
+		&>div {
 			text-align: justify;
 			font-size: 0;
 			&>span {
@@ -1232,6 +1246,17 @@ article.podcast {
 				content: "";
 				display: inline-block;
 				width: 100%;
+			}
+
+			&.twitch {
+				text-align: left;
+				&>span {
+					margin-right: 12%;
+
+					&:last-child {
+						margin-right: 0;
+					}
+				}
 			}
 		}
 

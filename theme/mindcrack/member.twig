@@ -36,10 +36,15 @@
 		<div class="about-panel-stat-line">
 			<div class="container">
 				<span class="h4">STATISTICS</span>
-				<div>
+				<div {{ record.primarily_twitch ? 'class="twitch"' : ''}}>
+					{% if record.primarily_twitch %}
+					<span><span class="stat-heading">TOTAL VIEWS:</span> {{ record.youtube_views|number_format }}</span>
+					<span><span class="stat-heading">TOTAL FOLLOWERS:</span> {{ record.youtube_subscribers|number_format }}</span>
+					{% else %}
 					<span><span class="stat-heading">TOTAL VIEWS:</span> {{ record.youtube_views|number_format }}</span>
 					<span><span class="stat-heading">TOTAL SUBSCRIBERS:</span> {{ record.youtube_subscribers|number_format }}</span>
 					<span><span class="stat-heading">TOTAL VIDEOS:</span> {{ record.youtube_videos|number_format }}</span>
+					{% endif %}
 				</div>
 			</div>
 		</div>
@@ -48,14 +53,15 @@
 {% block content %}
 
     <article class="member-body">
+		{%- set show_twitch = (record.primarily_twitch and record.social_twitch_username is not empty) -%}
     	<section class="member-live-streams" data-member-slug="{{ record.slug}}">
-    		<section class="member-vid member-vid-twitch-live">
-    			<h1 class="section-heading">Live On Twitch</h1>
+    		<section class="member-vid member-vid-twitch-live{{show_twitch ? ' twitch-primary' : '' }}" {{- (show_twitch ? " data-primarily-twitch=\"true\" data-member-name=\"#{ record.title }\" data-twitch-username=\"#{ record.social_twitch_username }\"" : ' ')|raw -}}>
+    			<h1 class="section-heading">{{ show_twitch ? "#{record.title} on Twitch" : 'Live On Twitch' }}</h1>
     			<div class="embed-responsive embed-responsive-16by9">
-    				<iframe src="" allowfullscreen>
+    				<iframe src="{{ show_twitch ? "https://twitch.tv/#{record.social_twitch_username}/embed" : ""}}" allowfullscreen>
     				</iframe>
     			</div>
-    			<a class="important-link" href="">Watch on Twitch</a>
+    			<a class="important-link" href="{{ show_twitch ? "https://twitch.tv/#{record.social_twitch_username}" : ""}}">{{ show_twitch ? "View Twitch Profile" : 'Watch on Twitch' }}</a>
     		</section>
     		<section class="member-vid member-vid-youtube-live">
     			<h1 class="section-heading">Live On Youtube</h1>
@@ -66,7 +72,8 @@
     			<a class="important-link" href="">Watch on Youtube</a>
 			</section>
     	</section>
-    	{% if record.youtube_trailer is not empty %}
+
+    	{% if record.youtube_trailer is not empty and not show_twitch %}
     	<section class="member-vid member-featured-vid">
     	<h1 class="section-heading">Featured Video</h1>
     	<div class="embed-responsive embed-responsive-16by9">
@@ -74,7 +81,7 @@
     		</iframe>
     	</div></section>
     	{% endif %}
-    	{% if record.youtube_uploads_playlist is not empty %}
+    	{% if record.youtube_uploads_playlist is not empty and not show_twitch %}
     	<section class="member-vid member-latest-vid">
     	<h1 class="section-heading">Latest Videos</h1>
     	<div class="embed-responsive embed-responsive-16by9">

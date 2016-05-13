@@ -62,6 +62,9 @@ members:
         youtube_uploads_playlist:
             type: text
             label: Youtube Channel Uploads Playlist ID
+        primarily_twitch:
+            type: checkbox
+            label: Primarily Twitch? (the Sevadus switch)
         social_twitter_username:
             type: text
             label: Twitter Username

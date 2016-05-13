@@ -114,6 +114,7 @@ function update_member_page(streams, $member) {
 
 	if (slug in streams.members) {
 		$twitch_section = $member.children(".member-vid-twitch-live")
+		
 		if ("twitch" in streams.members[slug]) {
 			const stream = streams.members[slug]["twitch"]
 			if ($twitch_section.data("live-stream-id") !== stream.stream_id) {
@@ -121,11 +122,26 @@ function update_member_page(streams, $member) {
 				$twitch_section.data("live-stream-id", stream.stream_id)
 				$twitch_section.find(".important-link").attr("href", stream.stream_url)
 			}
-			$twitch_section.slideDown()
+			if (!$twitch_section.attr('data-primarily-twitch')) {
+				$twitch_section.slideDown()
+			} else {
+				$twitch_section.find(".section-heading").html("Live on Twitch")
+				$twitch_section.find(".important-link").html("Watch on Twitch")
+				$twitch_section.attr("data-live", "true")
+			}
 		} else if ($twitch_section.css('display') !== 'none') {
-			$twitch_section.slideUp()
-			$twitch_section.data("live-stream-id","")
-			$twitch_section.find("iframe").attr("src", "")
+			if (!$twitch_section.attr('data-primarily-twitch')) {
+				$twitch_section.slideUp()
+				$twitch_section.data("live-stream-id","")
+				$twitch_section.find("iframe").attr("src", "")
+			} else {
+				if ($twitch_section.attr("data-live")) {
+					$twitch_section.find(".section-heading").html($twitch_section.data("member-name") + " on Twitch")
+					$twitch_section.find(".important-link").html("View Twitch Profile").attr("href", "https://twitch.tv/" + $twitch_section.data("twitch-username"))
+					$twitch_section.find("iframe").attr("src", "https://twitch.tv/" + $twitch_section.data("twitch-username") + "/embed")
+					$twitch_section.removeAttr("data-live")
+				}
+			}
 		}
 
 		$youtube_section = $member.children(".member-vid-youtube-live")
