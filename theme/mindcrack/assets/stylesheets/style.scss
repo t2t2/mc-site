@@ -109,10 +109,10 @@ p.no-content {
 
 
 .full-embed {
+	@include make-col();
 	@include make-col-span(12);
-	margin-bottom: 1rem;
+	margin-bottom: 2rem;
 	margin-top: 1rem;
-	float: left;
 }
 
 @include media-breakpoint-up(lg) {
