@@ -770,6 +770,22 @@ section#hero {
 	}
 }
 
+figure {
+	@extend .figure;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+
+	img {
+		@extend .figure-img;
+		@extend .img-fluid;
+	}
+
+	figcaption {
+		@extend .figure-caption;
+	}
+}
+
+
 .news-item {
 	display: block; // needed to override in case it's an <a> tag
 
@@ -880,21 +896,6 @@ section#hero {
 			}
 
 			h2 { margin-bottom: 0; }
-		}
-	}
-
-	figure {
-		@extend .figure;
-		margin-top: 1rem;
-		margin-bottom: 1rem;
-
-		img {
-			@extend .figure-img;
-			@extend .img-fluid;
-		}
-
-		figcaption {
-			@extend .figure-caption;
 		}
 	}
 
