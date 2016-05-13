@@ -15,7 +15,7 @@
 		        	<h1 class="main">{{ record.title }}</h1>
 		        	{% if record.event_time is not empty %}
 		        		<p class="detail"><span class="detail-label">When? </span>
-					        {{ localTime.render(event.event_time, event.event_time_zone, event.time_display_mode, true) }}
+					        {{ localTime.render(event.event_time, event.event_end_day, event.event_time_zone, event.time_display_mode, true) }}
 		        		</p>
 		        	{% endif %}
 		        	

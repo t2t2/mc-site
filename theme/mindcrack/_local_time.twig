@@ -1,4 +1,4 @@
-{% macro render(time, timezone, mode="user", full_date=false) %}
+{% macro render(time, enddate, timezone, mode="user", full_date=false) %}
 	{%- set date_with_tz = date("#{time} #{timezone}", timezone) -%}
 	{%- set event_time_format = full_date ? "F j, Y g:i A T" : "g:i A T"-%}
 	{%- if mode == "user" -%}
@@ -19,6 +19,11 @@
 		      data-time="{{ date_with_tz | date('U') }}"
 		      data-shown-date="{{ date_with_tz | date("Y-m-d", timezone=timezone) }}">
 		</time>
+	{%- elseif mode == "notime" -%}
+	<time>{{ date_with_tz | date("F j, Y", timezone=timezone) }}</time>
+		{%- if enddate is not empty -%}
+		{{ " - <time>#{date_with_tz | date('F j, Y')}</time>"|raw }}
+		{%- endif -%}
 	{%- else -%}
 		{# Either set to local or nothing#}
 		{# show local event time, convert title to user time #}

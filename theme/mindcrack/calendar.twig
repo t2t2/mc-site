@@ -25,7 +25,7 @@
             	<h2><a href="{{ event.link }}">{{ event.title }}</a></h2>
         		{% if event.event_time is not empty %}
 					<p class="detail"><span class="detail-label">When? </span>
-						{{ localTime.render(event.event_time, event.event_time_zone, event.time_display_mode) }}
+						{{ localTime.render(event.event_time, event.event_end_day, event.event_time_zone, event.time_display_mode) }}
 	        		</p>
 	        	{% endif %}
             	{% if event.location is not empty and event.location.formatted_address is not empty %}

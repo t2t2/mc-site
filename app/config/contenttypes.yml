@@ -126,6 +126,9 @@ events:
             label: Event Time
             type: datetime
             info: Input time in 24 hour format (select below the timezone that the time is meant to be in)
+        event_end_day:
+            label: Event End Day (only used with No Time display mode, optional)
+            type: date
         event_time_zone:
             label: Event Time Timezone (Important!)
             info: Enter the timezone the above event time is meant to be in (need to know for the dynamic time display on the calendar/event pages)
@@ -135,7 +138,7 @@ events:
         time_display_mode:
             label: Event Time Display
             type: select
-            values: {'local':"Local Event Time",'user':"Visitors Time",'both':"Both"}
+            values: {'local':"Local Event Time",'user':"Visitors Time",'both':"Both",'notime':"No Time"}
             info: Changes how the event times are shown. It can show the time in the zone set above, or automatically adjust on the visitors end to show the time for their timezone, or both.
         location:
             label: Address / Geolocation
