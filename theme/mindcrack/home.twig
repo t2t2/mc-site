@@ -13,8 +13,8 @@
 			<div class="container">
 				<span class="h4">STATISTICS</span>
 				<div>
-					<span><span class="stat-heading">TOTAL VIEWS:</span> {{ record.templatefields.youtube_views|reverse|split('',3)|join(',')|reverse }}</span>
-					<span><span class="stat-heading">TOTAL SUBSCRIBERS:</span> {{ record.templatefields.youtube_subscribers|reverse|split('',3)|join(',')|reverse }}</span>
+					<span><span class="stat-heading">TOTAL VIEWS:</span> {{ record.templatefields.youtube_views|default('0')|reverse|split('',3)|join(',')|reverse }}</span>
+					<span><span class="stat-heading">TOTAL SUBSCRIBERS:</span> {{ record.templatefields.youtube_subscribers|default('0')|reverse|split('',3)|join(',')|reverse }}</span>
 					<span><span class="stat-heading">TOTAL VIDEOS:</span> {{ record.templatefields.youtube_videos|number_format }}</span>
 				</div>
 			</div>
