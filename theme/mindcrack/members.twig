@@ -1,6 +1,8 @@
 {% extends "_layout.twig" %}
 {% from "_utilities.twig" import retina_crop %}
 
+{% block subtitle %}Members{% endblock %}
+
 {% block content %}
 	<h1 class="section-heading">Members</h1>
 	{% if records is empty %}
