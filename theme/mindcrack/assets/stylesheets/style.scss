@@ -785,7 +785,20 @@ figure {
 	}
 }
 
+figure.main-image {
+	@extend .center-block;
 
+	@include media-breakpoint-up(md) {
+		margin-top: 2rem;
+		margin-bottom: 2rem;
+		width: 75%;
+	}
+
+	figcaption {
+		@extend .text-xs-right;
+	}
+}
+	
 .news-item {
 	display: block; // needed to override in case it's an <a> tag
 
@@ -896,20 +909,6 @@ figure {
 			}
 
 			h2 { margin-bottom: 0; }
-		}
-	}
-
-	figure.main-image {
-		@extend .center-block;
-
-		@include media-breakpoint-up(md) {
-			margin-top: 2rem;
-			margin-bottom: 2rem;
-			width: 75%;
-		}
-
-		figcaption {
-			@extend .text-xs-right;
 		}
 	}
 }
