@@ -39,6 +39,19 @@ var config = module.exports = {
 				]
 			},
 			{
+				// Don't let moment load extra locales
+				test: path.join(__dirname, 'node_modules', 'moment'),
+				loaders: [
+					{
+						loader: 'imports',
+						query: {
+							require: '>false',
+							define: '>false'
+						}
+					}
+				]
+			},
+			{
 				// ES6
 				test: /\.js$/,
 				exclude: /(node_modules)/,
@@ -70,7 +83,7 @@ var config = module.exports = {
 }
 
 // Production settings
-if(isProd) {
+if (isProd) {
 	var ManifestPlugin = require('webpack-manifest-plugin')
 
 	// Versioning
