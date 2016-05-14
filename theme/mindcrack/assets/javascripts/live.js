@@ -39,8 +39,8 @@ function check(url, interval, $stream_section, $members) {
 		success: data => {
 			if (old_data !== data) {
 				old_data = data;
-				jsonData = $.parseJSON(data)
-				dataMap = convertDataToMap(jsonData.streams.data)
+				const jsonData = $.parseJSON(data)
+				var dataMap = convertDataToMap(jsonData.streams.data)
 
 				if ($members.length > 0) {
 					// Check to see if member page, or members listing
