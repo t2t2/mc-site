@@ -65,22 +65,31 @@
 	<p class="no-content">There is no news.</p>
 	{% endif %}
 	<hr class="bold">
-	<h1 class="section-heading">Upcoming Events</h1>
-	{% setcontent events = 'events' where {event_time: '> 3 days ago'} limit 5 orderby 'event_time' %}
-	{% set month = "" %}
-	{% if events is not empty %}
-		<dl id="upcoming-events">
-		{% for event in events %}
-			{% if month != event.event_time|date("F Y") %}
-				{% if loop.first != true %}<hr>{% endif %}
-				<dt>{{ event.event_time|date("F Y") }}</dt>
-				{% set month = event.event_time|date("F Y") %}
+	<div class="row">
+		<section id="upcoming-events">
+			<h1 class="section-heading">Upcoming Events</h1>
+			{% setcontent events = 'events' where {event_time: '> 3 days ago'} limit 5 orderby 'event_time' %}
+			{% set month = "" %}
+			{% if events is not empty %}
+				<dl>
+				{% for event in events %}
+					{% if month != event.event_time|date("F Y") %}
+						{% if loop.first != true %}<hr>{% endif %}
+						<dt>{{ event.event_time|date("F Y") }}</dt>
+						{% set month = event.event_time|date("F Y") %}
+					{% endif %}
+					<dd><b>{{ event.event_time|date("jS") }}</b> {{ event.title }} <a href="{{ event.link }}">(details)</a></dd>
+				{% endfor %}
+				</dl>
+				<a class="important-link" href="{{paths.root}}calendar">Full Calendar...</a>
+			{% else %}
+			<p class="no-content">There are no upcoming events.</p>
 			{% endif %}
-			<dd><b>{{ event.event_time|date("jS") }}</b> {{ event.title }} <a href="{{ event.link }}">(details)</a></dd>
-		{% endfor %}
-		</dl>
-		<a class="important-link" href="{{paths.root}}calendar">Full Calendar...</a>
-	{% else %}
-	<p class="no-content">There are no upcoming events.</p>
-	{% endif %}
+		</section>
+		<section id="twitter-embed"><hr class="bold">
+			<h1 class="section-heading">Latest Tweet</h1><a class="twitter-timeline"  href="https://twitter.com/blendermf" data-widget-id="731267577431740416" data-chrome="noheader nofooter transparent noborders" data-tweet-limit="1">Tweets by @MindcrackLP</a>
+			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+			<a class="important-link" href="https://twitter.com/MindcrackLP">View More on Twitter...</a>
+		</section>
+	</div>
 {% endblock %}

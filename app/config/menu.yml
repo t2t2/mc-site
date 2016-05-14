@@ -11,7 +11,7 @@ main:
     - label: Members
       path: members
     - label: Podcast
-      path: podcast
+      path: mindcrack-podcast
     - label: About
       path: about
     - label: Contact

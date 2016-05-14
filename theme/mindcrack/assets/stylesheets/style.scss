@@ -122,6 +122,22 @@ p.no-content {
 	}
 }
 
+section#twitter-embed {
+	@include make-col();
+	@include make-col-span(12);
+
+	iframe {
+		width: 100% !important;
+	}
+
+	@include media-breakpoint-up(lg) {
+		@include make-col-span(6);
+		hr.bold {
+			display: none;
+		}
+	}
+}
+
 // Sticky Footer Setup (with dynamic height)
 html,
 body { height: 100%; }
@@ -388,57 +404,40 @@ section#calendar {
 	}
 }
 
-dl#upcoming-events {
-	@extend .dl-horizontal;
-	margin-left: 0;
-	margin-right: 0;
+section#upcoming-events {
 
-	hr {
-		@include make-col();
+	@include make-col();
+	@include make-col-span(12);
 
-		@include make-col-span(12);
-
-		margin-top: 0.5rem;
-		padding:0;
-	}
-	dt {
-		@include make-col();
-		@include make-col-span(12);
-		padding-left:0;
-		@extend .cal-month;
-
-		@include media-breakpoint-up(md) {
-			@include make-col-span(4);
-		}
-
-		@include media-breakpoint-up(lg) {
-			@include make-col-span(3);
-		}
+	@include media-breakpoint-up(lg) {
+		@include make-col-span(6);
 	}
 
-	dd {
-		@include make-col();
-		@include make-col-span(12);
+	dl {
+		@extend .dl-horizontal;
+		margin-left: 0;
+		margin-right: 0;
 
-		@include media-breakpoint-up(md) {
-			@include make-col-span(8);
+		hr {
+			@include make-col();
+
+			@include make-col-span(12);
+
+			margin-top: 0.5rem;
+			padding:0;
+		}
+		dt {
+			@include make-col();
+			@include make-col-span(12);
+			padding-left:0;
+			@extend .cal-month;
 		}
 
-		@include media-breakpoint-up(lg) {
-			@include make-col-span(9);
+		dd {
+			@include make-col();
+			@include make-col-span(12);
 		}
 	}
-
-	dd + dd {
-		@include media-breakpoint-up(md) {
-			@include make-col-offset(4);
-		}
-
-		@include media-breakpoint-up(lg) {
-			@include make-col-offset(3);
-		}
-	}
-
 }
 
 section#hero {
