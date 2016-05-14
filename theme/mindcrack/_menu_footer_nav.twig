@@ -1,2 +1,9 @@
 {# Footer Main Navigation#}
 {% extends "_menu_general.twig" %}
+{% set youtube = {"label":"","title":"Youtube Channel", "link":"//youtube.com/MindcrackNetwork", "class":"site-link site-link-youtube"} %}		
+{% set twitch = {"label":"","title":"Twitch Channel", "link":"//twitch.tv/mindcrack", "class":"site-link site-link-twitch"} %}		
+{% set twitter = {"label":"","title":"Twitter Profile", "link":"//twitter.com/MindcrackLP", "class":"site-link site-link-twitter"} %}		
+{% set reddit = {"label":"","title":"Subreddit", "link":"//reddit.com/r/mindcrack", "class":"site-link site-link-reddit"} %}		
+{% set group_start = {"label":"","class":"group-start site-links"} %}		
+{% set group_end = {"label":"","class":"group-end"} %}		
+{% set extra_menu_items_after = [group_start,youtube,twitch,twitter,reddit,group_end] %}

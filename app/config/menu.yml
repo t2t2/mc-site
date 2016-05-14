@@ -17,27 +17,7 @@ main:
     - label: Contact
       path: contact
     - label: Store
-      path: https://store.mindcracklp.com
-    - label: ""
-      class: group-start site-links
-    - label: ""
-      title: Youtube Channel
-      link: //youtube.com/MindcrackNetwork
-      class: site-link site-link-youtube
-    - label: ""
-      title: Twitch Channel
-      link: //twitch.tv/mindcrack
-      class: site-link site-link-twitch
-    - label: ""
-      title: Twitter Profile
-      link: //twitter.com/MindcrackLP
-      class: site-link site-link-twitter
-    - label: ""
-      title: Subreddit
-      link: //reddit.com/r/mindcrack
-      class: site-link site-link-reddit
-    - label: ""
-      class: group-end site-links
+      link: https://store.mindcracklp.com
 #    Removed until a store is set up
 
 common_links:
@@ -52,5 +32,5 @@ common_links:
       path: members
       class: common-link-members
     - label: Store
-      path: https://store.mindcracklp.com
+      link: https://store.mindcracklp.com
       class: common-link-store

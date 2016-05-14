@@ -1214,7 +1214,7 @@ section#latest-news {
 	}
 }
 
-#live {
+#social {
 
 	.icon-live {
 		display: inline-block;
@@ -1225,20 +1225,61 @@ section#latest-news {
 		background-repeat: no-repeat;
 		background-position: center;
 		background-image: url('../images/icon_live.svg');
-		margin-top: 0.25rem;
-		margin-bottom: 0.25rem;
+		//margin-top: 0.25rem;
+		//margin-bottom: 0.25rem;
 		margin-right: 0.5rem;
 	}
 
-	display:none;
 	background-color: darken($mc-blue-dark, 5%);
 	background-size:cover;
 	background-position: center;
 	color: white;
 
+	.bar { 
+		@include clearfix();
+		padding-top: 0.25rem;
+		padding-bottom:0.25rem;
+	}
+
 	a {
 		color: white;
 	}
+
+	a.live-notification {
+		display: block;
+		line-height: 1.5rem;
+
+		@include media-breakpoint-up(md) {
+			float: left;
+		}
+	}
+
+	div.site-links {
+		float: right;
+		height: 1.5rem;
+		a.site-link {
+			width:1.5rem;
+			height:1.5rem;
+			margin-right: 0.5rem;
+			filter: brightness(0.78);
+
+			&:last-child {
+				margin-right: 0;
+			}
+		}
+
+		span {
+			margin-right: 0.6rem;
+		}
+	}
+
+	a.live-notification.live + .site-links {
+		@include media-breakpoint-down(sm) {
+			margin-top: 0.4rem;
+			float: none;
+		}
+	}
+
 	padding-top: 0.5rem;
 	padding-bottom: 0.5rem;
 

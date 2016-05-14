@@ -22,16 +22,23 @@
             {{ menu('main', '_menu_header_nav.twig') }}
             </div>
         </header>
-
-        {%- if app.config.get('general/services/livehub_config_url') is not empty 
-            and app.config.get('general/services/livehub_interval') is not empty -%}
-        <section id="live" data-live-config="{{ app.config.get('general/services/livehub_config_url') }}" data-live-check-interval="{{ app.config.get('general/services/livehub_interval') }}">
+        {% set check_live = (app.config.get('general/services/livehub_config_url') is not empty 
+            and app.config.get('general/services/livehub_interval') is not empty) %}
+        <section id="social" {% if check_live %}data-live-config="{{ app.config.get('general/services/livehub_config_url') }}" data-live-check-interval="{{ app.config.get('general/services/livehub_interval') }}"{% endif %}>
             <div class="container">
-                <div class="icon-live"></div><a class="live-notification" data-toggle="collapse" href="#live-members" aria-expanded="false">Members Live Now</a>
+                <div class="bar">
+                    <a class="live-notification" data-toggle="collapse" href="#live-members" aria-expanded="false"></a>
+                    <div class="site-links">
+                        <span>Follow Us! </span>
+                        <a class="site-link site-link-youtube" href="//youtube.com/MindcrackNetwork" title="Youtube Channel"></a>
+                        <a class="site-link site-link-twitch" href="//twitch.tv/mindcrack" title="Twitch Channel"></a>
+                        <a class="site-link site-link-twitter" href="//twitter.com/MindcrackLP" title="Twitter Profile"></a>
+                        <a class="site-link site-link-reddit" href="//reddit.com/r/mindcrack" title="Subreddit"></a>                    
+                    </div>
+                </div>
                 <div id="live-members" class="collapse"><hr></div>
             </div>
         </section>
-        {%- endif -%}
 
         {% block content_outside_container %}{% endblock %}
 
