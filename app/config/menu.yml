@@ -16,8 +16,8 @@ main:
       path: about
     - label: Contact
       path: contact
-    # - label: Store
-    #   path: https://store.mindcracklp.com
+    - label: Store
+      path: https://store.mindcracklp.com
 #    Removed until a store is set up
 
 common_links:
@@ -25,12 +25,12 @@ common_links:
       path: calendar
       class: common-link-calendar
 #    Replacement for store link
-    - label: News
-      path: news
-      class: common-link-news
+    # - label: News
+    #   path: news
+    #   class: common-link-news
     - label: Members
       path: members
       class: common-link-members
-    # - label: Store
-    #   path: https://store.mindcracklp.com
-    #   class: common-link-store
+    - label: Store
+      path: https://store.mindcracklp.com
+      class: common-link-store
