@@ -73,7 +73,7 @@ function update_members(streams, $members) {
 
 		if (slug in streams.members)
 		{
-			$twitch_link = $member.children(".site-link-twitch")
+			const $twitch_link = $member.children(".site-link-twitch")
 			if ("twitch" in streams.members[slug]) {
 				const stream = streams.members[slug]["twitch"]
 
@@ -84,7 +84,7 @@ function update_members(streams, $members) {
 				$twitch_link.fadeOut()
 			}
 
-			$youtube_link = $member.children(".site-link-youtube")
+			const $youtube_link = $member.children(".site-link-youtube")
 			if ("youtube" in streams.members[slug]) {
 				const stream = streams.members[slug]["youtube"]
 
@@ -113,7 +113,7 @@ function update_member_page(streams, $member) {
 	const slug = $member.data('member-slug')
 
 	if (slug in streams.members) {
-		$twitch_section = $member.children(".member-vid-twitch-live")
+		const $twitch_section = $member.children(".member-vid-twitch-live")
 		
 		if ("twitch" in streams.members[slug]) {
 			const stream = streams.members[slug]["twitch"]
@@ -144,7 +144,7 @@ function update_member_page(streams, $member) {
 			}
 		}
 
-		$youtube_section = $member.children(".member-vid-youtube-live")
+		const $youtube_section = $member.children(".member-vid-youtube-live")
 		if ("youtube" in streams.members[slug]) {
 			const stream = streams.members[slug]["youtube"]
 			if ($youtube_section.data("live-stream-id") != stream.stream_id) {
@@ -184,7 +184,7 @@ function update_live_notification(streams, $stream_section) {
 			if ("youtube" in member) { stream_ids.push(member["youtube"].stream_id) }
 
 			if (stream_ids.join(',') !== $member.data('member-stream-ids')) {
-				$twitch_link = $member.children(".site-link-twitch")
+				const $twitch_link = $member.children(".site-link-twitch")
 				if ("twitch" in member) {
 					const stream = member["twitch"]
 					if ($twitch_link.data("live-stream-id") != stream.stream_id) {
@@ -196,7 +196,7 @@ function update_live_notification(streams, $stream_section) {
 				} else {
 					$twitch_link.fadeOut()
 				}
-				$youtube_link = $member.children(".site-link-youtube")
+				const $youtube_link = $member.children(".site-link-youtube")
 				if ("youtube" in member) {
 					const stream = member["youtube"]
 					if ($youtube_link.data("live-stream-id") != stream.stream_id) {
@@ -227,7 +227,7 @@ function update_live_notification(streams, $stream_section) {
 				
 				var stream_links = ""
 				var stream_ids = []
-				$twitch_link = $member.children(".site-link-twitch")
+				const $twitch_link = $member.children(".site-link-twitch")
 				if ("twitch" in member) {
 					const stream = member["twitch"]
 					$twitch_link.attr("data-live-stream-id", stream.stream_id)
@@ -236,7 +236,7 @@ function update_live_notification(streams, $stream_section) {
 					$twitch_link.fadeIn().css("display","inline-block");
 					stream_ids.push(stream.stream_id)
 				}
-				$youtube_link = $member.children(".site-link-youtube")
+				const $youtube_link = $member.children(".site-link-youtube")
 				if ("youtube" in member) {
 					const stream = member["youtube"]
 					$youtube_link.attr("data-live-stream-id", stream.stream_id)
