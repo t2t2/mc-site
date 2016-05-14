@@ -301,19 +301,11 @@ header#main-header
  					&.nav-group.site-links  {
  						clear: both;
  					}
-
- 					a.site-link {
- 						margin-top:0.4rem;
- 					}
  				}
  				
   				@include media-breakpoint-up(md) {
  					&.nav-group.site-links  {
  						clear: none;
- 					}
-
- 					a.site-link {
- 						margin-top:0.1rem;
  					}
  				}
 
@@ -326,19 +318,11 @@ header#main-header
 	 				&.site-links {
 	 					@include pull-right();
 	 				}
-
-	 				 a.site-link {
- 						margin-top:0.4rem;
- 					}
  				}
 
  				@include media-breakpoint-up(xl) {
  					&.nav-group.site-links  {
  						clear: none;
- 					}
-
- 					a.site-link {
- 						margin-top:0.1rem;
  					}
  				}
  			}
@@ -353,6 +337,12 @@ header#main-header
 	 			@include pull-left;
 	 			margin-top: -1rem;
 	 			margin-left: 2rem;
+
+	 			li.nav-item {
+	 				a.site-link {
+	 					margin-top:0.5rem;
+	 				}
+	 			}
 	 		}
 	 	}
 	}
