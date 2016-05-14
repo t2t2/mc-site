@@ -8,7 +8,8 @@
 		"bolt/thumbs": "^3.0",
 		"composer/composer": "1.0.*@dev",
 		"ircmaxell/random-lib": "dev-master",
-		"guzzlehttp/guzzle": "~5.3",
+		"guzzlehttp/guzzle": "~6.2",
+		"guzzlehttp/promises": "~1.0",
 		"umpirsky/twig-php-function": "dev-master"
 	},
 	"authors": [

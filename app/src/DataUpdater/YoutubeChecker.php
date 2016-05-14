@@ -3,12 +3,12 @@
 namespace Mindcrack\Site\DataUpdater;
 
 use Bolt\Application;
-use Bolt\Content;
-use Bolt\Storage;
+use Bolt\Legacy\Content;
+use Bolt\Legacy\Storage;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\BadResponseException;
-use GuzzleHttp\Message\ResponseInterface;
-use React\Promise\ExtendedPromiseInterface;
+use GuzzleHttp\Exception\RequestException;
+use Psr\Http\Message\ResponseInterface;
+use GuzzleHttp\Promise\PromiseInterface;
 
 class YoutubeChecker {
 
@@ -49,7 +49,7 @@ class YoutubeChecker {
 	/**
 	 * @param Content|Content[] $members
 	 *
-	 * @return ExtendedPromiseInterface
+	 * @return PromiseInterface
 	 */
 	public function update($members) {
 		if (!is_array($members)) {
@@ -59,7 +59,7 @@ class YoutubeChecker {
 		try {
 			$this->setupClient();
 		} catch (\Exception $e) {
-			return \React\Promise\reject($e);
+			return \GuzzleHttp\Promise\rejection_for($e);
 		}
 
 		$keyedMembers = $this->keyMembersByYTID($members);
@@ -73,17 +73,14 @@ class YoutubeChecker {
 	/**
 	 * Update all youtube stats
 	 *
-	 * @return ExtendedPromiseInterface
+	 * @return PromiseInterface
 	 */
 	public function updateAll() {
 		$members = $this->getMembersToUpdate();
-		$promise = \React\Promise\map($members, [$this, 'update']);
+		$promise = \GuzzleHttp\Promise\all(array_map([$this, 'update'], $members));
 
-		$total = \React\Promise\reduce($promise, function ($total, $updated) {
-			return $total + $updated;
-		}, 0);
-
-		return $total->then(function ($updated) {
+		return $promise->then(function ($results) {
+			$updated = array_sum($results);
 			// Store updated so it's sent back once done
 			return $this->updateTotals()->then(function () use ($updated) {
 				return $updated;
@@ -104,18 +101,17 @@ class YoutubeChecker {
 		}
 
 		$this->youtubeClient = new Client([
-			'base_url' => 'https://www.googleapis.com/youtube/v3/',
+			'base_uri' => 'https://www.googleapis.com/youtube/v3/',
+			'query' => [
+				'key' => $api_key,
+			]
 		]);
-		$this->queryDefaults = [
-			'key' => $api_key,
-		];
-
 	}
 
 	/**
 	 * Get the list of members that should be updated
 	 *
-	 * @returns ExtendedPromiseInterface
+	 * @returns PromiseInterface
 	 */
 	protected function getMembersToUpdate() {
 		/** @var Storage $storage */
@@ -151,31 +147,30 @@ class YoutubeChecker {
 	 *
 	 * @param Content[] $keyedMembers
 	 *
-	 * @return ExtendedPromiseInterface
+	 * @return PromiseInterface
 	 */
 	protected function requestYoutubeData($keyedMembers) {
 
-		return \React\Promise\resolve($this->youtubeClient->get('channels', [
-			'future' => true,
-			'query' => array_replace_recursive($this->queryDefaults, [
-				'id' => implode(',', array_keys($keyedMembers)),
-				'part' => 'brandingSettings,contentDetails,statistics',
-				'fields' => 'items(id,contentDetails(relatedPlaylists(uploads)),brandingSettings(channel(unsubscribedTrailer)),statistics(viewCount,subscriberCount,videoCount))'
-			]),
-		]));
+		return $this->youtubeClient->getAsync('channels', [
+			'query' => $this->youtubeClient->getConfig('query') + [
+					'id' => implode(',', array_keys($keyedMembers)),
+					'part' => 'brandingSettings,contentDetails,statistics',
+					'fields' => 'items(id,contentDetails(relatedPlaylists(uploads)),brandingSettings(channel(unsubscribedTrailer)),statistics(viewCount,subscriberCount,videoCount))'
+				],
+		]);
 	}
 
 	/**
 	 * Parse the results from the youtube response
 	 *
-	 * @param ExtendedPromiseInterface $promise
-	 * @param Content[]                $keyedMembers
+	 * @param PromiseInterface $promise
+	 * @param Content[]        $keyedMembers
 	 *
-	 * @return \React\Promise\PromiseInterface
+	 * @return PromiseInterface
 	 */
-	protected function parseYoutubeResults(ExtendedPromiseInterface $promise, $keyedMembers) {
+	protected function parseYoutubeResults(PromiseInterface $promise, $keyedMembers) {
 		return $promise->then(function (ResponseInterface $response) use ($keyedMembers) {
-			$answer = $response->json();
+			$answer = json_decode($response->getBody(), true);
 
 			$updateCount = 0;
 			array_map(function ($channel) use ($keyedMembers, &$updateCount) {
@@ -196,9 +191,9 @@ class YoutubeChecker {
 			}, $answer['items']);
 
 			return $updateCount;
-		})->otherwise(function (BadResponseException $error) {
+		})->otherwise(function (RequestException $error) {
 			if ($error->hasResponse()) {
-				$response = $error->getResponse()->json();
+				$response = json_decode($error->getResponse()->getBody(), true);
 				throw new \Exception('Youtube Error: ' . $response['error']['message']);
 			} else {
 				throw $error;
@@ -224,13 +219,13 @@ class YoutubeChecker {
 	 *
 	 * Updates totals on the home page once the promise is done
 	 *
-	 * @return ExtendedPromiseInterface
+	 * @return PromiseInterface
 	 **/
 	public function updateTotals() {
 		/** @var Storage $storage */
 		$storage = $this->app['storage'];
 
-		return \React\Promise\resolve()->then(function () use ($storage) {
+		return \GuzzleHTTP\Promise\promise_for(true)->then(function () use ($storage) {
 			$members = $storage->getContent('members');
 
 			$pages_to_update = $storage->getContent('pages', ['template' => 'home.twig']);

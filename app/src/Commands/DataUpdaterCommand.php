@@ -26,7 +26,7 @@ class DataUpdaterCommand extends Command {
 
 	protected function configure() {
 		$this->setName('mindcrack:update')
-		     ->setDescription('Runs updater on automatically gathered site data');
+			->setDescription('Runs updater on automatically gathered site data');
 	}
 
 	/**
@@ -44,13 +44,13 @@ class DataUpdaterCommand extends Command {
 		$output->writeln('<info>Checking...</info>');
 
 		$results->then(function ($results) use ($output) {
-			foreach($results as $key => $result) {
+			foreach ($results as $key => $result) {
 				$output->writeln("<info>{$key}: {$result} Updated</info>");
 			}
-		}, function ($error) use($output) {
+		}, function ($error) use ($output) {
 			/** @var \Exception $error */
-			$output->writeln('<error>'.$error->getMessage().'</error></>');
-		});
+			$output->writeln('<error>' . $error->getMessage() . '</error></>');
+		})->wait(false);
 	}
 
 

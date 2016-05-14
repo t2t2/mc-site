@@ -26,7 +26,7 @@ class Runner {
 			'youtube' => $this->updateYoutube(),
 		];
 
-		return \React\Promise\all($promises);
+		return \GuzzleHTTP\Promise\all($promises);
 	}
 
 	/**
