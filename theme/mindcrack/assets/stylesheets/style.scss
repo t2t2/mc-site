@@ -168,22 +168,44 @@ nav.navbar
 
  	ul.nav {
  		padding-top: 0.2rem;
- 		
+
+ 		// For nav groups
+		 li.nav-group > ul {
+ 			list-style: none;
+ 			float: left;
+ 			padding: 0;
+
+ 			li:first-child {
+ 				margin-left: 0;
+ 			}
+ 		}
+
  		// keep the margins even on all nav items (for when it moves to multiple lines)
  		li.nav-item {
 			margin-right: 1rem;
 			margin-left: 0;
-			a {font-weight: normal;}
+			a {
+				font-weight: normal;
+	 			text-transform: uppercase;
+	 			padding-top:0;
+	 			padding-bottom:0;
+			}
 
 			&.active {
 				a {font-weight: 500;}
 			}
- 		}
 
- 		li.nav-item a{
- 			text-transform: uppercase;
- 			padding-top:0;
- 			padding-bottom:0;
+			a.site-link {
+				width:1.3rem;
+				height:1.3rem;
+				margin-top:0.1rem;
+
+				filter: brightness(0.78);
+			}
+
+			a.site-link:hover {
+				filter: brightness(1.0);
+			}
  		}
  	}
 }
@@ -246,32 +268,14 @@ header#main-header
 
 	 	ul.nav {
 	 		padding-top: 0;
-
-	 		li > ul {
-	 			list-style: none;
-	 			float: left;
-	 			padding: 0;
-
-	 			li:first-child {
+	 		li.nav-group > ul {
+	 			&>li:first-child {
 	 				margin-left: 0;
 	 			}
 	 		}
-
 	 		li.nav-item {
 	 			margin-right: 0;
  				margin-left: 1rem;
-
- 				a.site-link {
- 					width:1.3rem;
- 					height:1.3rem;
- 					margin-top:0.1rem;
-
- 					filter: brightness(0.78);
- 				}
-
- 				a.site-link:hover {
- 					filter: brightness(1.0);
- 				}
 
   				@include media-breakpoint-up(xs) {
  					&.nav-group.site-links  {
