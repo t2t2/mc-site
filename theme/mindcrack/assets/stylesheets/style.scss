@@ -216,39 +216,15 @@ header#main-header
 					  	url('../images/mindcrack_header.jpg'); 
  	}
 
-	 	// Scale the background with the size of the header (may need to look into compatibility)
-		background-size: cover;
-		background-position: 50% 14%;
+ 	// Scale the background with the size of the header (may need to look into compatibility)
+	background-size: cover;
+	background-position: 50% 14%;
 
 	// cut the top padding at the xL breakpoint to prevent the header from becoming too tall.
 	@include media-breakpoint-up(xl) {
 		padding-top: 10rem;
 	}
-	/*&>.container {
-		position: relative;
 
-		&>.site-links {
-			position: absolute;
-			right:$grid-gutter-width / 2;
-			top:-13.33333vw;
-			padding: 0.5rem;
-			background-color: $mc-blue;
-
-			@include media-breakpoint-up(xl) {
-				top: -10rem;
-			}
-
-			.site-link {
-				margin-left:0.7rem;
-				width: 1.5rem;
-				height: 1.5rem;
-
-				&:first-child {
-					margin-left: 0;
-				}
-			}
-		}
-	}*/
 	nav {
 		padding-top: 0.5rem;
 	 	a.navbar-brand {
