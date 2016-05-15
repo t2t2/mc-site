@@ -213,38 +213,50 @@ nav.navbar
 // Header
 header#main-header 
 {
-	padding-top: 13.33333vw;
-	position: relative;
-	z-index: 0;
+	background-color: rgba(5,5,5,1);
+	.background-container {
+		max-width: 125rem;
+		margin-left: auto;
+		margin-right: auto;
+		padding-top: 13.33333vw;
+		position: relative;
+		z-index: 0;
 
-	background-color: black;
-	background-image:	url('../images/mindcrack_header.jpg');
-	background-image:	linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,1.0) 65%),
-						url('../images/mindcrack_header.jpg'); 
-
-	// Adjust gradient on various sizes to make readable
-	@include media-breakpoint-up(sm) {
-		background-image:	linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.95) 75%),
+		background-color: black;
+		background-image:	url('../images/mindcrack_header.jpg');
+		background-image:	linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,1.0) 65%),
 							url('../images/mindcrack_header.jpg'); 
- 	}
 
-	@include media-breakpoint-up(md) {
-		background-image:	linear-gradient(to bottom, rgba(0,0,0,0) 20%, rgba(0,0,0,0.95) 75%),
-							url('../images/mindcrack_header.jpg'); 
-	}
+		// Adjust gradient on various sizes to make readable
+		@include media-breakpoint-up(sm) {
+			background-image:	linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.95) 75%),
+								url('../images/mindcrack_header.jpg'); 
+	 	}
 
- 	@include media-breakpoint-up(lg) {
-	background-image:	linear-gradient(to bottom, rgba(0,0,0,0.0) 20%, rgba(0,0,0,0.95) 85%),
-					  	url('../images/mindcrack_header.jpg'); 
- 	}
+		@include media-breakpoint-up(md) {
+			background-image:	linear-gradient(to bottom, rgba(0,0,0,0) 20%, rgba(0,0,0,0.95) 75%),
+								url('../images/mindcrack_header.jpg'); 
+		}
 
- 	// Scale the background with the size of the header (may need to look into compatibility)
-	background-size: cover;
-	background-position: 50% 14%;
+	 	@include media-breakpoint-up(lg) {
+		background-image:	linear-gradient(to bottom, rgba(0,0,0,0.0) 20%, rgba(0,0,0,0.95) 85%),
+						  	url('../images/mindcrack_header.jpg'); 
+	 	}
 
-	// cut the top padding at the xL breakpoint to prevent the header from becoming too tall.
-	@include media-breakpoint-up(xl) {
-		padding-top: 10rem;
+	 	@media (min-width: 125rem) {
+	 		background-image:	linear-gradient(to right, rgba(5,5,5,1) 0%, rgba(5,5,5,0) 5%, rgba(5,5,5,0) 95%, rgba(5,5,5,1) 100%),
+	 							linear-gradient(to bottom, rgba(0,0,0,0.0) 20%, rgba(0,0,0,0.95) 85%),
+						  		url('../images/mindcrack_header.jpg'); 
+	 	}
+
+	 	// Scale the background with the size of the header (may need to look into compatibility)
+		background-size: cover;
+		background-position: 50% 14%;
+
+		// cut the top padding at the xL breakpoint to prevent the header from becoming too tall.
+		@include media-breakpoint-up(xl) {
+			padding-top: 10rem;
+		}
 	}
 
 	nav {
@@ -1386,17 +1398,19 @@ article.podcast {
 	}
 
 	header#main-header {
-		background-image: url('../images/mindcrack_header.jpg');
-		background-size: cover;
-		background-position: 50% 14%;
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#F2000000',GradientType=0 );
+		.background-container {
+			background-image: url('../images/mindcrack_header.jpg');
+			background-size: cover;
+			background-position: 50% 14%;
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#F2000000',GradientType=0 );
 
-		@include media-breakpoint-down(sm) {
-			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1a000000', endColorstr='#F2000000',GradientType=0 );
-		}
+			@include media-breakpoint-down(sm) {
+				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1a000000', endColorstr='#F2000000',GradientType=0 );
+			}
 
-		@include media-breakpoint-down(xs) {
-			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1a000000', endColorstr='#000000',GradientType=0 );
+			@include media-breakpoint-down(xs) {
+				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1a000000', endColorstr='#000000',GradientType=0 );
+			}
 		}
 	}
 }

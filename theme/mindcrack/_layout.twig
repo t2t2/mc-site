@@ -18,8 +18,10 @@
 <body>
     <div class="row-expandable">
         <header id="main-header">
-            <div class="container">
-            {{ menu('main', '_menu_header_nav.twig') }}
+            <div class="background-container">
+                <div class="container">
+                {{ menu('main', '_menu_header_nav.twig') }}
+                </div>
             </div>
         </header>
         {% set check_live = (app.config.get('general/services/livehub_config_url') is not empty 
