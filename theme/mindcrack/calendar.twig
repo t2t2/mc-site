@@ -40,7 +40,7 @@
             	{% if event.web_location is not empty %}
             		<p class="detail"><span class="detail-label">Link? </span><a href="{{ event.web_location }}">{{ event.web_location_title is empty ? event.web_location : event.web_location_title }}</a></p>
             	{% endif %}
-            	<p>{{ event.body|preg_replace("/<\s*figure.*?\\/\s*figure\s*>|<\s*p[^>]*>\s*<\s*a\s*.*?\\/\s*a\s*>\s*<\s*\\/\s*p\s*>/si",'')|excerpt(300) }}</p>
+            	<p>{{ event.body|preg_replace("/<\s*figure.*?\\/\s*figure\s*>|<\s*p[^>]*>\s*<\s*a\s*.*?\\/\s*a\s*>\s*<\s*\\/\s*p\s*>/si",'')|striptags|excerpt(300) }}</p>
             	<p><a href="{{ event.link }}">(more info)</a></p>
         	</div>
 
