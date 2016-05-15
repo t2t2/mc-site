@@ -256,6 +256,7 @@ header#main-header
 	 		background-size: contain;
 	 		background-repeat: no-repeat;
 	 		@include text-hide();
+	 		font-size: 0;
 
 	 		// Scale down the logo at super small mobile sizes
 	 		max-width: 100%;
