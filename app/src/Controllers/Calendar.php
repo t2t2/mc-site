@@ -24,7 +24,7 @@ class Calendar {
 		$contentType = $storage->getContentType($contentTypeSlug);
 
 		$content = $storage->getContent($contentType['slug'], [
-			'event_time' => '> 3 days ago',
+			'event_time ||| event_end_day' => '> 1 days ago ||| > 1 days ago',
 			'limit' => 5,
 			'order' => 'event_time',
 			'paging' => true
