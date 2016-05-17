@@ -1,54 +1,52 @@
 {% extends "_layout.twig" %}
 {% from "_utilities.twig" import retina_crop %}
 
-{% block content_outside_container %}
-	<section class="about-panel">
-		<div class="container member-header-container">
-				<div class="member-thumb">
-				{%- if record.image is not empty -%}
-					<img {{ retina_crop(record.image, 285, 285) }} alt="record.title">
-				{%- else -%}
-					<div class="no-thumb no-thumb-square"></div>
-				{%- endif -%}
-				</div>
-				<div class="member-details">
-					<h1>{{ record.title }}</h1>
-					{{ record.bio }}
-					<p class="site-links">
-						{%- if record.social_youtube_custom_name is not empty -%}
-							<a class="site-link site-link-youtube" href="//youtube.com/{{ record.social_youtube_custom_name }}" title="Youtube Channel"></a>
-						{%- elseif record.youtube_channel_id is not empty -%}
-							<a class="site-link site-link-youtube" href="//youtube.com/channel/{{ record.youtube_channel_id }}" title="Youtube Channel"></a>
-						{%- endif -%}
-						{%- if record.social_twitch_username is not empty -%}
-							<a class="site-link site-link-twitch" href="//twitch.tv/{{ record.social_twitch_username }}" title="Twitch Channel"></a>
-						{%- endif -%}
-						{%- if record.social_twitter_username is not empty -%}
-							<a class="site-link site-link-twitter" href="//twitter.com/{{ record.social_twitter_username }}" title="Twitter Profile"></a>
-						{%- endif -%}
-						{%- if record.social_reddit_username is not empty -%}
-							<a class="site-link site-link-reddit" href="//reddit.com/u/{{ record.social_reddit_username }}" title="Reddit Profile"></a>
-						{%- endif -%}
-					</p>
-				</div>
-			
-		</div>
-		<div class="about-panel-stat-line">
-			<div class="container">
-				<span class="h4">STATISTICS</span>
-				<div {{ record.primarily_twitch ? 'class="twitch"' : ''}}>
-					{% if record.primarily_twitch %}
-					<span><span class="stat-heading">TOTAL VIEWS:</span> {{ record.youtube_views|number_format }}</span>
-					<span><span class="stat-heading">TOTAL FOLLOWERS:</span> {{ record.youtube_subscribers|number_format }}</span>
-					{% else %}
-					<span><span class="stat-heading">TOTAL VIEWS:</span> {{ record.youtube_views|number_format }}</span>
-					<span><span class="stat-heading">TOTAL SUBSCRIBERS:</span> {{ record.youtube_subscribers|number_format }}</span>
-					<span><span class="stat-heading">TOTAL VIDEOS:</span> {{ record.youtube_videos|number_format }}</span>
-					{% endif %}
-				</div>
+{% block about_content %}
+	<div class="container member-header-container">
+			<div class="member-thumb">
+			{%- if record.image is not empty -%}
+				<img {{ retina_crop(record.image, 285, 285) }} alt="record.title">
+			{%- else -%}
+				<div class="no-thumb no-thumb-square"></div>
+			{%- endif -%}
+			</div>
+			<div class="member-details">
+				<h1>{{ record.title }}</h1>
+				{{ record.bio }}
+				<p class="site-links">
+					{%- if record.social_youtube_custom_name is not empty -%}
+						<a class="site-link site-link-youtube" href="//youtube.com/{{ record.social_youtube_custom_name }}" title="Youtube Channel"></a>
+					{%- elseif record.youtube_channel_id is not empty -%}
+						<a class="site-link site-link-youtube" href="//youtube.com/channel/{{ record.youtube_channel_id }}" title="Youtube Channel"></a>
+					{%- endif -%}
+					{%- if record.social_twitch_username is not empty -%}
+						<a class="site-link site-link-twitch" href="//twitch.tv/{{ record.social_twitch_username }}" title="Twitch Channel"></a>
+					{%- endif -%}
+					{%- if record.social_twitter_username is not empty -%}
+						<a class="site-link site-link-twitter" href="//twitter.com/{{ record.social_twitter_username }}" title="Twitter Profile"></a>
+					{%- endif -%}
+					{%- if record.social_reddit_username is not empty -%}
+						<a class="site-link site-link-reddit" href="//reddit.com/u/{{ record.social_reddit_username }}" title="Reddit Profile"></a>
+					{%- endif -%}
+				</p>
+			</div>
+		
+	</div>
+	<div class="about-panel-stat-line">
+		<div class="container">
+			<span class="h4">STATISTICS</span>
+			<div {{ record.primarily_twitch ? 'class="twitch"' : ''}}>
+				{% if record.primarily_twitch %}
+				<span><span class="stat-heading">TOTAL VIEWS:</span> {{ record.youtube_views|number_format }}</span>
+				<span><span class="stat-heading">TOTAL FOLLOWERS:</span> {{ record.youtube_subscribers|number_format }}</span>
+				{% else %}
+				<span><span class="stat-heading">TOTAL VIEWS:</span> {{ record.youtube_views|number_format }}</span>
+				<span><span class="stat-heading">TOTAL SUBSCRIBERS:</span> {{ record.youtube_subscribers|number_format }}</span>
+				<span><span class="stat-heading">TOTAL VIDEOS:</span> {{ record.youtube_videos|number_format }}</span>
+				{% endif %}
 			</div>
 		</div>
-	</section>
+	</div>
 {% endblock %}
 {% block content %}
 

@@ -1,25 +1,25 @@
 {% extends "_layout.twig" %}
 {% from "_utilities.twig" import retina_crop %}
-
-{% block content_outside_container %}
-	<section id="about" class="about-panel">
+{% block about_content_id %}about{% endblock %}
+{% block about_content %}
+	<div class="container">
+		<div class="about_logo"></div>
+		<div class="about_text">
+			{{ record.templatefields.about_text }}
+		</div>
+	</div>
+	<div class="about-panel-stat-line">
 		<div class="container">
-			<div class="about_logo"></div>
-			<div class="about_text">
-				{{ record.templatefields.about_text }}
+			<span class="h4">STATISTICS</span>
+			<div>
+				<span><span class="stat-heading">TOTAL VIEWS:</span> {{ record.templatefields.youtube_views|default('0')|reverse|split('',3)|join(',')|reverse }}</span>
+				<span><span class="stat-heading">TOTAL SUBSCRIBERS:</span> {{ record.templatefields.youtube_subscribers|default('0')|reverse|split('',3)|join(',')|reverse }}</span>
+				<span><span class="stat-heading">TOTAL VIDEOS:</span> {{ record.templatefields.youtube_videos|number_format }}</span>
 			</div>
 		</div>
-		<div class="about-panel-stat-line">
-			<div class="container">
-				<span class="h4">STATISTICS</span>
-				<div>
-					<span><span class="stat-heading">TOTAL VIEWS:</span> {{ record.templatefields.youtube_views|default('0')|reverse|split('',3)|join(',')|reverse }}</span>
-					<span><span class="stat-heading">TOTAL SUBSCRIBERS:</span> {{ record.templatefields.youtube_subscribers|default('0')|reverse|split('',3)|join(',')|reverse }}</span>
-					<span><span class="stat-heading">TOTAL VIDEOS:</span> {{ record.templatefields.youtube_videos|number_format }}</span>
-				</div>
-			</div>
-		</div>
-	</section>
+	</div>
+{% endblock %}
+{% block content_outside_container %}
 	<section id="hero">
 		<div class="container">
 			<div class="row {% if record.templatefields.promo_image is empty %}no-promo{% endif %}">

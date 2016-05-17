@@ -24,24 +24,28 @@
                 </div>
             </div>
         </header>
+        {%- set about_content_class_block = block('about_content_class') -%}
+        {%- set about_content_id_block = block('about_content_id') -%}
+        <section {% if about_content_id_block is not empty %}id="{{ about_content_id_block }}" {% endif %}class="about-panel{{ about_content_class_block is empty ? '' : ' '}}{% block about_content_class %}{% endblock %}">
         {% set check_live = (app.config.get('general/services/livehub_config_url') is not empty 
             and app.config.get('general/services/livehub_interval') is not empty) %}
-        <section id="social" {% if check_live %}data-live-config="{{ app.config.get('general/services/livehub_config_url') }}" data-live-check-interval="{{ app.config.get('general/services/livehub_interval') }}"{% endif %}>
-            <div class="container">
-                <div class="bar">
-                    <a class="live-notification" data-toggle="collapse" href="#live-members" aria-expanded="false"></a>
-                    <div class="site-links">
-                        <span>Follow Us! </span>
-                        <a class="site-link site-link-youtube" href="//youtube.com/MindcrackNetwork" title="Youtube Channel"></a>
-                        <a class="site-link site-link-twitch" href="//twitch.tv/mindcrack" title="Twitch Channel"></a>
-                        <a class="site-link site-link-twitter" href="//twitter.com/MindcrackLP" title="Twitter Profile"></a>
-                        <a class="site-link site-link-reddit" href="//reddit.com/r/mindcrack" title="Subreddit"></a>                    
+            <section id="social" {% if check_live %}data-live-config="{{ app.config.get('general/services/livehub_config_url') }}" data-live-check-interval="{{ app.config.get('general/services/livehub_interval') }}"{% endif %}>
+                <div class="container">
+                    <div class="bar">
+                        <a class="live-notification" data-toggle="collapse" href="#live-members" aria-expanded="false"></a>
+                        <div class="site-links">
+                            <span>Follow Us! </span>
+                            <a class="site-link site-link-youtube" href="//youtube.com/MindcrackNetwork" title="Youtube Channel"></a>
+                            <a class="site-link site-link-twitch" href="//twitch.tv/mindcrack" title="Twitch Channel"></a>
+                            <a class="site-link site-link-twitter" href="//twitter.com/MindcrackLP" title="Twitter Profile"></a>
+                            <a class="site-link site-link-reddit" href="//reddit.com/r/mindcrack" title="Subreddit"></a>                    
+                        </div>
                     </div>
+                    <div id="live-members" class="collapse"><hr></div>
                 </div>
-                <div id="live-members" class="collapse"><hr></div>
-            </div>
+            </section>            
+            {% block about_content %}{% endblock %}
         </section>
-
         {% block content_outside_container %}{% endblock %}
 
         <section id="main-content">

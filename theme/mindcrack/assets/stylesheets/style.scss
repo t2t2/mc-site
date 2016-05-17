@@ -1240,11 +1240,7 @@ section#latest-news {
 		background-image: url('../images/icon_live.svg');
 		margin-right: 0.5rem;
 	}
-
-	background-color: darken($mc-blue-dark, 5%);
-	background-size:cover;
-	background-position: center;
-	color: white;
+	background-color:rgba(0,0,0,0.2);
 
 	.bar { 
 		@include clearfix();
@@ -1262,6 +1258,10 @@ section#latest-news {
 
 		@include media-breakpoint-up(md) {
 			float: left;
+		}
+
+		&:hover {
+			text-decoration: none;
 		}
 	}
 
@@ -1309,7 +1309,7 @@ section#latest-news {
 		hr {
 			margin-left: $grid-gutter-width / 2;
 			margin-right: $grid-gutter-width / 2;
-			border-top-color: $mc-blue;
+			border-top-color: lighten($mc-blue,20%);
 			margin-top:0.5rem;
 			margin-bottom: 0.5rem;
 		}

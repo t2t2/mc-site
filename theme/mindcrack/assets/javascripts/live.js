@@ -224,7 +224,13 @@ function update_live_notification(streams, $stream_section) {
 		for (var member_slug in streams.members) {
 			if (streams.members.hasOwnProperty(member_slug)) {
 				const member = streams.members[member_slug]
-				var $member = $("<div class='member-live' data-member-slug='" + member_slug + "'>" + member.name + " <a class='site-link site-link-twitch' href='#' title=''></a><a class='site-link site-link-youtube' href='#' title=''></a></div>")
+				var member_string = ""
+				if (member_slug === "mindcrack-network") {
+					member_string = member.name
+				} else {
+					member_string = "<a href='/member/" + member_slug + "'>" + member.name + "</a>"
+				}
+				var $member = $("<div class='member-live' data-member-slug='" + member_slug + "'>" + member_string + " <a class='site-link site-link-twitch' href='#' title=''></a><a class='site-link site-link-youtube' href='#' title=''></a></div>")
 				
 				var stream_links = ""
 				var stream_ids = []
