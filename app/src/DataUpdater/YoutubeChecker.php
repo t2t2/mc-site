@@ -191,9 +191,10 @@ class YoutubeChecker {
 	 * @return array
 	 */
 	protected function keyMembers($members, 
-										$key = 'youtube_channel_id',
-										$childRepeaterKey = 'youtube_channel_secondary_repeater',
-										$childKey = 'youtube_channel_secondary_id') {
+				      $key = 'youtube_channel_id',
+				      $childRepeaterKey = 'youtube_channel_secondary_repeater',
+				      $childKey = 'youtube_channel_secondary_id') {
+		
 		$keyed = ["yt_ids"=>[],"yt_sub_ids"=>[]];
 
 		foreach ($members as $member) {
