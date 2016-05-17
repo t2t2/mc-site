@@ -47,6 +47,21 @@ members:
             info: "24 character channel ID (eg. URL https://www.youtube.com/channel/[channel_id]). For yourself can be found on https://www.youtube.com/account_advanced"
             postfix: "<p>Youtube API will be queried for this ID to automatically update the fields bellow on page creation and once an hour.</p>"
             group: Youtube
+        youtube_channel_secondary_repeater:
+            type: repeater
+            label: Secondary Channels
+            limit: 3
+            prefix: Allows for up to 3 extra ids for stats calculation, and custom names for link generation
+            fields:
+                youtube_channel_secondary_id:
+                    label: Channel ID
+                    type: text
+                youtube_channel_secondary_custom_name:
+                    label: Channel Custom Name (e.g. youtube.com/{ custom name } )
+                    type: text
+                youtube_channel_secondary_name:
+                    label: Displayed Channel Name
+                    type: text
         youtube_subscribers:
             type: biginteger
             label: Youtube Subscribers
@@ -65,6 +80,11 @@ members:
         primarily_twitch:
             type: checkbox
             label: Primarily Twitch? (the Sevadus switch)
+            postfix: If set, youtube stats for the channel are replaced with twitch stats, as well as only twitch content is displayed on member pages.
+            group: Twitch
+        twitch_latest_vod_id:
+            type: text
+            label: Latest Twitch VOD id (filled automatically if channel set to primarily twitch)
         social_twitter_username:
             type: text
             label: Twitter Username

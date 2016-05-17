@@ -34,9 +34,16 @@ class YoutubeChecker {
 	protected $queryDefaults;
 
 	/**
-	 * @var Client
+	 * @var Youtube Client
 	 */
 	protected $youtubeClient;
+
+
+	/**
+	 * @var Twitch Client
+	 */
+	protected $twitchClient;
+
 
 	/**
 	 * @param Application $app
@@ -57,13 +64,12 @@ class YoutubeChecker {
 		}
 
 		try {
-			$this->setupClient();
+			$this->setupYoutubeClient();
 		} catch (\Exception $e) {
 			return \GuzzleHttp\Promise\rejection_for($e);
 		}
 
-		$keyedMembers = $this->keyMembersByYTID($members);
-
+		$keyedMembers = $this->keyMembers($members);
 		$promise = $this->requestYoutubeData($keyedMembers);
 		$promise = $this->parseYoutubeResults($promise, $keyedMembers);
 
@@ -91,7 +97,7 @@ class YoutubeChecker {
 	/**
 	 * Set up guzzle client for youtube
 	 */
-	protected function setupClient() {
+	protected function setupYoutubeClient() {
 		if ($this->youtubeClient) {
 			return;
 		}
@@ -109,6 +115,26 @@ class YoutubeChecker {
 	}
 
 	/**
+	 * Set up guzzle client for twitch
+	 */
+	protected function setupTwitchClient() {
+		if ($this->twitchClient) {
+			return;
+		}
+
+		if (!($client_id = $this->app['config']->get('general/services/twitch'))) {
+			throw new \Exception('No Twitch Client ID configured (config/services/twitch)');
+		}
+
+		$this->twitchClient = new Client([
+			'base_uri' => 'https://api.twitch.tv/kraken/',
+			'headers' => [
+				'Client-ID' => $client_id,
+			]
+		]);
+	}
+
+	/**
 	 * Get the list of members that should be updated
 	 *
 	 * @returns PromiseInterface
@@ -119,24 +145,66 @@ class YoutubeChecker {
 
 		$members = $storage->getContent('members', ['youtube_channel_id' => '!']);
 
-		$chunked = array_chunk($members, self::$usersPerRequest);
-
+		$chunked = $this->chunkWithSecondaryChannels($members, self::$usersPerRequest);
 		return $chunked;
 	}
 
 	/**
-	 * Keys an array of members by youtube ID
+	 * Chunks the list of members, taking into account how many 
+	 * channels each member contains.
+	 *
+	 * @param Content[] $members
+	 * @param int $size
+	 * @return Content[]
+	 */
+	protected function chunkWithSecondaryChannels($members, $size) {
+		$chunks = array();
+		$c_num = 0;
+		$c_sum = 0;
+
+		foreach($members as $member) {
+			$m_sum = 1;
+			foreach ($member->values["youtube_channel_secondary_repeater"] as $repeater) {
+				if (!empty($repeater->get("youtube_channel_secondary_id"))) {
+					$m_sum++;
+				}
+			}
+			$c_sum += $m_sum;
+
+			if ($c_sum > (int)$size) {
+				$c_sum = $m_sum;
+				$c_num++;
+			}
+			
+			$chunks[$c_num][] = $member;
+		}
+
+		return $chunks;
+	}
+
+	/**
+	 * Keys an array of both members by youtube ID and member by sub channel youtube id (in the future also twitch)
 	 *
 	 * @param Content[] $members
 	 * @param string    $key
 	 *
 	 * @return array
 	 */
-	protected function keyMembersByYTID($members, $key = 'youtube_channel_id') {
-		$keyed = [];
+	protected function keyMembers($members, 
+										$key = 'youtube_channel_id',
+										$childRepeaterKey = 'youtube_channel_secondary_repeater',
+										$childKey = 'youtube_channel_secondary_id') {
+		$keyed = ["yt_ids"=>[],"yt_sub_ids"=>[]];
 
 		foreach ($members as $member) {
-			$keyed[$member->values[$key]] = $member;
+			$keyed["yt_ids"][$member->values[$key]] = $member;
+
+			foreach ($member->values[$childRepeaterKey] as $repeater) {
+				$secondaryID = $repeater->get($childKey);
+				if (!empty($secondaryID)) {
+					$keyed["yt_sub_ids"][$secondaryID] = $member;
+				}
+			}
 		}
 
 		return $keyed;
@@ -153,7 +221,7 @@ class YoutubeChecker {
 
 		return $this->youtubeClient->getAsync('channels', [
 			'query' => $this->youtubeClient->getConfig('query') + [
-					'id' => implode(',', array_keys($keyedMembers)),
+					'id' => implode(',', array_merge(array_keys($keyedMembers['yt_ids']),array_keys($keyedMembers['yt_sub_ids']))),
 					'part' => 'brandingSettings,contentDetails,statistics',
 					'fields' => 'items(id,contentDetails(relatedPlaylists(uploads)),brandingSettings(channel(unsubscribedTrailer)),statistics(viewCount,subscriberCount,videoCount))'
 				],
@@ -174,20 +242,30 @@ class YoutubeChecker {
 
 			$updateCount = 0;
 			array_map(function ($channel) use ($keyedMembers, &$updateCount) {
-				$dbChannel = $keyedMembers[$channel['id']];
+				$dbChannel = $keyedMembers["yt_ids"][$channel['id']];
 				if (!$dbChannel) {
-					return;
+					$dbChannel = $keyedMembers["yt_sub_ids"][$channel['id']];
+
+					// If it's not a sub channel either
+					if (!$dbChannel) {
+						return;
+					}
+
+					$dbChannel->values['youtube_subscribers'] += $channel['statistics']['subscriberCount'] ?: 0;
+					$dbChannel->values['youtube_videos'] += $channel['statistics']['videoCount'] ?: 0;
+					$dbChannel->values['youtube_views'] += $channel['statistics']['viewCount'] ?: 0;
+
+					$this->storeUpdatedPerson($dbChannel);					
+				} else {
+					$dbChannel->values['youtube_subscribers'] = $channel['statistics']['subscriberCount'] ?: $dbChannel->values['youtube_subscribers'];
+					$dbChannel->values['youtube_videos'] = $channel['statistics']['videoCount'] ?: $dbChannel->values['youtube_videos'];
+					$dbChannel->values['youtube_views'] = $channel['statistics']['viewCount'] ?: $dbChannel->values['youtube_views'];
+					$dbChannel->values['youtube_trailer'] = $channel['brandingSettings']['channel']['unsubscribedTrailer'] ?: $dbChannel->values['youtube_trailer'];
+					$dbChannel->values['youtube_uploads_playlist'] = $channel['contentDetails']['relatedPlaylists']['uploads'] ?: $dbChannel->values['youtube_uploads_playlist'];
+
+					$this->storeUpdatedPerson($dbChannel);
+					$updateCount++;
 				}
-
-				$dbChannel->values['youtube_subscribers'] = $channel['statistics']['subscriberCount'] ?: $dbChannel->values['youtube_subscribers'];
-				$dbChannel->values['youtube_videos'] = $channel['statistics']['videoCount'] ?: $dbChannel->values['youtube_videos'];
-				$dbChannel->values['youtube_views'] = $channel['statistics']['viewCount'] ?: $dbChannel->values['youtube_views'];
-				$dbChannel->values['youtube_trailer'] = $channel['brandingSettings']['channel']['unsubscribedTrailer'] ?: $dbChannel->values['youtube_trailer'];
-				$dbChannel->values['youtube_uploads_playlist'] = $channel['contentDetails']['relatedPlaylists']['uploads'] ?: $dbChannel->values['youtube_uploads_playlist'];
-
-				$this->storeUpdatedPerson($dbChannel);
-
-				$updateCount++;
 			}, $answer['items']);
 
 			return $updateCount;
