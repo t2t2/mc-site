@@ -1,0 +1,12 @@
+{% extends "_layout.twig" %}
+
+{% block content %}
+
+    <article>
+        <h1 class="section-heading">Redirecting...</h1>
+        {% if record.templatefields.redirect_url is not empty %}
+        	{{ redirect(record.templatefields.redirect_url) }}
+        {% endif %}
+    </article>
+
+{% endblock %}

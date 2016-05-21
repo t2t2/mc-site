@@ -32,3 +32,8 @@ templatefields:
             type: text
             label: AskCrack Embed url
             pattern: "url"
+    redirect.twig:
+        redirect_url:
+            type: text
+            pattern: "url"
+            label: Redirect URL
