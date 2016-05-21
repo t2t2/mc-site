@@ -69,11 +69,23 @@ class YoutubeChecker {
 			return \GuzzleHttp\Promise\rejection_for($e);
 		}
 
-		$keyedMembers = $this->keyMembers($members);
-		$promise = $this->requestYoutubeData($keyedMembers);
-		$promise = $this->parseYoutubeResults($promise, $keyedMembers);
+		try {
+			$this->setupTwitchClient();
+		} catch (\Exception $e) {
+			return \GuzzleHttp\Promise\rejection_for($e);
+		}
 
-		return $promise;
+		$keyedMembers = $this->keyMembers($members);
+
+		if (count($keyedMembers["twitch_ids"]) > 0) {
+			$promise = $this->requestTwitchData($keyedMembers);
+			$promise = $this->parseTwitchResults($promise, $keyedMembers);
+			return $promise;
+		} else {
+			$promise = $this->requestYoutubeData($keyedMembers);
+			$promise = $this->parseYoutubeResults($promise, $keyedMembers);
+			return $promise;
+		}	
 	}
 
 	/**
@@ -82,8 +94,9 @@ class YoutubeChecker {
 	 * @return PromiseInterface
 	 */
 	public function updateAll() {
-		$members = $this->getMembersToUpdate();
-		$promise = \GuzzleHttp\Promise\all(array_map([$this, 'update'], $members));
+		$youtubeMembers = $this->getYoutubeMembersToUpdate();
+		$twitchMembers = $this->getTwitchMembersToUpdate();
+		$promise = \GuzzleHttp\Promise\all(array_map([$this, 'update'], array_merge($youtubeMembers,$twitchMembers)));
 
 		return $promise->then(function ($results) {
 			$updated = array_sum($results);
@@ -135,19 +148,32 @@ class YoutubeChecker {
 	}
 
 	/**
-	 * Get the list of members that should be updated
+	 * Get the list of primarily youtube members that should be updated
 	 *
 	 * @returns PromiseInterface
 	 */
-	protected function getMembersToUpdate() {
+	protected function getYoutubeMembersToUpdate() {
 		/** @var Storage $storage */
 		$storage = $this->app['storage'];
 
-		$members = $storage->getContent('members', ['youtube_channel_id' => '!']);
+		$members = $storage->getContent('members', ['youtube_channel_id' => '!','primarily_twitch' => "!1"]);
 
 		$chunked = $this->chunkWithSecondaryChannels($members, self::$usersPerRequest);
 		return $chunked;
 	}
+
+	/**
+	 * Get the list of primarily twtich members that should be updated
+	 * 
+	 * @returns PromiseInterface
+	 */
+	protected function getTwitchMembersToUpdate() {
+		$storage = $this->app['storage'];
+
+		$members = $storage->getContent('members', ['twitch_channel_id' => '!','primarily_twitch' => "1"]);
+		return $members;
+	}
+
 
 	/**
 	 * Chunks the list of members, taking into account how many 
@@ -193,9 +219,11 @@ class YoutubeChecker {
 	protected function keyMembers($members, 
 				      $key = 'youtube_channel_id',
 				      $childRepeaterKey = 'youtube_channel_secondary_repeater',
-				      $childKey = 'youtube_channel_secondary_id') {
-		
-		$keyed = ["yt_ids"=>[],"yt_sub_ids"=>[]];
+				      $childKey = 'youtube_channel_secondary_id',
+				      $twitchKey = 'twitch_channel_id',
+				      $twitchPrimary = 'primarily_twitch') {
+
+		$keyed = ["yt_ids"=>[],"yt_sub_ids"=>[],"twitch_ids"=>[]];
 
 		foreach ($members as $member) {
 			$keyed["yt_ids"][$member->values[$key]] = $member;
@@ -205,6 +233,10 @@ class YoutubeChecker {
 				if (!empty($secondaryID)) {
 					$keyed["yt_sub_ids"][$secondaryID] = $member;
 				}
+			}
+
+			if ($member->values[$twitchPrimary] && !empty($member->values[$twitchKey])) {
+				$keyed["twitch_ids"][$member->values[$twitchKey]] = $member;
 			}
 		}
 
@@ -227,6 +259,18 @@ class YoutubeChecker {
 					'fields' => 'items(id,contentDetails(relatedPlaylists(uploads)),brandingSettings(channel(unsubscribedTrailer)),statistics(viewCount,subscriberCount,videoCount))'
 				],
 		]);
+	}
+
+	/**
+	 * Request data from twitch based on keyed members list
+	 * The way things are set up(and the way twitch api is), only one member at a time
+	 *
+	 * @param Content[] $keyedMembers
+	 *
+	 * @return PromiseInterface
+	 */
+	protected function requestTwitchData($keyedMembers) {
+		return $this->twitchClient->getAsync('channels/'.array_keys($keyedMembers['twitch_ids'])[0]);
 	}
 
 	/**
@@ -264,6 +308,10 @@ class YoutubeChecker {
 					$dbChannel->values['youtube_trailer'] = $channel['brandingSettings']['channel']['unsubscribedTrailer'] ?: $dbChannel->values['youtube_trailer'];
 					$dbChannel->values['youtube_uploads_playlist'] = $channel['contentDetails']['relatedPlaylists']['uploads'] ?: $dbChannel->values['youtube_uploads_playlist'];
 
+					// Set Twitch numbers to 0, meant to be one or the other, not both
+					$dbChannel->values['twitch_followers'] = 0;
+					$dbChannel->values['twitch_views'] = 0;
+
 					$this->storeUpdatedPerson($dbChannel);
 					$updateCount++;
 				}
@@ -279,6 +327,48 @@ class YoutubeChecker {
 			}
 		});
 
+	}
+
+	/**
+	 * Parse the results from the twitch response
+	 *
+	 * @param PromiseInterface	$promise
+	 * @param Content[]		$keyedMembers
+	 *
+	 * @return PromiseInterface
+	 */
+	protected function parseTwitchResults(PromiseInterface $promise, $keyedMembers) {
+		return $promise->then(function (ResponseInterface $response) use ($keyedMembers) {
+			$channel = json_decode($response->getBody(), true);
+
+			$updateCount = 0;
+
+			$dbChannel = $keyedMembers["twitch_ids"][$channel['name']];
+
+			if (!$dbChannel) {
+				return;
+			}
+
+			$dbChannel->values['twitch_followers'] = $channel['followers'] ?: $dbChannel->values['twitch_followers'];
+			$dbChannel->values['twitch_views'] = $channel['views'] ?: $dbChannel->values['twitch_views'];
+
+			// Set Youtube numbers to 0, meant to be one or the other, not both
+			$dbChannel->values['youtube_subscribers'] = 0;
+			$dbChannel->values['youtube_videos'] = 0;
+			$dbChannel->values['youtube_views'] = 0;
+
+			$this->storeUpdatedPerson($dbChannel);
+			$updateCount++;
+
+			return $updateCount;
+		})->otherwise(function (RequestException $error) {
+			if ($error->hasResponse()) {
+				$reponse = json_decode($error->getResponse()->getBody(), true);
+				throw new \Exception('Twitch Error: ' . $response['error']['message']);
+			} else {
+				throw $error;
+			}
+		});
 	}
 
 	/**
@@ -311,8 +401,10 @@ class YoutubeChecker {
 
 			$totals = array_reduce($members, function ($totals, $member) {
 				$totals['youtube_subscribers'] += $member['youtube_subscribers'];
+				$totals['youtube_subscribers'] += $member['twitch_followers'];
 				$totals['youtube_videos'] += $member['youtube_videos'];
 				$totals['youtube_views'] += $member['youtube_views'];
+				$totals['youtube_views'] += $member['twitch_views'];
 
 				return $totals;
 			}, ['youtube_subscribers' => 0, 'youtube_videos' => 0, 'youtube_views' => 0]);

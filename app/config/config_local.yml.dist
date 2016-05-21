@@ -11,6 +11,7 @@
 # livehub interval in ms, livehub config url should point to /live/config on the livehub server
 # services:
 #     youtube: ""
+#	  twitch: ""
 #     google_maps_embed: ""
 #	  livehub_config_url: ""
 #	  livehub_interval: "" # IN MICROSECONDS

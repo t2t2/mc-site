@@ -82,9 +82,17 @@ members:
             label: Primarily Twitch? (the Sevadus switch)
             postfix: If set, youtube stats for the channel are replaced with twitch stats, as well as only twitch content is displayed on member pages.
             group: Twitch
-        twitch_latest_vod_id:
+        twitch_channel_id:
             type: text
-            label: Latest Twitch VOD id (filled automatically if channel set to primarily twitch)
+            label: Twitch Channel ID (channel name)
+            postfix: "<p>Twitch API will be queried for this ID to automatically update the fields bellow on page creation and once an hour.</p>"
+            group: Twitch
+        twitch_followers:
+            type: biginteger
+            label: Twitch Followers
+        twitch_views:
+            type: biginteger
+            label: Twitch Views
         social_twitter_username:
             type: text
             label: Twitter Username

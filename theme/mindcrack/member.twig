@@ -37,8 +37,8 @@
 			<span class="h4">STATISTICS</span>
 			<div {{ record.primarily_twitch ? 'class="twitch"' : ''}}>
 				{% if record.primarily_twitch %}
-				<span><span class="stat-heading">TOTAL VIEWS:</span> {{ record.youtube_views|number_format }}</span>
-				<span><span class="stat-heading">TOTAL FOLLOWERS:</span> {{ record.youtube_subscribers|number_format }}</span>
+				<span><span class="stat-heading">TOTAL VIEWS:</span> {{ record.twitch_views|number_format }}</span>
+				<span><span class="stat-heading">TOTAL FOLLOWERS:</span> {{ record.twitch_followers|number_format }}</span>
 				{% else %}
 				<span><span class="stat-heading">TOTAL VIEWS:</span> {{ record.youtube_views|number_format }}</span>
 				<span><span class="stat-heading">TOTAL SUBSCRIBERS:</span> {{ record.youtube_subscribers|number_format }}</span>
